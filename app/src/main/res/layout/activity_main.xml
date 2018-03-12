@@ -7,6 +7,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -14,7 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Quantity"
+        android:layout_gravity="center"
+        android:text="Hannah Hoover's Resume"
         android:textAllCaps="true"/>
     <TextView
         android:id="@+id/quantity_text_view"
@@ -27,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_gravity="bottom"
         android:text="Email"
         android:onClick="submitOrder"/>
 
