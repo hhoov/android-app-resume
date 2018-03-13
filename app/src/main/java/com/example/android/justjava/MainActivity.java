@@ -10,9 +10,13 @@ package com.example.android.justjava;
 
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import java.util.List;
 
 /**
  * This app displays an order form to order coffee.
@@ -26,36 +30,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-
-    /**
-     * This method is called when the order button is clicked.
-     */
-    /*
-    public void onClickEmail(View view) {
         sendEmail();
     }
-*/
-    /**
-     * This method displays the given quantity value on the screen.
-     */
-    /*
-    private void display(int number) {
-        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-        quantityTextView.setText("" + number);
-    }
-*/
+
+
 
     /**
      * This method opens email application and fills out subject and body.
      */
     public void sendEmail() {
 
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_APP_EMAIL);
+        // Build the intent
         Uri data = Uri.parse("mailto:recipient@example.com?subject=" + subject + "&body=" + body);
-        intent.setData(data);
-        startActivity(intent);
+        Intent emailIntent = new Intent(Intent.ACTION_MAIN);
+        emailIntent.addCategory(Intent.CATEGORY_APP_EMAIL);
+        emailIntent.setData(data);
+        //emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"jon@example.com"}); // recipients
+        //emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Email subject");
+        //emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message text");
+
+        // Verify the app exists to handle the intent
+        PackageManager packageManager = getPackageManager();
+        List<ResolveInfo> activities = packageManager.queryIntentActivities(emailIntent, 0);
+        boolean isIntentSafe = activities.size() > 0;
+
+        // Start activity if it is safe to do so
+        if (isIntentSafe) {
+            startActivity(emailIntent);
+        }
         /*
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_APP_EMAIL);
