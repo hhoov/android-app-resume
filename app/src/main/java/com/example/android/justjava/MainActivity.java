@@ -15,10 +15,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.github.barteksc.pdfviewer.PDFView;
+
 /**
  * This app displays an order form to order coffee.
  */
 public class MainActivity extends AppCompatActivity {
+    PDFView pdfView;
     String subject = "Internship";
     String body = "Hi Hannah,\n Great work! When would you like to start your internship?";
 

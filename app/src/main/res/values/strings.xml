@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Resume</string>
+    <string name="header_name">Hannah Hoover\'s Resume</string>
+    <string name="email_button_name">Email</string>
 </resources>
