@@ -13,15 +13,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
-
-import com.github.barteksc.pdfviewer.PDFView;
 
 /**
  * This app displays an order form to order coffee.
  */
 public class MainActivity extends AppCompatActivity {
-    PDFView pdfView;
     String subject = "Internship";
     String body = "Hi Hannah,\n Great work! When would you like to start your internship?";
 
@@ -43,10 +39,12 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method displays the given quantity value on the screen.
      */
+    /*
     private void display(int number) {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
         quantityTextView.setText("" + number);
     }
+*/
 
     /**
      * This method opens email application and fills out subject and body.
