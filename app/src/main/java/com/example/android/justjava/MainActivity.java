@@ -56,12 +56,12 @@ public class MainActivity extends AppCompatActivity {
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         //emailIntent.addCategory(Intent.CATEGORY_APP_EMAIL);
         //emailIntent.setData(data);
-
+        emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         emailIntent.putExtra(Intent.EXTRA_EMAIL, recipient);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
         emailIntent.putExtra(Intent.EXTRA_TEXT, body);
 
-        emailIntent.setType("plain/text");
+        emailIntent.setType("text/plain");
         startActivity(Intent.createChooser(emailIntent, "Send your email in:"));
         //startActivity(emailIntent);
 /*
