@@ -27,6 +27,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    // Add PDFViewer library
-    compile 'com.github.barteksc:android-pdf-viewer:2.0.3'
 }

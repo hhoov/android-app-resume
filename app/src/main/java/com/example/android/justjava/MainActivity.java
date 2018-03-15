@@ -9,17 +9,18 @@ package com.example.android.justjava;
  **/
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import java.util.List;
 
 /**
  * This app displays an order form to order coffee.
  */
 public class MainActivity extends AppCompatActivity {
-    String subject = "Internship";
-    String body = "Hi Hannah,\nGreat work! When would you like to start your internship?";
-    String[] recipient = { "hannahghoover@gmail.com" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +36,18 @@ public class MainActivity extends AppCompatActivity {
 
         // Build the intent
         //Uri data = Uri.parse("mailto:recipient@example.com?subject=" + subject + "&body=" + body);
-        Intent emailIntent = new Intent(Intent.ACTION_MAIN);
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.addCategory(Intent.CATEGORY_APP_EMAIL);
         //emailIntent.setData(data);
 
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, recipient);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, R.array.email_recipient);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, R.string.subject_text);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, R.string.body_text);
 
         emailIntent.setType("plain/text");
         startActivity(Intent.createChooser(emailIntent, "Send your email in:"));
 
-/*
+
         // Verify the app exists to handle the intent
         PackageManager packageManager = getPackageManager();
         List<ResolveInfo> activities = packageManager.queryIntentActivities(emailIntent, 0);
@@ -54,14 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Start activity if it is safe to do so
         if (isIntentSafe) {
-            startActivity(emailIntent);
+            startActivity(Intent.createChooser(emailIntent, "Send your email in:"));
         }
-            */
-        /*
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_APP_EMAIL);
-        startActivity(intent);
-        */
+
         /*
         Intent intent = getPackageManager().getLaunchIntentForPackage("com.android.email");
         startActivity(intent);

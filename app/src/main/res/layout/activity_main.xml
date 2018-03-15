@@ -12,7 +12,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/header_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -27,27 +27,27 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/resume_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/header_text_view"
         android:adjustViewBounds="true"
         android:contentDescription="@null"
         android:scaleType="fitCenter"
         android:src="@mipmap/hoover_resume_sample" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/email_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignBottom="@+id/resume_image_view"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="13dp"
-        android:text="@string/email_button_name"
-        android:onClick="sendEmail"/>
+        android:onClick="sendEmail"
+        android:text="@string/email_button_name" />
 
 </RelativeLayout>
