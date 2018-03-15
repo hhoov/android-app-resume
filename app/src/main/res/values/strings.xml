@@ -3,8 +3,8 @@
     <string name="header_name">Hannah Hoover</string>
     <string name="email_button_name">Email</string>
     <string name="recipient">hannahghoover@gmail.com</string>
-    <string name="subject_text">Internship</string>;
-    <string name="body_text">Hi Hannah,\nGreat work! When would you like to start your internship?</string>;
+    <string name="subject_text">Internship</string>
+    <string name="body_text">Hi Hannah,\nGreat work! When would you like to start your internship?</string>
     <string-array name="email_recipient">
         <item>@string/recipient</item>
     </string-array>
