@@ -18,8 +18,8 @@ import android.view.View;
  */
 public class MainActivity extends AppCompatActivity {
     String subject = "Internship";
-    String body = "Hi Hannah,\n Great work! When would you like to start your internship?";
-    String recipient = "user@fakehost.com";
+    String body = "Hi Hannah,\nGreat work! When would you like to start your internship?";
+    String[] recipient = { "hannahghoover@gmail.com" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,34 +29,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method is called when the order button is clicked.
-     */
-/*
-    public void onClickEmail() {
-        sendEmail();
-    }
-*/
-    /**
      * This method opens email application and fills out subject and body.
      */
     public void sendEmail(View view) {
 
         // Build the intent
         //Uri data = Uri.parse("mailto:recipient@example.com?subject=" + subject + "&body=" + body);
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        //emailIntent.addCategory(Intent.CATEGORY_APP_EMAIL);
+        Intent emailIntent = new Intent(Intent.ACTION_MAIN);
+        emailIntent.addCategory(Intent.CATEGORY_APP_EMAIL);
         //emailIntent.setData(data);
 
         emailIntent.putExtra(Intent.EXTRA_EMAIL, recipient);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        emailIntent.setType("plain/text");
         emailIntent.putExtra(Intent.EXTRA_TEXT, body);
 
-
+        emailIntent.setType("plain/text");
         startActivity(Intent.createChooser(emailIntent, "Send your email in:"));
-        //emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"jon@example.com"}); // recipients
-        //emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Email subject");
-        //emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message text");
+
 /*
         // Verify the app exists to handle the intent
         PackageManager packageManager = getPackageManager();
