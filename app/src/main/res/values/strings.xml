@@ -3,7 +3,8 @@
     <string name="header_name">Hannah Hoover</string>
     <string name="email_button_name">Email</string>
     <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
-
+    <string name="navigation_header">Menu</string>
+    <string name="navigation_subheader">android.studio@android.com</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_movies_list">Movies List</string>
