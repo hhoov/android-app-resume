@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+
     android:orientation="vertical"
 
     tools:context=".MainActivity">
@@ -22,20 +22,54 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!-- ActionBar displayed at the top -->
             <include
                 layout="@layout/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="visible" />
 
+            <!-- ActionBar displayed at the top -->
+
             <!-- The main content view where fragments are loaded -->
+            <TextView
+                android:id="@+id/header_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="top"
+                android:text="@string/header_name"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@android:color/holo_purple"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/resume_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="462dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/hoover_resume_sample"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/email_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="sendEmail"
+                android:text="@string/email_button_name" />
+
             <FrameLayout
                 android:id="@+id/content_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="visible"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+
+            </FrameLayout>
+
+
         </LinearLayout>
 
         <!-- The navigation drawer that comes from the left -->
@@ -49,74 +83,4 @@
             app:headerLayout="@layout/nav_header_navigation_drawer"
             app:menu="@menu/activity_main_drawer" />
     </android.support.v4.widget.DrawerLayout>
-
-
-    <!--android:fitsSystemWindows="true"
-        tools:openDrawer="start">
-
-
-        &lt;!&ndash; Layout to contain contents of main body of screen (drawer will slide over this) &ndash;&gt;
-
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
-
-        </FrameLayout>
-
-
-
-
-
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
-
-    <TextView
-        android:id="@+id/header_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="59dp"
-        android:gravity="top"
-        android:paddingTop="20dp"
-        android:text="@string/header_name"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:textColor="@android:color/holo_purple"
-        android:textStyle="bold"
-        android:visibility="visible" />
-
-    <Button
-        android:id="@+id/email_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:onClick="sendEmail"
-        android:text="@string/email_button_name" />
-
-    <ImageView
-        android:id="@+id/resume_image_view"
-        android:layout_width="357dp"
-        android:layout_height="444dp"
-        android:layout_below="@+id/header_text_view"
-        android:layout_centerHorizontal="true"
-        android:adjustViewBounds="true"
-        android:contentDescription="@null"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/hoover_resume_sample"
-        android:visibility="visible" />
-
-
 </RelativeLayout>

@@ -13,23 +13,22 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.List;
 
 /**
- * This app displays an order form to order coffee.
+ * This app displays a resume, email button, and navigation drawer.
  */
 public class MainActivity extends AppCompatActivity {
     String subject = "Internship";
@@ -56,25 +55,11 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(drawerToggle);
 
         // Set a Toolbar to replace the Actionbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Set up drawer view
         setupDrawerContent(navDrawer);
-
-        /*
-        Fragment fragment = null;
-        Class fragmentClass = null;
-        fragmentClass = FragmentOne.class;
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-        */
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -105,27 +90,27 @@ public class MainActivity extends AppCompatActivity {
         );
         //NavigationView navigationView = findViewById(R.id.nav_view);
         //navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        menuItem.setChecked(true);
-                        // close drawer when item is tapped
-                        mDrawerLayout.closeDrawers();
+        new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                // set item as selected to persist highlight
+                menuItem.setChecked(true);
+                // close drawer when item is tapped
+                mDrawerLayout.closeDrawers();
 
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
+                // Add code here to update the UI based on the item selected
+                // For example, swap UI fragments here
 
-                        return true;
-                    }
-                };//);
+                return true;
+            }
+        };//);
 
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
         // and will not render the hamburger icon without it.
-        return new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open,  R.string.navigation_drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -140,29 +125,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
-        // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null;
-        Class fragmentClass;
-        switch(menuItem.getItemId()) {
-            case R.id.fragment_movies_list:
-                fragmentClass = movies_list.class;
-                break;
-            case R.id.fragment_movies_grid:
-                fragmentClass = movies_grid.class;
-                break;
+        // Specify the activity to show based on nav item clicked
+        switch (menuItem.getItemId()) {
+            case R.id.nav_movies_list:
+//              startActivity(new Intent(this, MainActivity.class));
+                Toast.makeText(this, "I clicked the movies list", Toast.LENGTH_SHORT).show();
+                return;
+            case R.id.nav_movies_grid:
+                Toast.makeText(this, "I clicked the movies grid", Toast.LENGTH_SHORT).show();
+                return;
+            case R.id.nav_send_email:
+                Toast.makeText(this, "I clicked Send Email", Toast.LENGTH_SHORT).show();
+                return;
+
             default:
-                fragmentClass = movies_list.class;
+                Toast.makeText(this, "I clicked somewhere else", Toast.LENGTH_SHORT).show();
+
         }
 
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -236,18 +216,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
