@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Find drawer view
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        drawerToggle = setupDrawerToggle();
+        //drawerToggle = setupDrawerToggle();
         navDrawer = findViewById(R.id.nav_view);
 
         // Tie DrawerLayout events to the ActionBarToggle
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Set up drawer view
-        setupDrawerContent(navDrawer);
+        //setupDrawerContent(navDrawer);
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -88,29 +88,29 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-        //NavigationView navigationView = findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener(
-        new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                // set item as selected to persist highlight
-                menuItem.setChecked(true);
-                // close drawer when item is tapped
-                mDrawerLayout.closeDrawers();
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+            new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(MenuItem menuItem) {
+                    // set item as selected to persist highlight
+                    menuItem.setChecked(true);
+                    // close drawer when item is tapped
+                    mDrawerLayout.closeDrawers();
 
-                // Add code here to update the UI based on the item selected
-                // For example, swap UI fragments here
+                    // Add code here to update the UI based on the item selected
+                    // For example, swap UI fragments here
 
-                return true;
-            }
-        };//);
+                    return true;
+                }
+        });
 
     }
 
-    private ActionBarDrawerToggle setupDrawerToggle() {
+/*    private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
         // and will not render the hamburger icon without it.
-        return new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.nav_drawer_open, R.string.nav_drawer_close);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-    }
+    }*/
 
     public void selectDrawerItem(MenuItem menuItem) {
         // Specify the activity to show based on nav item clicked
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     // NOTE 1: Make sure to override the method with only a single `Bundle` argument
     // Note 2: Make sure you implement the correct `onPostCreate(Bundle savedInstanceState)` method.
     // There are 2 signatures and only `onPostCreate(Bundle state)` shows the hamburger icon.
-    @Override
+/*    @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.navigation_drawer, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -200,14 +200,14 @@ public class MainActivity extends AppCompatActivity {
         //}
 
         // Action bar home/up action should open or close the drawer.
-        /*switch (item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
-        }*/
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
         }
+        /*if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }*/
         return super.onOptionsItemSelected(item);
     }
 
