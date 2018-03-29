@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Resume Viewer</string>
     <string name="header_name">Hannah Hoover</string>
@@ -12,5 +13,8 @@
     <string name="navigation_section">Communicate</string>
     <string name="navigation_send_email">Send Email</string>
     <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
