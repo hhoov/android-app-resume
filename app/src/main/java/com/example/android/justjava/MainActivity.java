@@ -101,13 +101,16 @@ public class MainActivity extends AppCompatActivity {
                     switch(menuItem.getItemId()) {
                         case R.id.nav_movies_list:
 //              startActivity(new Intent(this, MainActivity.class));
-                            Toast.makeText(getApplicationContext(), "I clicked the movies list", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "I clicked the movies list", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), MoviesListActivity.class));
                             return true;
                         case R.id.nav_movies_grid:
-                            Toast.makeText(getApplicationContext(), "I clicked the movies grid", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "I clicked the movies grid", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), MoviesGridActivity.class));
                             return true;
-                        case R.id.nav_send_email:
-                            Toast.makeText(getApplicationContext(), "I clicked Send Email", Toast.LENGTH_SHORT).show();
+                        case R.id.app_name:
+                            //Toast.makeText(getApplicationContext(), "I clicked Send Email", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             return true;
 
                         default:
@@ -154,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_movies_grid:
                 Toast.makeText(this, "I clicked the movies grid", Toast.LENGTH_SHORT).show();
                 return;
-            case R.id.nav_send_email:
+            case R.id.app_name:
                 Toast.makeText(this, "I clicked Send Email", Toast.LENGTH_SHORT).show();
                 return;
 
