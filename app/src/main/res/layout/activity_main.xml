@@ -55,14 +55,6 @@
             android:onClick="sendEmail"
             android:text="@string/email_button_name">
         </Button>
-
-        <!--<FrameLayout
-                    android:id="@+id/content_frame"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="visible"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        </FrameLayout>-->
     </LinearLayout>
 
     <!-- The navigation drawer that comes from the left -->
