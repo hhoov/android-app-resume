@@ -16,7 +16,7 @@ class NavigationDrawerDelegate {
     private final Toolbar toolbar;
     private final NavigationView navView;
 
-    public NavigationDrawerDelegate(AppCompatActivity activity, DrawerLayout drawerLayout, Toolbar toolbar, NavigationView navView) {
+    NavigationDrawerDelegate(AppCompatActivity activity, DrawerLayout drawerLayout, Toolbar toolbar, NavigationView navView) {
         this.activity = activity;
         this.drawerLayout = drawerLayout;
         this.toolbar = toolbar;
@@ -37,7 +37,7 @@ class NavigationDrawerDelegate {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        // set item as selected to persist highlight
+                        // Set item as selected to persist highlight
                         menuItem.setChecked(true);
 
                         switch(menuItem.getItemId()) {
@@ -52,7 +52,7 @@ class NavigationDrawerDelegate {
                                 return true;
                         }
 
-                        // close drawer when item is tapped
+                        // Close drawer when item is tapped
                         drawerLayout.closeDrawers();
 
                         return true;
