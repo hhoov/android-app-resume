@@ -95,6 +95,24 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(MenuItem menuItem) {
                     // set item as selected to persist highlight
                     menuItem.setChecked(true);
+
+                    switch(menuItem.getItemId()) {
+                        case R.id.nav_movies_list:
+//              startActivity(new Intent(this, MainActivity.class));
+                            Toast.makeText(getApplicationContext(), "I clicked the movies list", Toast.LENGTH_SHORT).show();
+                            return true;
+                        case R.id.nav_movies_grid:
+                            Toast.makeText(getApplicationContext(), "I clicked the movies grid", Toast.LENGTH_SHORT).show();
+                            return true;
+                        case R.id.nav_send_email:
+                            Toast.makeText(getApplicationContext(), "I clicked Send Email", Toast.LENGTH_SHORT).show();
+                            return true;
+
+                        default:
+                            Toast.makeText(getApplicationContext(), "I clicked", Toast.LENGTH_SHORT).show();
+                    }
+
+
                     // close drawer when item is tapped
                     mDrawerLayout.closeDrawers();
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_of_movies">
+        <item>Lord of the Rings</item>
+        <item>Star Wars: The Last Jedi</item>
+        <item>Deadpool</item>
+        <item>Wonder Woman</item>
+        <item>Caddyshack</item>
+        <item>Sideways</item>
+        <item>Jurassic Park</item>
+        <item>Kong: Skull Island</item>
+    </string-array>
+</resources>
