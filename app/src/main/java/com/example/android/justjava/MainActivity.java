@@ -8,6 +8,7 @@ package com.example.android.justjava;
  * in the project's AndroidManifest.xml file.
  **/
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -38,69 +39,30 @@ public class MainActivity extends AppCompatActivity {
     String body = "Hi Hannah,\n \nGreat work! When would you like to start your internship?\n \nBest,\nKelly";
     String[] recipient = {"hannahghoover@gmail.com"};
 
-    private DrawerLayout mDrawerLayout;
-
     private ActionBarDrawerToggle drawerToggle;
+
+    private NavigationDrawerDelegate navDrawerDelegate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Find drawer view
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-
-        // Set a Toolbar to replace the Actionbar
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // Set up drawer view
-        //setupDrawerContent(navDrawer);
-
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(
-            new NavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                    // set item as selected to persist highlight
-                    menuItem.setChecked(true);
-
-                    switch(menuItem.getItemId()) {
-                        case R.id.nav_movies_list:
-                            startActivity(new Intent(getApplicationContext(), MoviesListActivity.class));
-                            return true;
-                        case R.id.nav_movies_grid:
-                            startActivity(new Intent(getApplicationContext(), MoviesGridActivity.class));
-                            return true;
-                        case R.id.app_name:
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            return true;
-                    }
-
-                    // close drawer when item is tapped
-                    mDrawerLayout.closeDrawers();
-
-                    return true;
-                }
-        });
+        NavigationView navView = findViewById(R.id.nav_view);
+        navDrawerDelegate = new NavigationDrawerDelegate(this, drawerLayout, toolbar, navView);
+        navDrawerDelegate.setupNavDrawer();
 
     } // onCreate()
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        // Action bar home/up action should open or close the drawer.
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
+
 
     /**
      * This method opens email application and fills out subject and body.
