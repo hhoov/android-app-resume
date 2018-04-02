@@ -32,10 +32,12 @@ public class MoviesListActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // Specify an adapter
+        // Retrieve string array
         Resources res;
         res = getResources();
-        String[] myDataset = res.getStringArray(R.array.movies_list);
+        String[] myDataset = res.getStringArray(R.array.list_movies);
+
+        // Specify an adapter
         RecyclerView.Adapter mAdapter = new MyAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
     }

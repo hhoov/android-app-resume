@@ -14,7 +14,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
+        // Each data item is just a string in this case
         private final TextView mTextView;
 
         ViewHolder(View v) {
@@ -22,7 +22,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             mTextView = v.findViewById(R.id.textView);
         }
 
-        public TextView getmTextView() {
+        TextView getmTextView() {
             return mTextView;
         }
     }
@@ -35,9 +35,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Create new views (invoked by the layout manager)
     @NonNull
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
-                                                   int viewType) {
-        // create a new view
+    public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        // Create a new view
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.my_text_view, viewGroup, false);
 

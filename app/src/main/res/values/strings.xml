@@ -18,7 +18,7 @@
     <string name="title_activity_movies_list">MoviesListActivity</string>
     <string name="title_activity_movies_grid">MoviesGridActivity</string>
 
-    <string-array name="movies_list">
+    <string-array name="list_movies">
         <item>Deadpool</item>
         <item>Wonder Woman</item>
         <item>Star Wars: The Last Jedi</item>

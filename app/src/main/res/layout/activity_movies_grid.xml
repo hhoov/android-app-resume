@@ -19,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:visibility="visible">
-
         </include>
 
         <android.support.design.widget.FloatingActionButton
@@ -36,9 +35,6 @@
 
     <!-- The navigation drawer that comes from the left -->
     <!-- Note that `android:layout_gravity` needs to be set to 'start' -->
-
-    <!--<include layout="@layout/content_movies_list" />-->
-
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -47,7 +43,6 @@
         android:visibility="visible"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_view">
-
     </android.support.design.widget.NavigationView>
 
 
