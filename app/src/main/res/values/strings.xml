@@ -17,4 +17,26 @@
     <string name="nav_movies_grid">Movies Grid</string>
     <string name="title_activity_movies_list">MoviesListActivity</string>
     <string name="title_activity_movies_grid">MoviesGridActivity</string>
+
+    <string-array name="movies_list">
+        <item>Deadpool</item>
+        <item>Wonder Woman</item>
+        <item>Star Wars: The Last Jedi</item>
+        <item>The Intouchables</item>
+        <item>The Magnificent Seven</item>
+        <item>Big Fish</item>
+        <item>Lost in Translation</item>
+        <item>Caddyshack</item>
+        <item>M*A*S*H</item>
+        <item>Blade Runner</item>
+        <item>The Disaster Artist</item>
+        <item> Kong: Skull Island</item>
+        <item>The Lord of the Rings</item>
+        <item>High Society</item>
+        <item>2001: A Space Odyssey</item>
+        <item>Dunkirk</item>
+        <item>Rogue One</item>
+        <item>Harry Potter and the Sorcerer\'s Stone</item>
+    </string-array>
+
 </resources>

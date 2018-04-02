@@ -9,10 +9,19 @@
     android:orientation="vertical"
     tools:context=".MoviesListActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <!-- A RecyclerView with some commonly used attributes -->
+
+
+    <!-- The navigation drawer that comes from the left -->
+    <!-- Note that `android:layout_gravity` needs to be set to 'start' -->
+
+    <!--<include layout="@layout/content_movies_list" />-->
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <include
             layout="@layout/toolbar"
             android:layout_width="match_parent"
@@ -20,12 +29,24 @@
             android:visibility="visible">
 
         </include>
-    </android.support.constraint.ConstraintLayout>
 
-    <!-- The navigation drawer that comes from the left -->
-    <!-- Note that `android:layout_gravity` needs to be set to 'start' -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
 
-    <!--<include layout="@layout/content_movies_list" />-->
+        </android.support.v7.widget.RecyclerView>
+
+        <include
+            layout="@layout/my_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+        </include>
+
+    </LinearLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -37,14 +58,5 @@
         app:menu="@menu/drawer_view">
 
     </android.support.design.widget.NavigationView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
 
 </android.support.v4.widget.DrawerLayout>
