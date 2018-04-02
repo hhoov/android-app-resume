@@ -43,6 +43,8 @@ public class MoviesGridActivity extends AppCompatActivity {
         RecyclerView.Adapter mAdapter = new MyAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
 
+
+
         //GridView gridView = findViewById(R.id.gridView);
        // gridView.setAdapter(new mAdapter(this));
 
