@@ -8,9 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MenuItem;
 import android.widget.GridView;
-import android.widget.Toast;
 
 public class MoviesListActivity extends AppCompatActivity {
     private NavigationDrawerDelegate navDrawerDelegate;
@@ -31,9 +32,15 @@ public class MoviesListActivity extends AppCompatActivity {
         res = getResources();
         String[] myDataset = res.getStringArray(R.array.list_movies);
 
-        float deviceSize = res.getDimension(R.dimen.device_width);
 
-        if (deviceSize >= 600) {
+
+
+        float deviceWidth = getScreenWidth();
+        System.out.println("******DEVICE WIDTH*******: " + deviceWidth);
+
+
+        if (deviceWidth >= 600) {
+            setContentView(R.layout.activity_movies_grid);
             //Toast.makeText(getApplicationContext(), (int) deviceSize, Toast.LENGTH_SHORT).show();
             GridView gridView = findViewById(R.id.gridView);
             GridAdapter gridAdapter = new GridAdapter(this, myDataset);
@@ -57,5 +64,14 @@ public class MoviesListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+    }
+
+    public float getScreenWidth() {
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        float density = getResources().getDisplayMetrics().density;
+        return outMetrics.widthPixels / density;
     }
 }
