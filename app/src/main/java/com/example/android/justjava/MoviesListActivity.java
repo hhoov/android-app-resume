@@ -9,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.GridView;
+import android.widget.Toast;
 
 public class MoviesListActivity extends AppCompatActivity {
     private NavigationDrawerDelegate navDrawerDelegate;
@@ -24,23 +26,32 @@ public class MoviesListActivity extends AppCompatActivity {
         navDrawerDelegate = new NavigationDrawerDelegate(this, drawerLayout, toolbar, navView);
         navDrawerDelegate.setupNavDrawer();
 
-        RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
-
-        // Using this setting if changes in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-
-        // Linear layout manager
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
         // Retrieve string array
         Resources res;
         res = getResources();
         String[] myDataset = res.getStringArray(R.array.list_movies);
 
-        // Specify an adapter
-        RecyclerView.Adapter mAdapter = new MyAdapter(myDataset);
-        mRecyclerView.setAdapter(mAdapter);
+        float deviceSize = res.getDimension(R.dimen.device_width);
+
+        if (deviceSize >= 600) {
+            //Toast.makeText(getApplicationContext(), (int) deviceSize, Toast.LENGTH_SHORT).show();
+            GridView gridView = findViewById(R.id.gridView);
+            GridAdapter gridAdapter = new GridAdapter(this, myDataset);
+            gridView.setAdapter(gridAdapter);
+        } else {
+            RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
+
+            // Using this setting if changes in content do not change the layout size of the RecyclerView
+            mRecyclerView.setHasFixedSize(true);
+
+            // Linear layout manager
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+
+            // Specify an adapter
+            RecyclerView.Adapter mAdapter = new MyAdapter(myDataset);
+            mRecyclerView.setAdapter(mAdapter);
+        }
     }
 
     @Override

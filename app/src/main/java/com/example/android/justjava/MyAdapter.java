@@ -10,6 +10,17 @@ import android.widget.TextView;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private String[] mDataset;
 
+    // Constructor
+    MyAdapter(String[] myDataset) {
+        this.mDataset = myDataset;
+    }
+
+    // Return the size of dataset (invoked by the layout manager)
+    @Override
+    public int getItemCount() {
+        return mDataset.length;
+    }
+
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
@@ -19,26 +30,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         ViewHolder(View v) {
             super(v);
-            mTextView = v.findViewById(R.id.textView);
+            mTextView = v.findViewById(R.id.listTextView);
         }
 
-        TextView getmTextView() {
+        TextView getTextView() {
             return mTextView;
         }
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    MyAdapter(String[] myDataset) {
-        mDataset = myDataset;
-    }
+
 
     // Create new views (invoked by the layout manager)
     @NonNull
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.my_text_view, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.my_text_view, viewGroup, false);
 
         return new ViewHolder(v);
     }
@@ -48,13 +55,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.getmTextView().setText(mDataset[position]);
+        holder.getTextView().setText(mDataset[position]);
 
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
-    @Override
-    public int getItemCount() {
-        return mDataset.length;
-    }
+
 }

@@ -21,26 +21,16 @@
             android:visibility="visible">
         </include>
 
-        <!-- A RecyclerView with some commonly used attributes -->
-
         <GridView
             android:id="@+id/gridView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:columnWidth="90dp"
-            android:gravity="center"
-            android:horizontalSpacing="10dp"
             android:numColumns="auto_fit"
+            android:horizontalSpacing="10dp"
+            android:verticalSpacing="24dp"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/my_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical">
-
-        </android.support.v7.widget.RecyclerView>
+            android:gravity="center"/>
 
         <include
             layout="@layout/my_text_view"
