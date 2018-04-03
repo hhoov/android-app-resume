@@ -19,6 +19,8 @@ public class MoviesListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_movies_list);
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
@@ -32,16 +34,20 @@ public class MoviesListActivity extends AppCompatActivity {
         res = getResources();
         String[] myDataset = res.getStringArray(R.array.list_movies);
 
-
-
-
         float deviceWidth = getScreenWidth();
-        System.out.println("******DEVICE WIDTH*******: " + deviceWidth);
+        System.out.println("\n****** DEVICE WIDTH *******: " + deviceWidth + "\n");
 
 
         if (deviceWidth >= 600) {
+            // Change
             setContentView(R.layout.activity_movies_grid);
-            //Toast.makeText(getApplicationContext(), (int) deviceSize, Toast.LENGTH_SHORT).show();
+
+            drawerLayout = findViewById(R.id.drawer_layout);
+            toolbar = findViewById(R.id.toolbar);
+            navView = findViewById(R.id.nav_view);
+            navDrawerDelegate = new NavigationDrawerDelegate(this, drawerLayout, toolbar, navView);
+            navDrawerDelegate.setupNavDrawer();
+
             GridView gridView = findViewById(R.id.gridView);
             GridAdapter gridAdapter = new GridAdapter(this, myDataset);
             gridView.setAdapter(gridAdapter);
