@@ -2,13 +2,14 @@ package com.example.android.justjava;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class GridAdapter extends BaseAdapter {
+public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     private final Context mContext;
     private final String[] mDataset;
 
@@ -20,7 +21,7 @@ public class GridAdapter extends BaseAdapter {
 
     // 2
     @Override
-    public int getCount() {
+    public int getItemCount() {
         return mDataset.length;
     }
 
@@ -29,26 +30,21 @@ public class GridAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return 0;
     }
-    // 4
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
 
-    private class ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView gridTextView;
-        ViewHolder(TextView gridTextView) {
-            //super(v);
-            //gridTextView = v.findViewById(R.id.my_recycler_view);
-            this.gridTextView = gridTextView;
+        ViewHolder(View v) {
+            super(v);
+            gridTextView = v.findViewById(R.id.my_recycler_view);
+            //this.v = v;
         }
-/*        TextView getTextView() {
+        TextView getTextView() {
             return gridTextView;
-        }*/
+        }
     }
 
     // 5
-    @Override
+
     public View getView(int position, View convertView, ViewGroup parent) {
         //final String data = mDataset[position];
 
@@ -74,22 +70,22 @@ public class GridAdapter extends BaseAdapter {
         return dummyTextView;*/
     }
 
-    /*
     // Create new views (invoked by the layout manager)
     @NonNull
-    public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public GridAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.my_text_view, viewGroup, false);
 
-        return new MyAdapter.ViewHolder(v);
+        return new GridAdapter.ViewHolder(v);
     }
 
+    @Override
     // Replace the contents of a view (invoked by the layout manager)
-    public void onBindViewHolder(@NonNull MyAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.getTextView().setText(mDataset[position]);
 
-    }*/
+    }
 
 }
