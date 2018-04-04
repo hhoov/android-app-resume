@@ -56,15 +56,14 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
     }
 
-/*
-    public View getView(int position, View convertView, ViewGroup parent) {
+/*    public View getView(int position, View convertView, ViewGroup parent) {
         //final String data = mDataset[position];
 
         if (convertView == null) {
             final LayoutInflater layoutInflater= LayoutInflater.from(mContext);
             convertView = layoutInflater.inflate(R.layout.my_text_view, null);
 
-            final TextView mGridTextView = convertView.findViewById(R.id.mGridTextView);
+            final TextView mGridTextView = convertView.findViewById(R.id.gridTextView);
 
             //mGridTextView.setText(mContext.getString(mDataset[position]));
             final ViewHolder viewHolder = new ViewHolder(mGridTextView);
@@ -77,16 +76,6 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
         return convertView;
 
-        *//*TextView dummyTextView = new TextView(mContext);
-        dummyTextView.setText(String.valueOf(position));
-        return dummyTextView;*//*
     }*/
-
-
-
-
-
-
-
 
 }

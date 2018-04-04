@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-class NavigationDrawerDelegate {
+public class NavigationDrawerDelegate {
     private final AppCompatActivity activity;
     private final DrawerLayout drawerLayout;
     private final Toolbar toolbar;

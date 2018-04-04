@@ -32,26 +32,27 @@ public class MoviesGridActivity extends AppCompatActivity {
         String[] myDataset = res.getStringArray(R.array.list_movies);
         // Calculate deviceWidth to determine spanCount for GridLayoutManager()
         float deviceWidth = getScreenWidth();
-        //Context mContext = getApplicationContext();
 
-
-/*        GridView gridView = findViewById(R.id.gridView);
+ /*       GridView gridView = findViewById(R.id.gridView);
         GridAdapter gridAdapter = new GridAdapter(this, myDataset);
         gridView.setAdapter(gridAdapter);*/
 
         RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
-
         // Using this setting if changes in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
-
-
-        // Linear layout manager
-        RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, (int) deviceWidth);
+        // Grid layout manager
+        final RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), (int) deviceWidth);
         mRecyclerView.setLayoutManager(gridLayoutManager);
 
+//<<<<<<< Updated upstream
         // Specify an adapter
         RecyclerView.Adapter mAdapter = new GridAdapter(MoviesGridActivity.this, myDataset);
         mRecyclerView.setAdapter(mAdapter);
+//=======
+      /*  // Specify an adapter
+        RecyclerView.Adapter mAdapter = new MyAdapter(myDataset);
+        mRecyclerView.setAdapter(mAdapter);*/
+//>>>>>>> Stashed changes
     }
 
     @Override
