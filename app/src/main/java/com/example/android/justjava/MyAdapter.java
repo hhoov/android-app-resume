@@ -1,5 +1,6 @@
 package com.example.android.justjava;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,10 +9,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private String[] mDataset;
+    private final Context mContext;
+    private final String[] mDataset;
 
     // Constructor
-    MyAdapter(String[] myDataset) {
+    MyAdapter(Context context, String[] myDataset) {
+        this.mContext = context;
         this.mDataset = myDataset;
     }
 
@@ -38,14 +41,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
-
-
     // Create new views (invoked by the layout manager)
     @NonNull
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.my_text_view, viewGroup, false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.my_text_view, viewGroup, false);
 
         return new ViewHolder(v);
     }
@@ -56,7 +57,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.getTextView().setText(mDataset[position]);
-
     }
 
 

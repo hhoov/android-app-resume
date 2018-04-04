@@ -1,18 +1,17 @@
 package com.example.android.justjava;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MenuItem;
-import android.widget.GridView;
 
 public class MoviesGridActivity extends AppCompatActivity {
     private NavigationDrawerDelegate navDrawerDelegate;
@@ -32,6 +31,10 @@ public class MoviesGridActivity extends AppCompatActivity {
         Resources res;
         res = getResources();
         String[] myDataset = res.getStringArray(R.array.list_movies);
+        // Calculate deviceWidth to determine spanCount for GridLayoutManager()
+        float deviceWidth = getScreenWidth();
+        Context mContext = getApplicationContext();
+
 
 /*        GridView gridView = findViewById(R.id.gridView);
         GridAdapter gridAdapter = new GridAdapter(this, myDataset);
@@ -42,15 +45,12 @@ public class MoviesGridActivity extends AppCompatActivity {
         // Using this setting if changes in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
-        // Calculate deviceWidth to determine spanCount for GridLayoutManager()
-        float deviceWidth = getScreenWidth();
-
         // Linear layout manager
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), (int) deviceWidth);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), (int) deviceWidth);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
 
         // Specify an adapter
-        RecyclerView.Adapter mAdapter = new MyAdapter(myDataset);
+        RecyclerView.Adapter mAdapter = new GridAdapter(mContext, myDataset);
         mRecyclerView.setAdapter(mAdapter);
     }
 

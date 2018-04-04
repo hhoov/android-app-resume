@@ -1,17 +1,18 @@
 package com.example.android.justjava;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MenuItem;
-import android.widget.GridView;
 
 public class MoviesListActivity extends AppCompatActivity {
     private NavigationDrawerDelegate navDrawerDelegate;
@@ -19,7 +20,6 @@ public class MoviesListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_movies_list);
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
@@ -35,10 +35,10 @@ public class MoviesListActivity extends AppCompatActivity {
 
         float deviceWidth = getScreenWidth();
         System.out.println("\n****** DEVICE WIDTH *******: " + deviceWidth + "\n");
-
+        Context mContext = getApplicationContext();
 
         if (deviceWidth >= 600) {
-            // Change
+            // Change content views
             setContentView(R.layout.activity_movies_grid);
 
             drawerLayout = findViewById(R.id.drawer_layout);
@@ -47,9 +47,20 @@ public class MoviesListActivity extends AppCompatActivity {
             navDrawerDelegate = new NavigationDrawerDelegate(this, drawerLayout, toolbar, navView);
             navDrawerDelegate.setupNavDrawer();
 
-            GridView gridView = findViewById(R.id.gridView);
+/*            GridView gridView = findViewById(R.id.gridView);
             GridAdapter gridAdapter = new GridAdapter(this, myDataset);
-            gridView.setAdapter(gridAdapter);
+            gridView.setAdapter(gridAdapter);*/
+
+            RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
+            mRecyclerView.setHasFixedSize(true);
+            RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(mContext, (int) deviceWidth);
+            mRecyclerView.setLayoutManager(gridLayoutManager);
+
+            // Specify an adapter
+            RecyclerView.Adapter mAdapter = new GridAdapter(mContext, myDataset);
+            mRecyclerView.setAdapter(mAdapter);
+
+
         } else {
             RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
 
@@ -61,7 +72,7 @@ public class MoviesListActivity extends AppCompatActivity {
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             // Specify an adapter
-            RecyclerView.Adapter mAdapter = new MyAdapter(myDataset);
+            RecyclerView.Adapter mAdapter = new MyAdapter(mContext, myDataset);
             mRecyclerView.setAdapter(mAdapter);
         }
     }
