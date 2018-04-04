@@ -1,6 +1,5 @@
 package com.example.android.justjava;
 
-//import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -52,13 +51,13 @@ public class MoviesListActivity extends AppCompatActivity {
             gridView.setAdapter(gridAdapter);*/
 
             RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
-            mRecyclerView.setHasFixedSize(true);
+            //mRecyclerView.setHasFixedSize(true);
             RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, (int) deviceWidth);
             mRecyclerView.setLayoutManager(gridLayoutManager);
 
             // Specify an adapter
-            RecyclerView.Adapter mAdapter = new GridAdapter(this, myDataset);
-            mRecyclerView.setAdapter(mAdapter);
+            RecyclerView.Adapter gridAdapter = new GridAdapter(this, myDataset);
+            mRecyclerView.setAdapter(gridAdapter);
 
 
         } else {
