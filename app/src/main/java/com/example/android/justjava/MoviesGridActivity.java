@@ -1,6 +1,6 @@
 package com.example.android.justjava;
 
-import android.content.Context;
+//import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -33,7 +33,7 @@ public class MoviesGridActivity extends AppCompatActivity {
         String[] myDataset = res.getStringArray(R.array.list_movies);
         // Calculate deviceWidth to determine spanCount for GridLayoutManager()
         float deviceWidth = getScreenWidth();
-        Context mContext = getApplicationContext();
+        //Context mContext = getApplicationContext();
 
 
 /*        GridView gridView = findViewById(R.id.gridView);
@@ -45,12 +45,13 @@ public class MoviesGridActivity extends AppCompatActivity {
         // Using this setting if changes in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
+
         // Linear layout manager
-        RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), (int) deviceWidth);
+        RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, (int) deviceWidth);
         mRecyclerView.setLayoutManager(gridLayoutManager);
 
         // Specify an adapter
-        RecyclerView.Adapter mAdapter = new GridAdapter(mContext, myDataset);
+        RecyclerView.Adapter mAdapter = new GridAdapter(this, myDataset);
         mRecyclerView.setAdapter(mAdapter);
     }
 

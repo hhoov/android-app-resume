@@ -1,6 +1,6 @@
 package com.example.android.justjava;
 
-import android.content.Context;
+//import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -35,7 +35,7 @@ public class MoviesListActivity extends AppCompatActivity {
 
         float deviceWidth = getScreenWidth();
         System.out.println("\n****** DEVICE WIDTH *******: " + deviceWidth + "\n");
-        Context mContext = getApplicationContext();
+        //Context mContext = getApplicationContext();
 
         if (deviceWidth >= 600) {
             // Change content views
@@ -53,11 +53,11 @@ public class MoviesListActivity extends AppCompatActivity {
 
             RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
             mRecyclerView.setHasFixedSize(true);
-            RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(mContext, (int) deviceWidth);
+            RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, (int) deviceWidth);
             mRecyclerView.setLayoutManager(gridLayoutManager);
 
             // Specify an adapter
-            RecyclerView.Adapter mAdapter = new GridAdapter(mContext, myDataset);
+            RecyclerView.Adapter mAdapter = new GridAdapter(this, myDataset);
             mRecyclerView.setAdapter(mAdapter);
 
 
@@ -72,7 +72,7 @@ public class MoviesListActivity extends AppCompatActivity {
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             // Specify an adapter
-            RecyclerView.Adapter mAdapter = new MyAdapter(mContext, myDataset);
+            RecyclerView.Adapter mAdapter = new MyAdapter(this, myDataset);
             mRecyclerView.setAdapter(mAdapter);
         }
     }

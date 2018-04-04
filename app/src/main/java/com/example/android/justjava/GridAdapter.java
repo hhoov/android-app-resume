@@ -13,9 +13,9 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     private final String[] mDataset;
 
     // Constructor
-    GridAdapter(Context context, String[] myDataset) {
+    GridAdapter(Context context, String[] dataset) {
         this.mContext = context;
-        this.mDataset = myDataset;
+        this.mDataset = dataset;
     }
 
     // Return the size of dataset (invoked by the layout manager)
@@ -25,7 +25,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         // Each data item is just a string in this case
         private final TextView mGridTextView;
 
@@ -44,7 +44,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
         // Create a new view
         View v = LayoutInflater.from(mContext).inflate(R.layout.my_text_view, viewGroup, false);
 
-        return new ViewHolder(v);
+        return new GridAdapter.ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)

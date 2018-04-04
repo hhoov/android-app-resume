@@ -29,7 +29,7 @@
             android:scrollbars="vertical">
         </android.support.v7.widget.RecyclerView>
 
-<!--        <GridView
+        <GridView
             android:id="@+id/gridView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -39,7 +39,7 @@
             android:verticalSpacing="24dp"
             android:numColumns="auto_fit"
             android:stretchMode="columnWidth"
-            android:layout_marginTop="?attr/actionBarSize"/>-->
+            android:layout_marginTop="?attr/actionBarSize"/>
 
         <include
             layout="@layout/my_text_view"
