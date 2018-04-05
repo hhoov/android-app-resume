@@ -33,10 +33,8 @@ public class MoviesListActivity extends AppCompatActivity {
         res = getResources();
         String[] myDataset = res.getStringArray(R.array.list_movies);
 
-        // Calculate deviceWidth to determine using GridLayoutManager() vs LinearLayoutManager()
-        float deviceWidth = getScreenWidth();
         // Calculate number of columns to determine spanCount for GridLayoutManager()
-        int noOfColumns = calculateNoOfColumns(getApplicationContext());
+        int noOfColumns = getResources().getInteger(R.integer.numberOfColumnsForGridView);
 
         RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
 
@@ -47,15 +45,10 @@ public class MoviesListActivity extends AppCompatActivity {
         RecyclerView.Adapter mAdapter = new MyAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
 
-        if (deviceWidth >= 600) {
             // Grid layout manager
             RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, noOfColumns);
             mRecyclerView.setLayoutManager(gridLayoutManager);
-        } else {
-            // Linear layout manager
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-            mRecyclerView.setLayoutManager(mLayoutManager);
-        }
+
     }
 
     @Override
@@ -63,18 +56,4 @@ public class MoviesListActivity extends AppCompatActivity {
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
-    public float getScreenWidth() {
-        Display display = getWindowManager().getDefaultDisplay();
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        display.getMetrics(outMetrics);
-
-        float density = getResources().getDisplayMetrics().density;
-        return outMetrics.widthPixels / density;
-    }
-
-    public int calculateNoOfColumns(Context context) {
-            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-            float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-            return (int) (dpWidth / 180);
-        }
 }

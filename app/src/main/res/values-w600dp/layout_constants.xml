@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="wideEnoughToDoTwoColumns">true</bool>
+    <integer name="numberOfColumnsForGridView">2</integer>
+    <color name="someBg">#77550055</color>
+</resources>
