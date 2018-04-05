@@ -1,6 +1,5 @@
 package com.example.android.justjava;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,12 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
-    private final Context mContext;
     private final String[] mDataset;
 
     // Constructor
-    GridAdapter(Context context, String[] dataset) {
-        this.mContext = context;
+    GridAdapter(String[] dataset) {
         this.mDataset = dataset;
     }
 
@@ -27,11 +24,11 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     // you provide access to all the views for a data item in a view holder
     static class ViewHolder extends RecyclerView.ViewHolder {
         // Each data item is just a string in this case
-        private final TextView mGridTextView;
+        TextView mGridTextView;
 
         ViewHolder(View v) {
             super(v);
-            mGridTextView = v.findViewById(R.id.gridTextView);
+            mGridTextView = v.findViewById(R.id.listTextView);
         }
 
         TextView getTextView() { return mGridTextView; }
@@ -42,7 +39,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     @Override
     public GridAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view
-        View v = LayoutInflater.from(mContext).inflate(R.layout.my_text_view, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.my_text_view, viewGroup, false);
 
         return new GridAdapter.ViewHolder(v);
     }
@@ -55,27 +52,4 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
         holder.getTextView().setText(mDataset[position]);
 
     }
-
-/*    public View getView(int position, View convertView, ViewGroup parent) {
-        //final String data = mDataset[position];
-
-        if (convertView == null) {
-            final LayoutInflater layoutInflater= LayoutInflater.from(mContext);
-            convertView = layoutInflater.inflate(R.layout.my_text_view, null);
-
-            final TextView mGridTextView = convertView.findViewById(R.id.gridTextView);
-
-            //mGridTextView.setText(mContext.getString(mDataset[position]));
-            final ViewHolder viewHolder = new ViewHolder(mGridTextView);
-            convertView.setTag(viewHolder);
-
-        }
-
-        final ViewHolder viewHolder = (ViewHolder) convertView.getTag();
-        viewHolder.mGridTextView.setText(mDataset[position]);
-
-        return convertView;
-
-    }*/
-
 }

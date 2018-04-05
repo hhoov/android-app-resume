@@ -1,5 +1,6 @@
 package com.example.android.justjava;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -32,7 +33,7 @@ public class MoviesGridActivity extends AppCompatActivity {
         String[] myDataset = res.getStringArray(R.array.list_movies);
         // Calculate deviceWidth to determine spanCount for GridLayoutManager()
         float deviceWidth = getScreenWidth();
-
+        int noOfColumns = Utility.calculateNoOfColumns(getApplicationContext());
  /*       GridView gridView = findViewById(R.id.gridView);
         GridAdapter gridAdapter = new GridAdapter(this, myDataset);
         gridView.setAdapter(gridAdapter);*/
@@ -41,18 +42,12 @@ public class MoviesGridActivity extends AppCompatActivity {
         // Using this setting if changes in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
         // Grid layout manager
-        final RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), (int) deviceWidth);
+        final RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), noOfColumns);
         mRecyclerView.setLayoutManager(gridLayoutManager);
 
-//<<<<<<< Updated upstream
         // Specify an adapter
-        RecyclerView.Adapter mAdapter = new GridAdapter(MoviesGridActivity.this, myDataset);
+        RecyclerView.Adapter mAdapter = new GridAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
-//=======
-      /*  // Specify an adapter
-        RecyclerView.Adapter mAdapter = new MyAdapter(myDataset);
-        mRecyclerView.setAdapter(mAdapter);*/
-//>>>>>>> Stashed changes
     }
 
     @Override
@@ -67,5 +62,13 @@ public class MoviesGridActivity extends AppCompatActivity {
 
         float density = getResources().getDisplayMetrics().density;
         return outMetrics.widthPixels / density;
+    }
+    public static class Utility {
+        static int calculateNoOfColumns(Context context) {
+            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+            float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+            int noOfColumns = (int) (dpWidth / 180);
+            return noOfColumns;
+        }
     }
 }

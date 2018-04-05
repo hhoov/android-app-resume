@@ -1,5 +1,6 @@
 package com.example.android.justjava;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -33,12 +34,12 @@ public class MoviesListActivity extends AppCompatActivity {
         String[] myDataset = res.getStringArray(R.array.list_movies);
 
         float deviceWidth = getScreenWidth();
-        System.out.println("\n****** DEVICE WIDTH *******: " + deviceWidth + "\n");
+        int noOfColumns = Utility.calculateNoOfColumns(getApplicationContext());
         //Context mContext = getApplicationContext();
 
         if (deviceWidth >= 600) {
             // Change content views
-            setContentView(R.layout.activity_movies_grid);
+
 
             drawerLayout = findViewById(R.id.drawer_layout);
             toolbar = findViewById(R.id.toolbar);
@@ -52,12 +53,12 @@ public class MoviesListActivity extends AppCompatActivity {
 
             RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
 //<<<<<<< Updated upstream
-            //mRecyclerView.setHasFixedSize(true);
-            RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, (int) deviceWidth);
+            mRecyclerView.setHasFixedSize(true);
+            RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, noOfColumns);
             mRecyclerView.setLayoutManager(gridLayoutManager);
 
             // Specify an adapter
-            RecyclerView.Adapter gridAdapter = new GridAdapter(this, myDataset);
+            RecyclerView.Adapter gridAdapter = new GridAdapter(myDataset);
             mRecyclerView.setAdapter(gridAdapter);
 //=======
             // Using this setting if changes in content do not change the layout size of the RecyclerView
@@ -77,7 +78,7 @@ public class MoviesListActivity extends AppCompatActivity {
             // Using this setting if changes in content do not change the layout size of the RecyclerView
             mRecyclerView.setHasFixedSize(true);
             // Linear layout manager
-            final RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
             mRecyclerView.setLayoutManager(mLayoutManager);
 
             // Specify an adapter
@@ -98,5 +99,13 @@ public class MoviesListActivity extends AppCompatActivity {
 
         float density = getResources().getDisplayMetrics().density;
         return outMetrics.widthPixels / density;
+    }
+    public static class Utility {
+        static int calculateNoOfColumns(Context context) {
+            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+            float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+            int noOfColumns = (int) (dpWidth / 180);
+            return noOfColumns;
+        }
     }
 }

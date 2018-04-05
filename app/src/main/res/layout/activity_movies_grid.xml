@@ -9,9 +9,9 @@
     android:orientation="vertical"
     tools:context=".MoviesGridActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include
@@ -29,29 +29,13 @@
             android:scrollbars="vertical">
         </android.support.v7.widget.RecyclerView>
 
-        <!--<<<<<<< Updated upstream
-            <GridView
-        =======
-                <GridView
-        >>>>>>> Stashed changes
-                    android:id="@+id/gridView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:columnWidth="90dp"
-                    android:gravity="center"
-                    android:horizontalSpacing="10dp"
-                    android:verticalSpacing="24dp"
-                    android:numColumns="auto_fit"
-                    android:stretchMode="columnWidth"
-                    android:layout_marginTop="?attr/actionBarSize"/>-->
-
         <include
             layout="@layout/my_text_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible">
         </include>
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
     <!-- The navigation drawer that comes from the left -->
     <!-- Note that `android:layout_gravity` needs to be set to 'start' -->

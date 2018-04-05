@@ -6,8 +6,6 @@
     android:layout_height="@dimen/list_item_height"
     android:layout_marginLeft="@dimen/margin_medium"
     android:layout_marginRight="@dimen/margin_medium"
-    android:paddingTop="@dimen/margin_medium"
-    android:paddingBottom="@dimen/margin_medium"
     android:gravity="center_vertical">
 
     <TextView
@@ -18,14 +16,5 @@
         android:textStyle="bold"
         tools:layout_editor_absoluteY="16dp"
         />
-
-    <TextView
-        android:id="@+id/gridTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:gravity="center_horizontal"
-        tools:layout_editor_absoluteY="16dp"/>
 
 </LinearLayout>
