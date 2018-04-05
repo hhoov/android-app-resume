@@ -10,7 +10,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.MenuItem;
 
 public class MoviesGridActivity extends AppCompatActivity {
@@ -31,23 +30,22 @@ public class MoviesGridActivity extends AppCompatActivity {
         Resources res;
         res = getResources();
         String[] myDataset = res.getStringArray(R.array.list_movies);
-        // Calculate deviceWidth to determine spanCount for GridLayoutManager()
-        float deviceWidth = getScreenWidth();
-        int noOfColumns = Utility.calculateNoOfColumns(getApplicationContext());
- /*       GridView gridView = findViewById(R.id.gridView);
-        GridAdapter gridAdapter = new GridAdapter(this, myDataset);
-        gridView.setAdapter(gridAdapter);*/
+
+        // Calculate number of columns to determine spanCount for GridLayoutManager()
+        int noOfColumns = calculateNoOfColumns(getApplicationContext());
 
         RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
+
         // Using this setting if changes in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
-        // Grid layout manager
-        final RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), noOfColumns);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
 
         // Specify an adapter
-        RecyclerView.Adapter mAdapter = new GridAdapter(myDataset);
+        RecyclerView.Adapter mAdapter = new MyAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
+
+        // Grid layout manager
+        RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, noOfColumns);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
     }
 
     @Override
@@ -55,20 +53,9 @@ public class MoviesGridActivity extends AppCompatActivity {
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
-    public float getScreenWidth() {
-        Display display = getWindowManager().getDefaultDisplay();
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        display.getMetrics(outMetrics);
-
-        float density = getResources().getDisplayMetrics().density;
-        return outMetrics.widthPixels / density;
-    }
-    public static class Utility {
-        static int calculateNoOfColumns(Context context) {
+    public int calculateNoOfColumns(Context context) {
             DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
             float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-            int noOfColumns = (int) (dpWidth / 180);
-            return noOfColumns;
+            return (int) (dpWidth / 180);
         }
-    }
 }

@@ -33,57 +33,28 @@ public class MoviesListActivity extends AppCompatActivity {
         res = getResources();
         String[] myDataset = res.getStringArray(R.array.list_movies);
 
+        // Calculate deviceWidth to determine using GridLayoutManager() vs LinearLayoutManager()
         float deviceWidth = getScreenWidth();
-        int noOfColumns = Utility.calculateNoOfColumns(getApplicationContext());
-        //Context mContext = getApplicationContext();
+        // Calculate number of columns to determine spanCount for GridLayoutManager()
+        int noOfColumns = calculateNoOfColumns(getApplicationContext());
+
+        RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
+
+        // Using this setting if changes in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // Specify an adapter
+        RecyclerView.Adapter mAdapter = new MyAdapter(myDataset);
+        mRecyclerView.setAdapter(mAdapter);
 
         if (deviceWidth >= 600) {
-            // Change content views
-
-
-            drawerLayout = findViewById(R.id.drawer_layout);
-            toolbar = findViewById(R.id.toolbar);
-            navView = findViewById(R.id.nav_view);
-            navDrawerDelegate = new NavigationDrawerDelegate(this, drawerLayout, toolbar, navView);
-            navDrawerDelegate.setupNavDrawer();
-
-            /*GridView gridView = findViewById(R.id.gridView);
-            GridAdapter gridAdapter = new GridAdapter(this, myDataset);
-            gridView.setAdapter(gridAdapter);*/
-
-            RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
-//<<<<<<< Updated upstream
-            mRecyclerView.setHasFixedSize(true);
+            // Grid layout manager
             RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, noOfColumns);
             mRecyclerView.setLayoutManager(gridLayoutManager);
-
-            // Specify an adapter
-            RecyclerView.Adapter gridAdapter = new GridAdapter(myDataset);
-            mRecyclerView.setAdapter(gridAdapter);
-//=======
-            // Using this setting if changes in content do not change the layout size of the RecyclerView
-/*            mRecyclerView.setHasFixedSize(true);
-            // Grid layout manager
-            final RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, (int) deviceWidth);
-            mRecyclerView.setLayoutManager(gridLayoutManager);
-
-            // Specify an adapter
-            RecyclerView.Adapter mAdapter = new MyAdapter( myDataset);
-            mRecyclerView.setAdapter(mAdapter);*/
-//>>>>>>> Stashed changes
-
-
         } else {
-            RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
-            // Using this setting if changes in content do not change the layout size of the RecyclerView
-            mRecyclerView.setHasFixedSize(true);
             // Linear layout manager
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
             mRecyclerView.setLayoutManager(mLayoutManager);
-
-            // Specify an adapter
-            RecyclerView.Adapter mAdapter = new MyAdapter(myDataset);
-            mRecyclerView.setAdapter(mAdapter);
         }
     }
 
@@ -100,12 +71,10 @@ public class MoviesListActivity extends AppCompatActivity {
         float density = getResources().getDisplayMetrics().density;
         return outMetrics.widthPixels / density;
     }
-    public static class Utility {
-        static int calculateNoOfColumns(Context context) {
+
+    public int calculateNoOfColumns(Context context) {
             DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
             float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-            int noOfColumns = (int) (dpWidth / 180);
-            return noOfColumns;
+            return (int) (dpWidth / 180);
         }
-    }
 }
