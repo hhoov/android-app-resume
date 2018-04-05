@@ -40,7 +40,7 @@ public class MoviesGridActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
 
         // Specify an adapter
-        RecyclerView.Adapter mAdapter = new MyAdapter(myDataset);
+        RecyclerView.Adapter mAdapter = new MyAdapter(getApplicationContext(), myDataset);
         mRecyclerView.setAdapter(mAdapter);
 
         // Grid layout manager

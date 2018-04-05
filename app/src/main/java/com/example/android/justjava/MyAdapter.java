@@ -1,5 +1,6 @@
 package com.example.android.justjava;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,11 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private String[] mDataset;
+    private Context  mContext;
 
     // Constructor
-    MyAdapter( String[] dataset) {
+    MyAdapter( Context context, String[] dataset) {
+        this.mContext = context;
         this.mDataset = dataset;
     }
 
@@ -28,7 +33,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         ViewHolder(View v) {
             super(v);
-            mTextView = v.findViewById(R.id.listTextView);
+            mTextView = v.findViewById(R.id.list_TextView);
         }
 
         TextView getTextView() {
