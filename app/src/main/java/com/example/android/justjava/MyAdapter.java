@@ -33,16 +33,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     static class ViewHolder extends RecyclerView.ViewHolder {
         // Each data item is just a string in this case
         TextView mTextView;
-        ImageView img_android;
+        ImageView mImageView;
 
         ViewHolder(View v) {
             super(v);
             mTextView = v.findViewById(R.id.listTextView);
-            img_android = v.findViewById(R.id.img_android);
+            mImageView = v.findViewById(R.id.img_android);
         }
 
         TextView getTextView() { return mTextView; }
-        ImageView getImageView() { return img_android; }
+        ImageView getImageView() { return mImageView; }
     }
 
     // Create new views (invoked by the layout manager)
@@ -59,18 +59,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+        /*Picasso
+                .get()
+                .load(mDataset[position])
+                .resize(120,180)
+                .into(holder.mImageView);*/
+
+        holder.getTextView().setText(mDataset[position]);
         Picasso
                 .get()
                 .load(mImageDataset[position])
-                .resize(120,180)
-                .into(holder.img_android);
-
-        holder.getTextView().setText(mDataset[position]);
-        /*Picasso
-                .get()
-                .load(mImageDataset[position])
-                .fit()
-                .into(holder.img_android);*///android.get(position).getAndroid_image_url())
+                .resize(50,50)
+                .into(holder.mImageView);//android.get(position).getAndroid_image_url())
 
     }
 }
