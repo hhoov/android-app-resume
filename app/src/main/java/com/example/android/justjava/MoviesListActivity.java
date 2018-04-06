@@ -28,7 +28,7 @@ public class MoviesListActivity extends AppCompatActivity {
         Resources res;
         res = getResources();
         String[] myDataset = res.getStringArray(R.array.list_movies);
-
+        String[] imageDataset = res.getStringArray(R.array.images_movie);
         // Calculate number of columns to determine spanCount for GridLayoutManager()
         int noOfColumns = getResources().getInteger(R.integer.numberOfColumnsForGridView);
 
@@ -38,7 +38,7 @@ public class MoviesListActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
 
         // Specify an adapter
-        RecyclerView.Adapter mAdapter = new MyAdapter(getApplicationContext(), myDataset);
+        RecyclerView.Adapter mAdapter = new MyAdapter(getApplicationContext(), myDataset, imageDataset);
         mRecyclerView.setAdapter(mAdapter);
 
         // Grid layout manager

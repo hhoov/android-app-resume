@@ -6,16 +6,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private String[] mDataset;
     private Context  mContext;
+    private String[] mImageDataset;
 
     // Constructor
-    MyAdapter( Context context, String[] dataset) {
+    MyAdapter(Context context, String[] dataset, String[] imageDataset) {
         this.mContext = context;
         this.mDataset = dataset;
+        this.mImageDataset = imageDataset;
     }
 
     // Return the size of dataset (invoked by the layout manager)
@@ -28,15 +33,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     static class ViewHolder extends RecyclerView.ViewHolder {
         // Each data item is just a string in this case
         TextView mTextView;
+        ImageView img_android;
 
         ViewHolder(View v) {
             super(v);
             mTextView = v.findViewById(R.id.listTextView);
+            img_android = v.findViewById(R.id.img_android);
         }
 
-        TextView getTextView() {
-            return mTextView;
-        }
+        TextView getTextView() { return mTextView; }
+        ImageView getImageView() { return img_android; }
     }
 
     // Create new views (invoked by the layout manager)
@@ -53,7 +59,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+        Picasso
+                .get()
+                .load(mImageDataset[position])
+                .fit()
+                .into(holder.img_android);
+
         holder.getTextView().setText(mDataset[position]);
+        /*Picasso
+                .get()
+                .load(mImageDataset[position])
+                .fit()
+                .into(holder.img_android);*///android.get(position).getAndroid_image_url())
 
     }
 }
