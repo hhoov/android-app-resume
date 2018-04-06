@@ -62,7 +62,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         Picasso
                 .get()
                 .load(mImageDataset[position])
-                .fit()
+                .resize(120,180)
                 .into(holder.img_android);
 
         holder.getTextView().setText(mDataset[position]);
