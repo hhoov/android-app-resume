@@ -37,8 +37,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         ViewHolder(View v) {
             super(v);
-            mTextView = v.findViewById(R.id.listTextView);
             mImageView = v.findViewById(R.id.img_android);
+            mTextView = v.findViewById(R.id.listTextView);
         }
 
         TextView getTextView() { return mTextView; }
@@ -56,7 +56,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         /*Picasso
@@ -69,8 +69,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         Picasso
                 .get()
                 .load(mImageDataset[position])
-                .resize(50,50)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.error)
+                .resize(500,0)
+                .centerCrop()
                 .into(holder.mImageView);//android.get(position).getAndroid_image_url())
 
     }
+
 }
