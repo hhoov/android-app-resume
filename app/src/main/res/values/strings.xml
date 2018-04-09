@@ -19,7 +19,7 @@
     <string name="title_activity_movies_grid">MoviesGridActivity</string>
     <string name="movie_poster">Movie poster</string>
 
-    <string-array name="list_movies">
+    <string-array name="movie_title_list">
         <item>Deadpool</item>
         <item>Wonder Woman</item>
         <item>Star Wars: The Last Jedi</item>
@@ -50,7 +50,7 @@
         <item>Toy Story</item>
     </string-array>
 
-    <string-array name ="images_movie">
+    <string-array name ="movie_poster_list">
         <item>https://static.comicvine.com/uploads/original/8/83918/4818925-deadpool-one-sheet.jpg</item>
         <item>https://images-na.ssl-images-amazon.com/images/I/41hBg-ZaiTL.jpg</item>
         <item>https://images-na.ssl-images-amazon.com/images/I/51poKKV63GL.jpg</item>

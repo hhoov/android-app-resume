@@ -27,8 +27,8 @@ public class MoviesGridActivity extends AppCompatActivity {
         // Retrieve string array
         Resources res;
         res = getResources();
-        String[] myDataset = res.getStringArray(R.array.list_movies);
-        String[] imageDataset = res.getStringArray(R.array.images_movie);
+        String[] myDataset = res.getStringArray(R.array.movie_title_list);
+        String[] imageDataset = res.getStringArray(R.array.movie_poster_list);
 
         // Calculate number of columns to determine spanCount for GridLayoutManager()
         int noOfColumns = getResources().getInteger(R.integer.numberOfColumnsForGridView);

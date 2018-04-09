@@ -37,7 +37,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         ViewHolder(View v) {
             super(v);
-            mImageView = v.findViewById(R.id.img_android);
+            mImageView = v.findViewById(R.id.posterImageView);
             mTextView = v.findViewById(R.id.listTextView);
         }
 
@@ -61,14 +61,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - replace the contents of the view with that element
 
         holder.getTextView().setText(mDataset[position]);
-        Picasso
-                .get()
-                .load(mImageDataset[position])
-                .placeholder(R.drawable.placeholder)
-                .error(R.drawable.error)
-                .resize(500,0)
-                .centerCrop()
-                .into(holder.mImageView);
+        if (mImageDataset[position].isEmpty()) { //url.isEmpty()
+            Picasso.get()
+                    .load(R.drawable.placeholder)
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.error)
+                    .into(holder.mImageView);
+        } else {
+            Picasso
+                    .get()
+                    .load(mImageDataset[position])
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.error)
+                    .resize(500,0)
+                    .centerCrop()
+                    .into(holder.mImageView);
+        }
 
     }
 
