@@ -59,11 +59,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        /*Picasso
-                .get()
-                .load(mDataset[position])
-                .resize(120,180)
-                .into(holder.mImageView);*/
 
         holder.getTextView().setText(mDataset[position]);
         Picasso
@@ -73,7 +68,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 .error(R.drawable.error)
                 .resize(500,0)
                 .centerCrop()
-                .into(holder.mImageView);//android.get(position).getAndroid_image_url())
+                .into(holder.mImageView);
 
     }
 

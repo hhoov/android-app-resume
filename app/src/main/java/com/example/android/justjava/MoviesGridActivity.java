@@ -1,6 +1,5 @@
 package com.example.android.justjava;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.view.MenuItem;
 
 public class MoviesGridActivity extends AppCompatActivity {
@@ -33,7 +31,7 @@ public class MoviesGridActivity extends AppCompatActivity {
         String[] imageDataset = res.getStringArray(R.array.images_movie);
 
         // Calculate number of columns to determine spanCount for GridLayoutManager()
-        int noOfColumns = calculateNoOfColumns(getApplicationContext());
+        int noOfColumns = getResources().getInteger(R.integer.numberOfColumnsForGridView);
 
         RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
 
@@ -54,9 +52,4 @@ public class MoviesGridActivity extends AppCompatActivity {
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
-    public int calculateNoOfColumns(Context context) {
-            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-            float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-            return (int) (dpWidth / 180);
-        }
 }
