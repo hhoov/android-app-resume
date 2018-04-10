@@ -63,7 +63,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.getTextView().setText(mDataset[position]);
         if (mImageDataset[position].isEmpty()) { //url.isEmpty()
             Picasso.get()
-                    .load(R.drawable.placeholder)
+                    .load(R.drawable.error)
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.error)
                     .into(holder.mImageView);
