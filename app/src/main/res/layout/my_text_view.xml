@@ -25,7 +25,7 @@
         android:layout_below="@id/posterImageView"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:textSize="18sp"
+        android:textSize="@dimen/someSize"
         android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
         android:textAlignment="center"
