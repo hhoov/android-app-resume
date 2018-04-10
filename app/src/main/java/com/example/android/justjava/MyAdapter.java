@@ -11,21 +11,21 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private String[] mDataset;
     private Context  mContext;
-    private String[] mImageDataset;
+    private List<MovieData> movieData;
 
     // Constructor
-    MyAdapter(Context context, String[] dataset, String[] imageDataset) {
+    MyAdapter(Context context, List<MovieData> movieData) {
         this.mContext = context;
-        this.mDataset = dataset;
-        this.mImageDataset = imageDataset;
+        this.movieData = movieData;
     }
 
     // Return the size of dataset (invoked by the layout manager)
     @Override
-    public int getItemCount() { return mDataset.length; }
+    public int getItemCount() { return movieData.size(); }
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -60,8 +60,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
-        holder.getTextView().setText(mDataset[position]);
-        if (mImageDataset[position].isEmpty()) { //url.isEmpty()
+        holder.getTextView().setText(movieData.get(position).title);
+        if (movieData.get(position).imageURL.isEmpty()) { //url.isEmpty()
             Picasso.get()
                     .load(R.drawable.error)
                     .placeholder(R.drawable.placeholder)
@@ -70,7 +70,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         } else {
             Picasso
                     .get()
-                    .load(mImageDataset[position])
+                    .load(movieData.get(position).imageURL)
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.error)
                     .resize(500,0)

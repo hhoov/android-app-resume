@@ -70,4 +70,5 @@ public class MainActivity extends AppCompatActivity {
 //            startActivity(Intent.createChooser(emailIntent, "Send your email in:"));
 //        }
     }
+
 }
