@@ -23,7 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/nav_header"
-        android:textSize="@dimen/textSize"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@android:color/white">
     </TextView>
@@ -32,8 +31,7 @@
         android:id="@+id/textViewSubheader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nav_subheader"
-        android:textSize="@dimen/textSize">
+        android:text="@string/nav_subheader">
     </TextView>
 
 </LinearLayout>

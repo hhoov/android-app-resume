@@ -3,5 +3,5 @@
     <bool name="wideEnoughToDoTwoColumns">true</bool>
     <integer name="numberOfColumnsForGridView">2</integer>
     <color name="someBg">#77550055</color>
-    <dimen name="textSize">22sp</dimen>
+    <dimen name="textSize">18sp</dimen>
 </resources>
