@@ -14,7 +14,7 @@ public class MovieData {
 
     }
     public List<MovieData> initializeData() {
-        List<MovieData> movieData = new ArrayList<>();
+        List<MovieData> movieData;
         movieData = new ArrayList<>();
         movieData.add(new MovieData("Deadpool", "https://static.comicvine.com/uploads/original/8/83918/4818925-deadpool-one-sheet.jpg"));
         movieData.add(new MovieData("Wonder Woman", "https://images-na.ssl-images-amazon.com/images/I/41hBg-ZaiTL.jpg"));
