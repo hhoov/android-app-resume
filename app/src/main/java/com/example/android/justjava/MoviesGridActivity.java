@@ -19,8 +19,7 @@ public class MoviesGridActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies_grid);
 
-        MovieData movieData = new MovieData("","");
-        List<MovieData> movieDataList = movieData.initializeData();
+        List<MovieData> movieDataList = MovieDataProvider.getInstance().getMovieData();
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
