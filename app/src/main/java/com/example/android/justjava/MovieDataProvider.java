@@ -7,6 +7,7 @@ public class MovieDataProvider {
     private static MovieDataProvider singletonInstance;
     private final List<MovieData> movieDataList;
 
+    // Private constructor prevents any other class from instantiating.
     private MovieDataProvider() {
         movieDataList = new ArrayList<>();
         movieDataList.add(new MovieData("Deadpool", "https://static.comicvine.com/uploads/original/8/83918/4818925-deadpool-one-sheet.jpg"));
@@ -39,6 +40,7 @@ public class MovieDataProvider {
         movieDataList.add(new MovieData("Toy Story", "https://vignette.wikia.nocookie.net/transcripts/images/2/2a/Disney_and_Pixar%27s_Toy_Story_-_iTunes_Movie_Poster.jpg/revision/latest?cb=20170206021624"));
     }
 
+    // Static instance method
     public static MovieDataProvider getInstance() {
         if (singletonInstance == null) {
             singletonInstance = new MovieDataProvider();

@@ -21,6 +21,7 @@ public class MoviesGridActivity extends AppCompatActivity {
 
         List<MovieData> movieDataList = MovieDataProvider.getInstance().getMovieData();
 
+        // Set up navigation drawer and toolbar
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         NavigationView navView = findViewById(R.id.nav_view);
