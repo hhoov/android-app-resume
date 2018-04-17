@@ -13,16 +13,15 @@ import android.view.MenuItem;
 
 import java.util.List;
 
-public class MoviesListActivity extends AppCompatActivity {
+public class MoviesListActivity extends AppCompatActivity implements ResultsInterface {
     private NavigationDrawerDelegate navDrawerDelegate;
     private String waitTime = "3";
+    private MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies_list);
-
-        List<MovieData> movieDataList = MovieDataProvider.getInstance().getMovieData();
 
         // Set up navigation drawer and toolbar
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
@@ -35,7 +34,7 @@ public class MoviesListActivity extends AppCompatActivity {
         int noOfColumns = getResources().getInteger(R.integer.numberOfColumnsForGridView);
 
         AsyncTaskRunner runner = new AsyncTaskRunner();
-        runner.execute(waitTime);
+        //runner.execute(waitTime);
 
         RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
 
@@ -43,8 +42,10 @@ public class MoviesListActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
 
         // Specify an adapter
-        RecyclerView.Adapter mAdapter = new MyAdapter(movieDataList);
-        mRecyclerView.setAdapter(mAdapter);
+        adapter = new MyAdapter();
+        mRecyclerView.setAdapter(adapter);
+
+        MovieDataProvider.getInstance().getMovieData(this);
 
         // Grid layout manager
         RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, noOfColumns);
@@ -54,6 +55,11 @@ public class MoviesListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResults(List<MovieData> movieList) {
+        adapter.setData(movieList);
     }
 
     private class AsyncTaskRunner extends AsyncTask<String, String, String> {
@@ -97,5 +103,6 @@ public class MoviesListActivity extends AppCompatActivity {
 
         }
     }
+
 
 }

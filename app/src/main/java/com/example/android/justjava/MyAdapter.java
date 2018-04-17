@@ -10,16 +10,17 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // Adapter receives the collection (array, list, set, etc.) of Movie items. The adapter
 // should just be responsible for adapting that data to the views in the RecyclerView
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private List<MovieData> movieData;
+    private List<MovieData> movieData = new ArrayList<>();
 
     // Constructor
-    MyAdapter(List<MovieData> movieData) {
-        this.movieData = movieData;
+    MyAdapter() {
+
     }
 
     // Return the size of dataset (invoked by the layout manager)
@@ -78,6 +79,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                     .into(holder.mImageView);
         }
 
+    }
+    public void setData(List<MovieData> data) {
+        movieData.clear();
+        movieData = data;
+        notifyDataSetChanged();
     }
 
 }
