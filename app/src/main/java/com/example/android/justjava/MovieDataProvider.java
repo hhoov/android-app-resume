@@ -25,7 +25,9 @@ public class MovieDataProvider {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                movieDataList.add(new MovieData("Deadpool", "https://static.comicvine.com/uploads/original/8/83918/4818925-deadpool-one-sheet.jpg"));
+
+
+                /*movieDataList.add(new MovieData("Deadpool", "https://static.comicvine.com/uploads/original/8/83918/4818925-deadpool-one-sheet.jpg"));
                 movieDataList.add(new MovieData("Wonder Woman", "https://images-na.ssl-images-amazon.com/images/I/41hBg-ZaiTL.jpg"));
                 movieDataList.add(new MovieData("Star Wars: The Last Jedi", "https://images-na.ssl-images-amazon.com/images/I/51poKKV63GL.jpg"));
                 movieDataList.add(new MovieData("The Intouchables", "http://img.moviepostershop.com/the-intouchables-movie-poster-2012-1020750880.jpg"));
@@ -53,6 +55,7 @@ public class MovieDataProvider {
                 movieDataList.add(new MovieData("Inside Out", "http://communications.penrhos.wa.edu.au/pcn/2015-05-08/images/insideout.jpg"));
                 movieDataList.add(new MovieData("The Secret Life of Walter Mitty", "http://www.undertheradarmag.com/uploads/article_images/111the-secret-life-of-walter-mitty-poster1-400x600.jpg"));
                 movieDataList.add(new MovieData("Toy Story", "https://vignette.wikia.nocookie.net/transcripts/images/2/2a/Disney_and_Pixar%27s_Toy_Story_-_iTunes_Movie_Poster.jpg/revision/latest?cb=20170206021624"));
+                */
                 resultsInterface.onResults(movieDataList);
             }
         });
