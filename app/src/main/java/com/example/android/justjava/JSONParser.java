@@ -1,5 +1,6 @@
 package com.example.android.justjava;
 
+import android.content.res.Resources;
 import android.util.JsonReader;
 
 import java.io.IOException;
@@ -19,16 +20,9 @@ public class JSONParser {
     private String poster = null;
     private String imdbLink = null;
 
-    //Retrieving data:
-    //String text = localStorage.getItem("testJSON");
-    //JSONObject obj = JSON.parse(text);
-    //document.getElementById("demo").innerHTML = obj.name;
-
-
-    //public JSONObject getJSONFromUrl(String url) {}
-
-    public List<MovieData> readJsonStream(InputStream in) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+    public List<MovieData> readJsonStream(Resources resources, int id) throws IOException {
+        InputStream resourceReader = resources.openRawResource(id);
+        JsonReader reader = new JsonReader(new InputStreamReader(resourceReader, "UTF-8"));
         try {
             return readMoviesArray(reader);
         } finally {

@@ -26,7 +26,8 @@ public class MovieDataProvider {
             @Override
             public void run() {
 
-
+            // Call json parser method here
+            // JSONParser reader = new JSONParser(getApplicationContext(), R.raw.top_movies);
                 /*movieDataList.add(new MovieData("Deadpool", "https://static.comicvine.com/uploads/original/8/83918/4818925-deadpool-one-sheet.jpg"));
                 movieDataList.add(new MovieData("Wonder Woman", "https://images-na.ssl-images-amazon.com/images/I/41hBg-ZaiTL.jpg"));
                 movieDataList.add(new MovieData("Star Wars: The Last Jedi", "https://images-na.ssl-images-amazon.com/images/I/51poKKV63GL.jpg"));
