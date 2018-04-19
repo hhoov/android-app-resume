@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-// Adapter receives the collection (array, list, set, etc.) of Movie items. The adapter
+// Adapter receives the collection (array, list, set, etc.) of MovieData items. The adapter
 // should just be responsible for adapting that data to the views in the RecyclerView
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<MovieData> movieData = new ArrayList<>();
@@ -62,7 +62,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         holder.getTextView().setText(movieData.get(position).title);
         // If URL is empty, provide error image
-        if (movieData.get(position).imageURL.isEmpty()) {
+        if (movieData.get(position).poster.isEmpty()) {
             Picasso.get()
                     .load(R.drawable.error)
                     .placeholder(R.drawable.placeholder)
@@ -71,7 +71,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         } else {
             Picasso
                     .get()
-                    .load(movieData.get(position).imageURL)
+                    .load(movieData.get(position).poster)
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.error)
                     .resize(500,0)
