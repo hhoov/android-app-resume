@@ -1,7 +1,5 @@
 package com.example.android.justjava;
 
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -49,7 +47,7 @@ public class MoviesGridActivity extends AppCompatActivity implements ResultsInte
             @Override
             public void run() {
                 try {
-                    final List<MovieData> movieData = MovieDataProvider.getInstance().getMovieData();
+                    final List<MovieData> movieData = MovieDataProvider.getInstance(MoviesGridActivity.this).getMovieData();
                     handler.post(new Runnable() {
                         @Override
                         public void run() {

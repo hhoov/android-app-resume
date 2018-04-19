@@ -1,7 +1,5 @@
 package com.example.android.justjava;
 
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -42,13 +40,14 @@ public class MoviesListActivity extends AppCompatActivity implements ResultsInte
         // Specify an adapter
         adapter = new MyAdapter();
         mRecyclerView.setAdapter(adapter);
+
         final Handler handler = new Handler();
 
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    final List<MovieData> movieData = MovieDataProvider.getInstance().getMovieData();
+                    final List<MovieData> movieData = MovieDataProvider.getInstance(MoviesListActivity.this).getMovieData();
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -66,7 +65,6 @@ public class MoviesListActivity extends AppCompatActivity implements ResultsInte
             }
         });
         thread.start();
-
 
         // Grid layout manager
         RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, noOfColumns);
