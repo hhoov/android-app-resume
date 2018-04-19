@@ -16,6 +16,8 @@ import java.util.List;
 public class MoviesListActivity extends AppCompatActivity implements ResultsInterface {
     private NavigationDrawerDelegate navDrawerDelegate;
     private MyAdapter adapter;
+    String url = "https://github.com/MercuryIntermedia/Sample_Json_Movies/blob/master/top_movies.json";
+    String jsonData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +44,14 @@ public class MoviesListActivity extends AppCompatActivity implements ResultsInte
         mRecyclerView.setAdapter(adapter);
 
         final Handler handler = new Handler();
+        final OkhttpSetUp ok = new OkhttpSetUp();
 
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    final List<MovieData> movieData = MovieDataProvider.getInstance(MoviesListActivity.this).getMovieData();
+                    jsonData = ok.okhttpHelper(url);
+                    final List<MovieData> movieData = MovieDataProvider.getInstance(jsonData).getMovieData();
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -85,4 +89,5 @@ public class MoviesListActivity extends AppCompatActivity implements ResultsInte
     public void onError() {
         // todo
     }
+
 }

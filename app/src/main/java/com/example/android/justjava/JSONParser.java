@@ -5,17 +5,16 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 public class JSONParser {
 
-    public List<MovieData> readJsonStream(InputStream is) throws IOException {
+    public List<MovieData> readJsonStream(String response) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
 
         // Read from file
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper.readValue(is, new TypeReference<List<MovieData>>(){});
+        return mapper.readValue(response, new TypeReference<List<MovieData>>(){});
     }
 }
