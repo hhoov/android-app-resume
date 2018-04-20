@@ -16,7 +16,7 @@ import java.util.List;
 public class MoviesListActivity extends AppCompatActivity implements ResultsInterface {
     private NavigationDrawerDelegate navDrawerDelegate;
     private MyAdapter adapter;
-    String url = "https://github.com/MercuryIntermedia/Sample_Json_Movies/blob/master/top_movies.json";
+    String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/top_movies.json";
     String jsonData;
 
     @Override
