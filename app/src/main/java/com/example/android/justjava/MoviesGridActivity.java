@@ -13,11 +13,20 @@ import android.view.MenuItem;
 import java.io.IOException;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class MoviesGridActivity extends AppCompatActivity implements ResultsInterface {
     private NavigationDrawerDelegate navDrawerDelegate;
     private MyAdapter adapter;
+    //private ApplicationComponent mApplicationComponent;
     String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/top_movies.json";
     String jsonData;
+
+    @Inject OkhttpSetUp ok;
+
+    @Inject MoviesGridActivity(OkhttpSetUp ok) {
+        this.ok = ok;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +52,13 @@ public class MoviesGridActivity extends AppCompatActivity implements ResultsInte
         adapter = new MyAdapter();
         mRecyclerView.setAdapter(adapter);
 
+
+        //getApplicationComponent().inject(this); // ApplicationComponent injects into "this" client
+        //ok.okhttpHelper(url);
+
+
         final Handler handler = new Handler();
-        final OkhttpSetUp ok = new OkhttpSetUp();
+        //final OkhttpSetUp ok = new OkhttpSetUp();
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -79,6 +93,15 @@ public class MoviesGridActivity extends AppCompatActivity implements ResultsInte
     public boolean onOptionsItemSelected(MenuItem item) {
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
+
+    /*public ApplicationComponent getApplicationComponent() {
+        if (mApplicationComponent == null) {
+            mApplicationComponent = DaggerApplicationComponent.builder()
+                    .applicationModule(new ApplicationModule(this))
+                    .build();
+        }
+        return mApplicationComponent;
+    }*/
 
     @Override
     public void onResults(List<MovieData> movieDataList) {

@@ -6,10 +6,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class OkhttpSetUp {
+class OkhttpSetUp implements Okhttp {
     private String jsonData;
 
-    OkhttpSetUp() {
+    static void OkhttpSetUp() {
     }
 
     public String okhttpHelper(String url) {
