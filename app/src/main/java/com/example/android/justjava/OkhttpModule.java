@@ -1,19 +1,23 @@
 package com.example.android.justjava;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
 
 @Module
 public class OkhttpModule {
-    private final OkhttpSetUp mOkhttpSetUp;
-    private String url;
 
-    public OkhttpModule(OkhttpSetUp ok) {
-        mOkhttpSetUp = ok;
+
+    public OkhttpModule() {
+
     }
 
     @Provides
-    OkhttpSetUp provideOkhttpSetUp() {
-        return new OkhttpSetUp();
+    @Singleton
+    OkHttpClient provideOkhttpClient() {
+        OkHttpClient client = new OkHttpClient();
+        return client;
     }
 }

@@ -2,26 +2,29 @@ package com.example.android.justjava;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-class OkhttpSetUp implements OkhttpComponent {
+class OkhttpSetUp {
     private String jsonData;
-
-    public OkhttpSetUp() {
+    private final OkHttpClient okHttpClient;
+    @Inject
+    public OkhttpSetUp(OkHttpClient okHttpClient) {
+        this.okHttpClient = okHttpClient;
     }
 
     public String okhttpHelper(String url) {
         try {
-            OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(url)
                     .build();
 
             Response response = null;
             try {
-                response = client.newCall(request).execute();
+                response = okHttpClient.newCall(request).execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -34,13 +37,4 @@ class OkhttpSetUp implements OkhttpComponent {
         return jsonData;
     }
 
-    @Override
-    public void inject(MoviesGridActivity moviesGridActivity) {
-
-    }
-
-    @Override
-    public void inject(MoviesListActivity moviesListActivity) {
-
-    }
 }

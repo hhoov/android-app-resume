@@ -22,14 +22,12 @@ public class MoviesGridActivity extends AppCompatActivity implements ResultsInte
     String jsonData;
 
     @Inject OkhttpSetUp ok;
-    private OkhttpComponent mOkhttpComponent;
-
-    @Inject
-    public MoviesGridActivity() {};
+    private ApplicationComponent mAppComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((MyApplication) getApplication()).applicationComponent.inject(this);
         setContentView(R.layout.activity_movies_grid);
 
         // Set up navigation drawer and toolbar
@@ -51,9 +49,8 @@ public class MoviesGridActivity extends AppCompatActivity implements ResultsInte
         adapter = new MyAdapter();
         mRecyclerView.setAdapter(adapter);
 
+        // ApplicationComponent injects into "this" client
 
-        getOkhttpComponent().inject(this); // ApplicationComponent injects into "this" client
-        ok.okhttpHelper(url);
 
 
         final Handler handler = new Handler();
@@ -93,14 +90,6 @@ public class MoviesGridActivity extends AppCompatActivity implements ResultsInte
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
-    public OkhttpComponent getOkhttpComponent() {
-        if (mOkhttpComponent == null) {
-            mOkhttpComponent = DaggerOkhttpComponent.builder()
-                    .okhttpModule(new OkhttpModule(ok))
-                    .build();
-        }
-        return mOkhttpComponent;
-    }
 
     @Override
     public void onResults(List<MovieData> movieDataList) {

@@ -22,7 +22,7 @@ public class MoviesListActivity extends AppCompatActivity implements ResultsInte
     String jsonData;
 
     @Inject OkhttpSetUp ok;
-    private OkhttpComponent mOkhttpComponent;
+    private ApplicationComponent mAppComponent;
 
     @Inject
     public MoviesListActivity() {};
@@ -30,6 +30,7 @@ public class MoviesListActivity extends AppCompatActivity implements ResultsInte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((MyApplication) getApplication()).applicationComponent.inject(this);
         setContentView(R.layout.activity_movies_list);
 
         // Set up navigation drawer and toolbar
@@ -50,10 +51,6 @@ public class MoviesListActivity extends AppCompatActivity implements ResultsInte
         // Specify an adapter
         adapter = new MyAdapter();
         mRecyclerView.setAdapter(adapter);
-
-
-        getOkhttpComponent().inject(this); // OkhttpComponent injects into "this" client
-        ok.okhttpHelper(url);
 
 
         final Handler handler = new Handler();
@@ -93,14 +90,6 @@ public class MoviesListActivity extends AppCompatActivity implements ResultsInte
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
-    public OkhttpComponent getOkhttpComponent() {
-        if (mOkhttpComponent == null) {
-            mOkhttpComponent = DaggerOkhttpComponent.builder()
-                    .okhttpModule(new OkhttpModule(ok))
-                    .build();
-        }
-        return mOkhttpComponent;
-    }
 
     @Override
     public void onResults(List<MovieData> movieList) {
