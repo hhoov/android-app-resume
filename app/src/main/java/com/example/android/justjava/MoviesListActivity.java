@@ -13,11 +13,19 @@ import android.view.MenuItem;
 import java.io.IOException;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class MoviesListActivity extends AppCompatActivity implements ResultsInterface {
     private NavigationDrawerDelegate navDrawerDelegate;
     private MyAdapter adapter;
     String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/top_movies.json";
     String jsonData;
+
+    @Inject OkhttpSetUp ok;
+    private OkhttpComponent mOkhttpComponent;
+
+    @Inject
+    public MoviesListActivity() {};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +51,13 @@ public class MoviesListActivity extends AppCompatActivity implements ResultsInte
         adapter = new MyAdapter();
         mRecyclerView.setAdapter(adapter);
 
+
+        getOkhttpComponent().inject(this); // OkhttpComponent injects into "this" client
+        ok.okhttpHelper(url);
+
+
         final Handler handler = new Handler();
-        final OkhttpSetUp ok = new OkhttpSetUp();
+        //final OkhttpSetUp ok = new OkhttpSetUp();
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -78,6 +91,15 @@ public class MoviesListActivity extends AppCompatActivity implements ResultsInte
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+    }
+
+    public OkhttpComponent getOkhttpComponent() {
+        if (mOkhttpComponent == null) {
+            mOkhttpComponent = DaggerOkhttpComponent.builder()
+                    .okhttpModule(new OkhttpModule(ok))
+                    .build();
+        }
+        return mOkhttpComponent;
     }
 
     @Override

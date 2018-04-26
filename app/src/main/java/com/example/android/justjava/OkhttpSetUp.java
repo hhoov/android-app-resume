@@ -6,10 +6,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-class OkhttpSetUp implements Okhttp {
+class OkhttpSetUp implements OkhttpComponent {
     private String jsonData;
 
-    static void OkhttpSetUp() {
+    public OkhttpSetUp() {
     }
 
     public String okhttpHelper(String url) {
@@ -34,4 +34,13 @@ class OkhttpSetUp implements Okhttp {
         return jsonData;
     }
 
+    @Override
+    public void inject(MoviesGridActivity moviesGridActivity) {
+
+    }
+
+    @Override
+    public void inject(MoviesListActivity moviesListActivity) {
+
+    }
 }
