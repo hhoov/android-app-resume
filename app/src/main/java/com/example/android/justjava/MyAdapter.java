@@ -18,10 +18,7 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<MovieData> movieData = new ArrayList<>();
 
-    // Constructor
-    MyAdapter() {
-
-    }
+    MyAdapter() { }
 
     // Return the size of dataset (invoked by the layout manager)
     @Override
@@ -78,8 +75,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                     .centerCrop()
                     .into(holder.mImageView);
         }
-
     }
+
     public void setData(List<MovieData> data) {
         movieData.clear();
         movieData = data;

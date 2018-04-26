@@ -11,8 +11,9 @@ import okhttp3.Response;
 class OkhttpSetUp {
     private String jsonData;
     private final OkHttpClient okHttpClient;
+
     @Inject
-    public OkhttpSetUp(OkHttpClient okHttpClient) {
+    OkhttpSetUp(OkHttpClient okHttpClient) {
         this.okHttpClient = okHttpClient;
     }
 

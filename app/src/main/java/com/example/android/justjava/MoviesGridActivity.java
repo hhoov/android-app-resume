@@ -22,12 +22,11 @@ public class MoviesGridActivity extends AppCompatActivity implements ResultsInte
     String jsonData;
 
     @Inject OkhttpSetUp ok;
-    private ApplicationComponent mAppComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((MyApplication) getApplication()).applicationComponent.inject(this);
+        MyApplication.getApplicationComponent().inject(this);
         setContentView(R.layout.activity_movies_grid);
 
         // Set up navigation drawer and toolbar
@@ -49,12 +48,7 @@ public class MoviesGridActivity extends AppCompatActivity implements ResultsInte
         adapter = new MyAdapter();
         mRecyclerView.setAdapter(adapter);
 
-        // ApplicationComponent injects into "this" client
-
-
-
         final Handler handler = new Handler();
-        //final OkhttpSetUp ok = new OkhttpSetUp();
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -89,7 +83,6 @@ public class MoviesGridActivity extends AppCompatActivity implements ResultsInte
     public boolean onOptionsItemSelected(MenuItem item) {
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public void onResults(List<MovieData> movieDataList) {

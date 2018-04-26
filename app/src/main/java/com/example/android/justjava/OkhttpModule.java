@@ -9,15 +9,11 @@ import okhttp3.OkHttpClient;
 @Module
 public class OkhttpModule {
 
-
-    public OkhttpModule() {
-
-    }
+    OkhttpModule() { }
 
     @Provides
     @Singleton
     OkHttpClient provideOkhttpClient() {
-        OkHttpClient client = new OkHttpClient();
-        return client;
+        return new OkHttpClient();
     }
 }
