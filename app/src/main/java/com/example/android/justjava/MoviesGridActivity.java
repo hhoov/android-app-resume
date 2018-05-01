@@ -22,6 +22,7 @@ public class MoviesGridActivity extends AppCompatActivity implements ResultsInte
     String jsonData;
 
     @Inject OkhttpSetUp ok;
+    @Inject MoviesGridPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

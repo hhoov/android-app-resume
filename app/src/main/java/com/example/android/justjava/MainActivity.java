@@ -18,14 +18,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import javax.inject.Inject;
+
 
 /**
  * This app displays a resume, email button, and navigation drawer.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainPresenter.MainView{
     String[] recipient = {"hannahghoover@gmail.com"};
-
     private NavigationDrawerDelegate navDrawerDelegate;
+
+    @Inject MainPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

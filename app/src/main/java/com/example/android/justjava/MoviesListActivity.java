@@ -22,6 +22,7 @@ public class MoviesListActivity extends AppCompatActivity implements ResultsInte
     String jsonData;
 
     @Inject OkhttpSetUp ok;
+    @Inject MoviesListPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
