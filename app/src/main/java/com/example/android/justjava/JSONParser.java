@@ -1,5 +1,6 @@
 package com.example.android.justjava;
 
+import com.example.android.justjava.model.MovieData;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

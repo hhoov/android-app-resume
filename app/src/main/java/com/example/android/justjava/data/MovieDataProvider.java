@@ -1,4 +1,7 @@
-package com.example.android.justjava;
+package com.example.android.justjava.data;
+
+import com.example.android.justjava.JSONParser;
+import com.example.android.justjava.model.MovieData;
 
 import java.io.IOException;
 import java.util.List;

@@ -10,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.example.android.justjava.data.MovieDataProvider;
+import com.example.android.justjava.model.MovieData;
+
 import java.io.IOException;
 import java.util.List;
 
