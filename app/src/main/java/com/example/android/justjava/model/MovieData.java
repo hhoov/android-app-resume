@@ -2,12 +2,12 @@ package com.example.android.justjava.model;
 
 public class MovieData {
     private int rank;
-    private String title;
+    public String title;
     private int year;
     private String imdbId;
     private double imdbRating;
     private int imdbVotes;
-    private String poster;
+    public String poster;
     private String imdbLink;
 
     public int getRank() {
