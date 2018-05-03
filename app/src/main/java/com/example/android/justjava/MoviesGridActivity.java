@@ -1,7 +1,6 @@
 package com.example.android.justjava;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -10,21 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.example.android.justjava.data.MovieDataProvider;
-import com.example.android.justjava.model.MovieData;
-
-import java.io.IOException;
-import java.util.List;
-
 import javax.inject.Inject;
 
 public class MoviesGridActivity extends AppCompatActivity {
     private NavigationDrawerDelegate navDrawerDelegate;
     private MyAdapter adapter;
-    String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/top_movies.json";
-    String jsonData;
 
-    @Inject OkhttpSetUp ok;
     @Inject MoviesGridPresenter presenter;
 
     @Override
@@ -47,36 +37,12 @@ public class MoviesGridActivity extends AppCompatActivity {
 
         // Using this setting if changes in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
-
+// ------------------------------------------------------------------------------------
         // Specify an adapter
         adapter = new MyAdapter();
         mRecyclerView.setAdapter(adapter);
 
-        final Handler handler = new Handler();
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    jsonData = ok.okhttpHelper(url);
-                    final List<MovieData> movieData = MovieDataProvider.getInstance(jsonData).getMovieData();
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            presenter.onResults(movieData);
-                        }
-                    });
-                } catch (IOException e) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            presenter.onError();
-                        }
-                    });
-                }
-            }
-        });
-        thread.start();
+        presenter.handleDataThread();
 
         // Grid layout manager
         RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, noOfColumns);

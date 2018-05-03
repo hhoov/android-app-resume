@@ -27,12 +27,13 @@ public class MoviesGridPresenter implements ResultsInterface {
     @Inject OkhttpSetUp ok;
 
     @Inject
-    public MoviesGridPresenter() {
+    MoviesGridPresenter() {
 
     }
 
+    private final Handler handler = new Handler();
     public void handleDataThread() {
-        final Handler handler = new Handler();
+
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
