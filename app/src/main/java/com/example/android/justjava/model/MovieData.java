@@ -5,11 +5,11 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class MovieData {
     private int rank;
-    public String title;
-    public int year;
-    public String imdbId;
-    public double imdbRating;
-    public int imdbVotes;
+    private String title;
+    private int year;
+    private String imdbId;
+    private double imdbRating;
+    private int imdbVotes;
     public String poster;
     public String imdbLink;
 
