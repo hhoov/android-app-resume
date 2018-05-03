@@ -30,17 +30,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // you provide access to all the views for a data item in a view holder
     static class ViewHolder extends RecyclerView.ViewHolder {
         // Each data item is just a string in this case
-        TextView mTextView;
+        TextView mTitleTextView;
         ImageView mImageView;
+        TextView mImdbIdTextView;
+        TextView mRankTextView;
 
         ViewHolder(View v) {
             super(v);
             mImageView = v.findViewById(R.id.posterImageView);
-            mTextView = v.findViewById(R.id.listTextView);
+            mTitleTextView = v.findViewById(R.id.listTextView);
+            mImdbIdTextView = v.findViewById(R.id.imdbIdTextView);
+            mRankTextView = (TextView) v.findViewById(R.id.rankTextView);
         }
 
-        TextView getTextView() { return mTextView; }
+        TextView getmTitleTextView() { return mTitleTextView; }
         ImageView getImageView() { return mImageView; }
+        TextView getmImdbIdTextView() { return mImdbIdTextView; }
+        TextView getmRankTextView() { return mRankTextView; }
     }
 
     // Create new views (invoked by the layout manager)
@@ -58,7 +64,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
 
-        holder.getTextView().setText(movieData.get(position).title);
+        holder.getmTitleTextView().setText(movieData.get(position).title);
+        holder.getmImdbIdTextView().setText(movieData.get(position).imdbId);
+        holder.getmRankTextView().setText(String.valueOf(movieData.get(position).rank));
         // If URL is empty, provide error image
         if (movieData.get(position).poster.isEmpty()) {
             Picasso.get()

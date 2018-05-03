@@ -31,7 +31,7 @@ public class MoviesGridPresenter implements ResultsInterface {
 
     }
 
-    private final Handler handler = new Handler();
+/*    private final Handler handler = new Handler();
     public void handleDataThread() {
 
         Thread thread = new Thread(new Runnable() {
@@ -57,7 +57,7 @@ public class MoviesGridPresenter implements ResultsInterface {
             }
         });
         thread.start();
-    }
+    }*/
 
     @Override
     public void onResults(List<MovieData> movieDataList) { adapter.setData(movieDataList);}
