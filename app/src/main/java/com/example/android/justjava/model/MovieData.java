@@ -3,12 +3,12 @@ package com.example.android.justjava.model;
 public class MovieData {
     public int rank;
     public String title;
-    private int year;
+    public int year;
     public String imdbId;
-    private double imdbRating;
-    private int imdbVotes;
+    public double imdbRating;
+    public int imdbVotes;
     public String poster;
-    private String imdbLink;
+    public String imdbLink;
 
     public int getRank() {
         return rank;

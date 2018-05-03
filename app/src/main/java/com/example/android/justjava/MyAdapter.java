@@ -30,23 +30,36 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // you provide access to all the views for a data item in a view holder
     static class ViewHolder extends RecyclerView.ViewHolder {
         // Each data item is just a string in this case
-        TextView mTitleTextView;
         ImageView mImageView;
-        TextView mImdbIdTextView;
         TextView mRankTextView;
+        TextView mTitleTextView;
+        TextView mYearTextView;
+        TextView mImdbIdTextView;
+        TextView mImdbRatingTextView;
+        TextView mImdbVotesTextView;
+        TextView mImdbLinkTextView;
 
         ViewHolder(View v) {
             super(v);
             mImageView = v.findViewById(R.id.posterImageView);
-            mTitleTextView = v.findViewById(R.id.listTextView);
+            mRankTextView = v.findViewById(R.id.rankTextView);
+            mTitleTextView = v.findViewById(R.id.titleTextView);
+            mYearTextView = v.findViewById(R.id.yearTextView);
             mImdbIdTextView = v.findViewById(R.id.imdbIdTextView);
-            mRankTextView = (TextView) v.findViewById(R.id.rankTextView);
+            mImdbRatingTextView = v.findViewById(R.id.imdbRatingTextView);
+            mImdbVotesTextView = v.findViewById(R.id.imdbVotesTextView);
+            mImdbLinkTextView = v.findViewById(R.id.imdbLinkTextView);
+
         }
 
-        TextView getmTitleTextView() { return mTitleTextView; }
         ImageView getImageView() { return mImageView; }
-        TextView getmImdbIdTextView() { return mImdbIdTextView; }
-        TextView getmRankTextView() { return mRankTextView; }
+        TextView getRankTextView() { return mRankTextView; }
+        TextView getTitleTextView() { return mTitleTextView; }
+        TextView getYearTextView() { return mYearTextView; }
+        TextView getImdbIdTextView() { return mImdbIdTextView; }
+        TextView getImdbRatingTextView() { return mImdbRatingTextView; }
+        TextView getImdbVotesTextView() { return mImdbVotesTextView; }
+        TextView getImdbLinkTextView() { return  mImdbLinkTextView; }
     }
 
     // Create new views (invoked by the layout manager)
@@ -63,10 +76,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
+        holder.getRankTextView().setText(String.valueOf(movieData.get(position).rank));
+        holder.getTitleTextView().setText(movieData.get(position).title);
+        holder.getYearTextView().setText(String.valueOf(movieData.get(position).year));
+        holder.getImdbIdTextView().setText(movieData.get(position).imdbId);
+        holder.getImdbRatingTextView().setText(String.valueOf(movieData.get(position).imdbRating));
+        holder.getImdbVotesTextView().setText(String.valueOf(movieData.get(position).imdbVotes));
+        holder.getImdbLinkTextView().setText(movieData.get(position).imdbLink);
 
-        holder.getmTitleTextView().setText(movieData.get(position).title);
-        holder.getmImdbIdTextView().setText(movieData.get(position).imdbId);
-        holder.getmRankTextView().setText(String.valueOf(movieData.get(position).rank));
         // If URL is empty, provide error image
         if (movieData.get(position).poster.isEmpty()) {
             Picasso.get()
