@@ -18,7 +18,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MoviesGridActivity extends AppCompatActivity implements ResultsInterface {
+public class MoviesGridActivity extends AppCompatActivity {
     private NavigationDrawerDelegate navDrawerDelegate;
     private MyAdapter adapter;
     String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/top_movies.json";
@@ -63,14 +63,14 @@ public class MoviesGridActivity extends AppCompatActivity implements ResultsInte
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            onResults(movieData);
+                            presenter.onResults(movieData);
                         }
                     });
                 } catch (IOException e) {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            onError();
+                            presenter.onError();
                         }
                     });
                 }
@@ -86,16 +86,6 @@ public class MoviesGridActivity extends AppCompatActivity implements ResultsInte
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onResults(List<MovieData> movieDataList) {
-        adapter.setData(movieDataList);
-    }
-
-    @Override
-    public void onError() {
-        // todo
     }
 
 }

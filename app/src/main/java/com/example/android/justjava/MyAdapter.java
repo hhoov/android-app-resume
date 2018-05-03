@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-// Adapter receives the collection (array, list, set, etc.) of MovieData items. The adapter
+// MyAdapter receives the collection (array, list, set, etc.) of MovieData items. The adapter
 // should just be responsible for adapting that data to the views in the RecyclerView
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<MovieData> movieData = new ArrayList<>();
