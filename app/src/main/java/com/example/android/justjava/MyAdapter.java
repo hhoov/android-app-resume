@@ -76,12 +76,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
-        holder.getRankTextView().setText(String.valueOf(movieData.get(position).rank));
-        holder.getTitleTextView().setText(movieData.get(position).title);
-        holder.getYearTextView().setText(String.valueOf(movieData.get(position).year));
-        holder.getImdbIdTextView().setText(movieData.get(position).imdbId);
-        holder.getImdbRatingTextView().setText(String.valueOf(movieData.get(position).imdbRating));
-        holder.getImdbVotesTextView().setText(String.valueOf(movieData.get(position).imdbVotes));
+        holder.getRankTextView().setText(String.valueOf(movieData.get(position).getRank()));
+        holder.getTitleTextView().setText(movieData.get(position).getTitle());
+        holder.getYearTextView().setText(String.valueOf(movieData.get(position).getYear()));
+        holder.getImdbIdTextView().setText(movieData.get(position).getImdbId());
+        holder.getImdbRatingTextView().setText(String.valueOf(movieData.get(position).getImdbRating()));
+        holder.getImdbVotesTextView().setText(String.valueOf(movieData.get(position).getImdbVotes()));
         holder.getImdbLinkTextView().setText(movieData.get(position).imdbLink);
 
         // If URL is empty, provide error image
