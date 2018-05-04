@@ -1,14 +1,5 @@
 package com.example.android.justjava;
 
-/*
-  IMPORTANT: Make sure you are using the correct package name.
-  This example uses the package name:
-  package com.example.android.justjava
-  If you get an error when copying this code into Android studio, update it to match the package name found
-  in the project's AndroidManifest.xml file.
- */
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
