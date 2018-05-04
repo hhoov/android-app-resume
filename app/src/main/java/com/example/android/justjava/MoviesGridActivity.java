@@ -1,7 +1,6 @@
 package com.example.android.justjava;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -10,25 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.example.android.justjava.data.MovieDataProvider;
 import com.example.android.justjava.model.MovieData;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class MoviesGridActivity extends AppCompatActivity {
+public class MoviesGridActivity extends AppCompatActivity implements MoviesGridPresenter.MoviesGridView {
     private NavigationDrawerDelegate navDrawerDelegate;
     private MyAdapter adapter;
 
-    //@Inject MoviesGridPresenter presenter;
-    private String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/top_movies.json";
-    private String jsonData;
-
-    //todo
-
-    @Inject OkhttpSetUp ok;
+    @Inject MoviesGridPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,40 +41,24 @@ public class MoviesGridActivity extends AppCompatActivity {
 
         // Using this setting if changes in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
-// ------------------------------------------------------------------------------------
+
         // Specify an adapter
         adapter = new MyAdapter();
         mRecyclerView.setAdapter(adapter);
 
-        //presenter.handleDataThread();
-        final Handler handler = new Handler();
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    jsonData = ok.okhttpHelper(url);
-                    final List<MovieData> movieData = MovieDataProvider.getInstance(jsonData).getMovieData();
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            onResults(movieData);
-                        }
-                    });
-                } catch (IOException e) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            onError();
-                        }
-                    });
-                }
-            }
-        });
-        thread.start();
-
         // Grid layout manager
         RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, noOfColumns);
         mRecyclerView.setLayoutManager(gridLayoutManager);
+
+        presenter.attach(this);
+        presenter.present();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detach();
     }
 
     @Override
@@ -91,12 +66,13 @@ public class MoviesGridActivity extends AppCompatActivity {
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
-
-    public void onResults(List<MovieData> movieDataList) { adapter.setData(movieDataList);}
-
-
-    public void onError() {
-        // todo
+    @Override
+    public void setMovies(List<MovieData> movieDataList) {
+        adapter.setData(movieDataList);
     }
 
+    @Override
+    public void showError() {
+
+    }
 }
