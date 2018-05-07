@@ -7,9 +7,9 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 
 @Module
-public class OkhttpModule {
+public class ApplicationModule {
 
-    OkhttpModule() { }
+    ApplicationModule() { }
 
     @Provides
     @Singleton

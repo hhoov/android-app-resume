@@ -7,7 +7,7 @@ public class MyApplication extends Application {
 
     static {
         applicationComponent = DaggerApplicationComponent.builder()
-                .okhttpModule(new OkhttpModule())
+                .applicationModule(new ApplicationModule())
                 .build();
     }
 

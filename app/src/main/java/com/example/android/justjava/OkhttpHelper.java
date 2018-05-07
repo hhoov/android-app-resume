@@ -3,21 +3,24 @@ package com.example.android.justjava;
 import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-class OkhttpSetUp {
-    private String jsonData;
+@Singleton
+class OkhttpHelper {
+
     private final OkHttpClient okHttpClient;
 
     @Inject
-    OkhttpSetUp(OkHttpClient okHttpClient) {
+    OkhttpHelper(OkHttpClient okHttpClient) {
         this.okHttpClient = okHttpClient;
     }
 
-    public String okhttpHelper(String url) {
+    public String createRequest(String url) {
+        String jsonData = "";
         try {
             Request request = new Request.Builder()
                     .url(url)
