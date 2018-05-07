@@ -82,10 +82,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.getImdbIdTextView().setText(movieData.get(position).getImdbId());
         holder.getImdbRatingTextView().setText(String.valueOf(movieData.get(position).getImdbRating()));
         holder.getImdbVotesTextView().setText(String.valueOf(movieData.get(position).getImdbVotes()));
-        holder.getImdbLinkTextView().setText(movieData.get(position).imdbLink);
+        holder.getImdbLinkTextView().setText(movieData.get(position).getImdbLink());
 
         // If URL is empty, provide error image
-        if (movieData.get(position).poster.isEmpty()) {
+        if (movieData.get(position).getPoster().isEmpty()) {
             Picasso.get()
                     .load(R.drawable.error)
                     .placeholder(R.drawable.placeholder)
@@ -94,7 +94,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         } else {
             Picasso
                     .get()
-                    .load(movieData.get(position).poster)
+                    .load(movieData.get(position).getPoster())
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.error)
                     .resize(500,0)

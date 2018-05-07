@@ -1,95 +1,68 @@
 package com.example.android.justjava.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MovieData {
-    private int rank;
-    private String title;
-    private int year;
-    private String imdbId;
-    private double imdbRating;
-    private int imdbVotes;
-    public String poster;
-    public String imdbLink;
+    private final int rank;
+    private final String title;
+    private final int year;
+    private final String imdbId;
+    private final double imdbRating;
+    private final int imdbVotes;
+    private final String poster;
+    private final String imdbLink;
 
-    @JsonProperty("rank")
+    @JsonCreator
+    public MovieData(
+            @JsonProperty("rank") int rank,
+            @JsonProperty("title") String title,
+            @JsonProperty("year") int year,
+            @JsonProperty("imdbId") String imdbId,
+            @JsonProperty("imdbRating") double imdbRating,
+            @JsonProperty("imdbVotes") int imdbVotes,
+            @JsonProperty("poster") String poster,
+            @JsonProperty("imdbLink") String imdbLink) {
+        this.rank = rank;
+        this.title = title;
+        this.year = year;
+        this.imdbId = imdbId;
+        this.imdbRating = imdbRating;
+        this.imdbVotes = imdbVotes;
+        this.poster = poster;
+        this.imdbLink = imdbLink;
+    }
+
     public int getRank() {
         return rank;
     }
 
-    @JsonProperty("rank")
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
-
-    @JsonProperty("title")
     public String getTitle() {
         return title;
     }
 
-    @JsonProperty("title")
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    @JsonProperty("year")
     public int getYear() {
         return year;
     }
 
-    @JsonProperty("year")
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    @JsonProperty("imdbId")
     public String getImdbId() {
         return imdbId;
     }
 
-    @JsonProperty("imdbId")
-    public void setImdbId(String imdbId) {
-        this.imdbId = imdbId;
-    }
-
-    @JsonProperty("imdbRating")
     public double getImdbRating() {
         return imdbRating;
     }
 
-    @JsonProperty("imdbRating")
-    public void setImdbRating(double imdbRating) {
-        this.imdbRating = imdbRating;
-    }
-
-    @JsonProperty("imdbVotes")
     public int getImdbVotes() {
         return imdbVotes;
     }
 
-    @JsonProperty("imdbVotes")
-    public void setImdbVotes(int imdbVotes) {
-        this.imdbVotes = imdbVotes;
-    }
-
-    @JsonProperty("poster")
     public String getPoster() {
         return poster;
     }
 
-    @JsonProperty("poster")
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
-
-    @JsonProperty("imdbLink")
     public String getImdbLink() {
         return imdbLink;
-    }
-
-    @JsonProperty("imdbLink")
-    public void setImdbLink(String imdbLink) {
-        this.imdbLink = imdbLink;
     }
 
 }
