@@ -15,11 +15,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MoviesListActivity extends AppCompatActivity implements MoviesListPresenter.MoviesListView {
+public class MoviesListActivity extends AppCompatActivity implements MoviesPresenter.MoviesView {
     private NavigationDrawerDelegate navDrawerDelegate;
     private MyAdapter adapter;
 
-    @Inject MoviesListPresenter presenter;
+    @Inject MoviesPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +66,10 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesListP
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
-    @Override
     public void setMovies(List<MovieData> movieDataList) {
         adapter.setData(movieDataList);
     }
 
-    @Override
     public void showError() {
 
     }

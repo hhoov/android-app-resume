@@ -10,20 +10,20 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MoviesGridPresenter {
+public class MoviesPresenter {
     private String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/top_movies.json";
     private String jsonData;
 
-    final OkhttpSetUp ok;
-    private MoviesGridView view = NULL_VIEW;
-    private final static MoviesGridView NULL_VIEW = NullObject.create(MoviesGridView.class);
+    final OkhttpHelper ok;
+    private MoviesView view = NULL_VIEW;
+    private final static MoviesView NULL_VIEW = NullObject.create(MoviesView.class);
 
     @Inject
-    MoviesGridPresenter(OkhttpSetUp ok) {
+    MoviesPresenter(OkhttpHelper ok) {
         this.ok = ok;
     }
 
-    public void attach(MoviesGridView view) {
+    public void attach(MoviesView view) {
         this.view = view;
     }
 
@@ -37,7 +37,7 @@ public class MoviesGridPresenter {
             @Override
             public void run() {
                 try {
-                    jsonData = ok.okhttpHelper(url);
+                    jsonData = ok.createRequest(url);
                     final List<MovieData> movieData = MovieDataProvider.getInstance(jsonData).getMovieData();
                     handler.post(new Runnable() {
                         @Override
@@ -58,7 +58,7 @@ public class MoviesGridPresenter {
         thread.start();
     }
 
-    interface MoviesGridView {
+    interface MoviesView {
         void setMovies(List<MovieData> movieDataList);
         void showError();
     }
