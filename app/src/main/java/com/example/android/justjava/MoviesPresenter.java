@@ -15,7 +15,7 @@ public class MoviesPresenter {
     private String jsonData;
 
     final OkhttpHelper ok;
-    private MoviesView view = NULL_VIEW;
+    MoviesView view = NULL_VIEW;
     private final static MoviesView NULL_VIEW = NullObject.create(MoviesView.class);
 
     @Inject
