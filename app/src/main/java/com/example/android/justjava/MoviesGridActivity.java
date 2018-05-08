@@ -72,6 +72,6 @@ public class MoviesGridActivity extends AppCompatActivity implements MoviesPrese
     }
 
     public void showError() {
-
+        // TODO
     }
 }

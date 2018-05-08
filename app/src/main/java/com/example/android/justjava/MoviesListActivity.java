@@ -71,6 +71,6 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesPrese
     }
 
     public void showError() {
-
+        // TODO
     }
 }
