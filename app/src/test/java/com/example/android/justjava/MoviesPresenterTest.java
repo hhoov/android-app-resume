@@ -1,14 +1,16 @@
 package com.example.android.justjava;
 
+import com.example.android.justjava.data.MovieDataProvider;
 import com.example.android.justjava.model.MovieData;
 
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mock;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -18,47 +20,56 @@ import static org.mockito.Mockito.mock;
 
 public class MoviesPresenterTest {
 
-    @Mock
-    private MoviesPresenter presenter;
+    private OkHttpClient okClient = new OkHttpClient();
     private OkhttpHelper ok;
-    @Mock private MoviesPresenter.MoviesView mockView = null;
-    private ArrayList<MovieData> mockMoviesList;
-    private String mockJson;
 
     @Ignore
     @Before
-    public void setup() throws Exception {
-        mockView = mock(MoviesPresenter.MoviesView.class);
+    public void setup() {
+        //mockView = mock(MoviesPresenter.MoviesView.class);
         //mockMoviesList = mock(MovieDataProvider.getInstance(mockJson).getMovieData());
     }
 
     @Test
     public void shouldAttachTest() {
         MoviesPresenter presenter = new MoviesPresenter(ok);
-        assertNull(mockView);
+        assertNull(presenter.view);
 
-        presenter.attach(mockView);
-        assertNotNull(mockView);
+        presenter.attach(mock(MoviesPresenter.MoviesView.class));
+        assertNotNull(presenter.view);
     }
 
     @Test
     public void shouldDetachTest() {
         MoviesPresenter presenter = new MoviesPresenter(ok);
-        assertNotNull(mockView);
+        presenter.attach(mock(MoviesPresenter.MoviesView.class));
+        assertNotNull(presenter.view);
 
         presenter.detach();
-        assertNull(mockView);
+        assertNull(presenter.view);
 
     }
 
-    @Ignore
     @Test
     public void shouldSetMoviesTest() {
-        List<MovieData> expectedMoviesListSize = new ArrayList<>(100);
+        ok = new OkhttpHelper(okClient);
+        String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/top_movies.json";
+        String jsonData = ok.createRequest(url);
+        MoviesPresenter presenter = new MoviesPresenter(ok);
+
+        int expectedMoviesListSize = 100;
         List<MovieData> testOutput = null;
-        presenter.view.setMovies(mockMoviesList);
+
+        try {
+            testOutput = MovieDataProvider.getInstance(jsonData).getMovieData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         assertFalse(testOutput.isEmpty());
-        assertEquals(expectedMoviesListSize, testOutput);
+        presenter.attach(mock(MoviesPresenter.MoviesView.class));
+        presenter.view.setMovies(testOutput);
+        assertEquals(expectedMoviesListSize, testOutput.size());
     }
     @Ignore
     @Test
