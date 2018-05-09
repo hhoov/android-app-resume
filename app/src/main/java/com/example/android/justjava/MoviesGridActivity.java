@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.example.android.justjava.model.MovieData;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
