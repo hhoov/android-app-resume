@@ -8,9 +8,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.android.justjava.model.MovieData;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -73,5 +75,6 @@ public class MoviesGridActivity extends AppCompatActivity implements MoviesPrese
 
     public void showError() {
         // TODO
+        Toast.makeText(getApplicationContext(), "Oops! Failed to retrieve movie data.", Toast.LENGTH_SHORT).show();
     }
 }
