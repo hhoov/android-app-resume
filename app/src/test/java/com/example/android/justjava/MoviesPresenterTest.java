@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowToast;
@@ -21,35 +23,33 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.mock;
 
 @RunWith(RobolectricTestRunner.class) // Supposed to help with testing for appearance of a Toast
 @Config(constants = BuildConfig.class) // Part of testing for Toasts as well
 public class MoviesPresenterTest {
 
-    private OkHttpClient okClient = new OkHttpClient();
-    private OkhttpHelper ok;
+    @Mock(name = "Movies View") private MoviesPresenter.MoviesView moviesView;
 
-    @Ignore
+    private OkHttpClient okClient = new OkHttpClient();
+    private OkhttpHelper ok = new OkhttpHelper(okClient);
+    private MoviesPresenter presenter = new MoviesPresenter(ok);
+
     @Before
-    public void setup() {
-        //mockView = mock(MoviesPresenter.MoviesView.class);
-        //mockMoviesList = mock(MovieDataProvider.getInstance(mockJson).getMovieData());
+    public void init() {
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void shouldAttachTest() {
-        MoviesPresenter presenter = new MoviesPresenter(ok);
         assertNull(presenter.view);
 
-        presenter.attach(mock(MoviesPresenter.MoviesView.class));
+        presenter.attach(moviesView);
         assertNotNull(presenter.view);
     }
 
     @Test
     public void shouldDetachTest() {
-        MoviesPresenter presenter = new MoviesPresenter(ok);
-        presenter.attach(mock(MoviesPresenter.MoviesView.class));
+        presenter.attach(moviesView);
         assertNotNull(presenter.view);
 
         presenter.detach();
@@ -64,7 +64,6 @@ public class MoviesPresenterTest {
         ok = new OkhttpHelper(okClient);
         String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/top_movies.json";
         String jsonData = ok.createRequest(url);
-        MoviesPresenter presenter = new MoviesPresenter(ok);
 
         int expectedMoviesListSize = 100;
         List<MovieData> testOutput = null;
@@ -76,10 +75,11 @@ public class MoviesPresenterTest {
         }
 
         assertFalse(testOutput.isEmpty());
-        presenter.attach(mock(MoviesPresenter.MoviesView.class));
+        presenter.attach(moviesView);
         presenter.view.setMovies(testOutput);
         assertEquals(expectedMoviesListSize, testOutput.size());
     }
+
     @Ignore
     @Test
     public void shouldSetMoviesInThreadTest() {
@@ -98,8 +98,7 @@ public class MoviesPresenterTest {
         // I thought of adding a Toast to fail gracefully/let the user know what happened. I'm still
         //      researching how to test that a Toast is shown but wanted to get feedback before spending too
         //      much time on that if not needed.
-        MoviesPresenter presenter = new MoviesPresenter(ok);
-        presenter.attach(mock(MoviesPresenter.MoviesView.class));
+        presenter.attach(moviesView);
         presenter.view.showError();
         assertTrue(ShadowToast.getTextOfLatestToast().equals("Oops! Failed to retrieve movie data."));
         assertTrue(ShadowToast.showedToast("Oops! Failed to retrieve movie data."));
