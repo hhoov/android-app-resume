@@ -94,10 +94,10 @@ public class MoviesPresenterTest {
     @Test
     public void shouldShowErrorTest() {
         // TODO
-        // Not sure how to test this, as the Exception in present() is already thrown/not thrown
-        // so I thought of adding a Toast to fail gracefully/let the user know what happened. I'm still
-        // researching how to test that a Toast is shown but wanted to get feedback before spending too
-        // much time on that if not needed.
+        // Not sure how to test this, as the Exception in present() is already handled within the scope (?)
+        // I thought of adding a Toast to fail gracefully/let the user know what happened. I'm still
+        //      researching how to test that a Toast is shown but wanted to get feedback before spending too
+        //      much time on that if not needed.
         MoviesPresenter presenter = new MoviesPresenter(ok);
         presenter.attach(mock(MoviesPresenter.MoviesView.class));
         presenter.view.showError();
