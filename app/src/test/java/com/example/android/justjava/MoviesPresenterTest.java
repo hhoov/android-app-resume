@@ -30,6 +30,7 @@ public class MoviesPresenterTest {
 
     @Mock(name = "Movies View") private MoviesPresenter.MoviesView moviesView;
 
+    // Could I use @Inject here for okhttp?
     private OkHttpClient okClient = new OkHttpClient();
     private OkhttpHelper ok = new OkhttpHelper(okClient);
     private MoviesPresenter presenter = new MoviesPresenter(ok);
@@ -59,9 +60,8 @@ public class MoviesPresenterTest {
 
     @Test
     public void shouldSetMoviesTest() {
-        // I'm using mock() here, but I still need to look into using more mock data as well as
-        //      avoiding hardcoded code here... Should also find a way to test Okhttp perhaps.
-        ok = new OkhttpHelper(okClient);
+        // I'd like to understand more how Mockito can help with this hardcoded data here...
+        // Should also find a way to test Okhttp perhaps.
         String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/top_movies.json";
         String jsonData = ok.createRequest(url);
 
