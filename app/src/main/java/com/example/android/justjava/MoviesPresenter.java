@@ -37,7 +37,7 @@ public class MoviesPresenter {
             @Override
             public void run() {
                 try {
-                    jsonData = ok.createRequest(url);
+                    jsonData = ok.makeRequest(url);
                     final List<MovieData> movieData = MovieDataProvider.getInstance(jsonData).getMovieData();
                     handler.post(new Runnable() {
                         @Override
