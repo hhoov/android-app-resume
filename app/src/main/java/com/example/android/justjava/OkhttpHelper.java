@@ -19,7 +19,7 @@ class OkhttpHelper {
         this.okHttpClient = okHttpClient;
     }
 
-    public String createRequest(String url) {
+    public String makeRequest(String url) {
         String jsonData = "";
         try {
             Request request = new Request.Builder()
