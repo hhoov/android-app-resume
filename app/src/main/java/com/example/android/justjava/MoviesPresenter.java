@@ -19,17 +19,11 @@ public class MoviesPresenter {
     private final static MoviesView NULL_VIEW = NullObject.create(MoviesView.class);
 
     @Inject
-    MoviesPresenter(OkhttpHelper ok) {
-        this.ok = ok;
-    }
+    MoviesPresenter(OkhttpHelper ok) { this.ok = ok; }
 
-    public void attach(MoviesView view) {
-        this.view = view;
-    }
+    public void attach(MoviesView view) { this.view = view; }
 
-    public void detach() {
-        this.view = null;
-    }
+    public void detach() { this.view = null; }
 
     public void present() {
         final Handler handler = new Handler();
