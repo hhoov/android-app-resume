@@ -1,6 +1,5 @@
 package com.example.android.justjava;
 
-import com.example.android.justjava.data.MovieDataProvider;
 import com.example.android.justjava.model.MovieData;
 
 import org.junit.Before;
@@ -12,7 +11,6 @@ import org.mockito.exceptions.base.MockitoException;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Observable;
 
 import okhttp3.OkHttpClient;
 
@@ -20,11 +18,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.mockito.BDDMockito.then;
-import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class MoviesPresenterTest {
 
@@ -62,7 +57,8 @@ public class MoviesPresenterTest {
     @Ignore
     @Test(expected = MockitoException.class)
     public void shouldPresent() {
-
+        presenter.present();
+        verify(moviesView).setMovies(movieData);
 
     }
 
