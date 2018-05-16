@@ -14,8 +14,9 @@ public class JSONParser {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        // Read from file
+        // Config deserialization
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        // readValue deserializes JSON content from given JSON content String into Java object (using generics)
         return mapper.readValue(response, new TypeReference<List<MovieData>>(){});
     }
 }
