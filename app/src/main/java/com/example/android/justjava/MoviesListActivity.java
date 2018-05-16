@@ -20,7 +20,8 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesPrese
     private NavigationDrawerDelegate navDrawerDelegate;
     private MyAdapter adapter;
 
-    @Inject MoviesPresenter presenter;
+    @Inject
+    MoviesPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
