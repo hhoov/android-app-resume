@@ -11,15 +11,11 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class MoviesPresenter {
-    private String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/top_movies.json";
-    private String jsonData;
-
-    final OkhttpHelper ok;
     MoviesView view = null;
     private final static MoviesView NULL_VIEW = NullObject.create(MoviesView.class);
 
     @Inject
-    MoviesPresenter(OkhttpHelper ok) { this.ok = ok; }
+    MoviesPresenter() { }
 
     public void attach(MoviesView view) { this.view = view; }
 
@@ -31,8 +27,7 @@ public class MoviesPresenter {
             @Override
             public void run() {
                 try {
-                    jsonData = ok.makeRequest(url);
-                    final List<MovieData> movieData = MovieDataProvider.getInstance(jsonData).getMovieData();
+                    final List<MovieData> movieData = MovieDataProvider.getInstance().getMovieData();
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
