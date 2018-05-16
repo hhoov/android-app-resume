@@ -11,7 +11,7 @@ public class MyApplication extends Application {
                 .build();
     }
 
-    static ApplicationComponent getApplicationComponent() {
+    public static ApplicationComponent getApplicationComponent() {
         return applicationComponent;
     }
 }
