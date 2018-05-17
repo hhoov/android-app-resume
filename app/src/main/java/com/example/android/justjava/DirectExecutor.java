@@ -2,9 +2,11 @@ package com.example.android.justjava;
 
 import android.support.annotation.NonNull;
 
-import java.util.concurrent.Executor;
+public class DirectExecutor extends UIExecutor {
 
-public class DirectExecutor implements Executor {
+    DirectExecutor() {
+        super(null);
+    }
 
     @Override
     public void execute(@NonNull Runnable command) {
