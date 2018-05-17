@@ -40,9 +40,9 @@ public class MoviesPresenterTest {
     }
 
     @Test
-    public void shouldGetMovies() throws IOException {
+    public void shouldSetMoviesTest() throws IOException {
         ArrayList<MovieData> movieData = new ArrayList<>();
-        movieData.add(new MovieData(12,"eh", 2, "89", 45, 34, "fes",""));
+        movieData.add(new MovieData(12,"title", 2, "imdbid3432", 45, 34, "poster url","imdb link"));
 
         when(mockMovieDataProvider.getMovieData()).thenReturn(movieData);
         presenter.present();
@@ -55,7 +55,6 @@ public class MoviesPresenterTest {
         doThrow(new IOException()).when(mockMoviesView).setMovies(new ArrayList<MovieData>());
         verify(mockMoviesView, never()).setMovies(anyListOf(MovieData.class));
         verify(mockMoviesView).showError();
-
     }
 
 }
