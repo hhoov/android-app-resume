@@ -1,8 +1,6 @@
 package com.example.android.justjava.data;
 
-import com.example.android.justjava.ApplicationComponent;
 import com.example.android.justjava.JSONParser;
-import com.example.android.justjava.MyApplication;
 import com.example.android.justjava.model.MovieData;
 
 import java.io.IOException;
@@ -15,28 +13,17 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+@Singleton
 public class MovieDataProvider {
-    private static MovieDataProvider singletonInstance;
     private String jsonData;
     private String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/top_movies.json";
     private JSONParser parser = new JSONParser();
 
-    @Singleton
-    @Inject
-    OkHttpClient okHttpClient;
+    private final OkHttpClient okHttpClient;
 
     // Private constructor prevents any other class from instantiating.
-    private MovieDataProvider() {
-        MyApplication.getApplicationComponent().inject(this);
-    }
-
-    // Static instance method
-    // If no singleton instance, creates new singleton instance with attrib response string
-    public static MovieDataProvider getInstance() {
-        if (singletonInstance == null) {
-            singletonInstance = new MovieDataProvider();
-        }
-        return singletonInstance;
+    @Inject MovieDataProvider(OkHttpClient okHttpClient) {
+        this.okHttpClient = okHttpClient;
     }
 
     // Call readJsonStream with response string arg on JSONParser object
