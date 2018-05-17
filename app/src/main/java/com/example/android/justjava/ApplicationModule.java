@@ -1,5 +1,11 @@
 package com.example.android.justjava;
 
+import android.os.Handler;
+import android.os.Looper;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -16,4 +22,13 @@ public class ApplicationModule {
     OkHttpClient provideOkhttpClient() {
         return new OkHttpClient();
     }
+
+    @Provides
+    @Singleton
+    UIExecutor provideUIExecutor() { return new UIExecutor(new Handler(Looper.getMainLooper()));}
+
+    @Provides
+    @Singleton
+    Executor provideBackgroundExecutor() { return Executors.newFixedThreadPool(10);}
+
 }
