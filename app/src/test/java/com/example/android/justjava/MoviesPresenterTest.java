@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.exceptions.base.MockitoException;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
@@ -40,7 +39,7 @@ public class MoviesPresenterTest {
     }
 
     @Test
-    public void shouldSetMoviesTest() throws IOException {
+    public void setsMoviesWhenPresentCalledTest() throws IOException {
         ArrayList<MovieData> movieData = new ArrayList<>();
         movieData.add(new MovieData(12,"title", 2, "imdbid3432", 45, 34, "poster url","imdb link"));
 
@@ -50,9 +49,10 @@ public class MoviesPresenterTest {
         verify(mockMoviesView).setMovies(movieData);
     }
 
-    @Test(expected = MockitoException.class)
-    public void shouldShowErrorTest() {
-        doThrow(new IOException()).when(mockMoviesView).setMovies(new ArrayList<MovieData>());
+    @Test
+    public void showsErrorWhenPresentCalledTest() throws IOException {
+        doThrow(new IOException()).when(mockMovieDataProvider).getMovieData();
+        presenter.present();
         verify(mockMoviesView, never()).setMovies(anyListOf(MovieData.class));
         verify(mockMoviesView).showError();
     }
