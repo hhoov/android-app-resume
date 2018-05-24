@@ -1,4 +1,4 @@
-package com.example.android.justjava.data;
+package com.example.android.justjava.provider;
 
 import com.example.android.justjava.JSONParser;
 import com.example.android.justjava.model.MovieData;

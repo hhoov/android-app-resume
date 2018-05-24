@@ -74,6 +74,6 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesPrese
 
     public void showError() {
         // TODO
-        Toast.makeText(getApplicationContext(), "Oops! Failed to retrieve movie data.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Oops! Failed to retrieve movie provider.", Toast.LENGTH_SHORT).show();
     }
 }

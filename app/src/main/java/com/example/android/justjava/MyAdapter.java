@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // MyAdapter receives the collection (array, list, set, etc.) of MovieData items. The adapter
-// should just be responsible for adapting that data to the views in the RecyclerView
+// should just be responsible for adapting that provider to the views in the RecyclerView
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<MovieData> movieData = new ArrayList<>();
 
@@ -25,11 +25,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public int getItemCount() { return movieData.size(); }
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+    // Provide a reference to the views for each provider item
+    // Complex provider items may need more than one view per item, and
+    // you provide access to all the views for a provider item in a view holder
     static class ViewHolder extends RecyclerView.ViewHolder {
-        // Each data item is just a string in this case
+        // Each provider item is just a string in this case
         ImageView mImageView;
         TextView mRankTextView;
         TextView mTitleTextView;

@@ -1,7 +1,7 @@
 package com.example.android.justjava;
 
-import com.example.android.justjava.data.MovieDataProvider;
 import com.example.android.justjava.model.MovieData;
+import com.example.android.justjava.provider.MovieDataProvider;
 
 import org.junit.Before;
 import org.junit.Test;

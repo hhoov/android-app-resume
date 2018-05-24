@@ -1,6 +1,6 @@
 package com.example.android.justjava;
 
-import com.example.android.justjava.data.MovieDataProvider;
+import com.example.android.justjava.provider.MovieDataProvider;
 
 import javax.inject.Singleton;
 
