@@ -1,13 +1,12 @@
 package com.example.android.justjava;
 
-import com.example.android.justjava.model.MovieData;
-
 import java.util.Observable;
+import java.util.Observer;
 
 /**
- * An observer of progressView changes.
+ * An observer of progressView changes. Presenter for movie item views.
  */
-public class ProgressPresenter implements MyObserver {
+public class ItemViewsPresenter implements Observer {
 
     //public ProgressView view = NULL_VIEW;
     //private final static ProgressView NULL_VIEW = NullObject.create(ProgressView.class);
@@ -16,28 +15,15 @@ public class ProgressPresenter implements MyObserver {
     // A reference to our associated observable model
     private ProgressProvider observableValue;
 
-    ProgressPresenter(ProgressProvider observableVal) {
+    ItemViewsPresenter(ProgressProvider observableVal) {
         this.observableValue = observableVal;
         progressView = 0;
-        System.out.println("ProgressPresenter observer created: " + progressView);
+        System.out.println("ItemViewsPresenter observer created: " + progressView);
     }
 
     /*public void attach(ProgressView view) { this.view = view; }
 
     public void detach() { this.view = NULL_VIEW; }*/
-
-    //@Override
-    public void downloadProgressChanged(Observable observable, Object arg) {
-
-        if (observable == observableValue) System.out.println(String.valueOf(observableValue.getProgress()));
-
-    }
-
-    @Override
-    public void downloadProgressChanged(MyObservable currentProgress, MovieData movieIdentifier) {
-        //if (observable == observableValue) System.out.println(String.valueOf(observableValue.getProgress()));
-
-    }
 
     public void update(Observable obj, Object arg) {
         if (arg instanceof String) {
