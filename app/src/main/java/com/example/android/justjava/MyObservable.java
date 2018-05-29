@@ -4,6 +4,10 @@ import com.example.android.justjava.model.MovieData;
 
 import java.util.ArrayList;
 
+// Provides methods to add/delete observers
+// Provides methods to notify all observers
+// A subclass only needs to ensure that its observers are notified in the appropriate mutators
+// Uses a Vector for storing the observer references
 
 /**
  * This class represents an observable object, or "data"
@@ -40,12 +44,13 @@ import java.util.ArrayList;
  * @see     java.util.Observer#update(java.util.Observable, java.lang.Object)
  * @since   JDK1.0
  */
-class ObservableProgress {
+class MyObservable {
     private MovieData movieIdentifier;
     private boolean changed = false;
-    private ArrayList<ObservableProgress> observersList;
+    private ArrayList<MyObservable> observersList;
 
-    public ObservableProgress() {
+    // Constructs an Observable with zero Observers
+    public MyObservable() {
         observersList = new ArrayList<>();
     }
 
@@ -58,11 +63,13 @@ class ObservableProgress {
      * @param   observer   an observer to be added.
      * @throws NullPointerException   if the parameter o is null.
      */
-    public synchronized void addObserver(ObserverProgress observer) {
+
+    // Adds an observer to the set of observers of this object
+    public synchronized void addObserver(MyObserver observer) {
         if (observer == null)
             throw new NullPointerException();
         if (!observersList.contains(observer)) {
-            observersList.add((ObservableProgress) observer);
+            observersList.add((MyObservable) observer);
         }
     }
 
@@ -71,7 +78,8 @@ class ObservableProgress {
      * Passing <CODE>null</CODE> to this method will have no effect.
      * @param   observer   the observer to be deleted.
      */
-    public synchronized void deleteObserver(ObserverProgress observer) {
+    // Deletes an observer from the set of observers of this object
+    public synchronized void deleteObserver(MyObserver observer) {
         observersList.remove(observer);
     }
 
@@ -86,6 +94,9 @@ class ObservableProgress {
      * words, this method is equivalent to:
      * <blockquote><tt>
      * notifyObservers(null)</tt></blockquote>
+     * <p>
+     * That is, the observer is given no indicated what attribute of the observable object
+     * has changed.
      *
      * @see     java.util.Observable#clearChanged()
      * @see     java.util.Observable#hasChanged()
@@ -103,12 +114,16 @@ class ObservableProgress {
      * <p>
      * Each observer has its <code>update</code> method called with two
      * arguments: this observable object and the <code>arg</code> argument.
+     * <p>
+     *The arg argument can be used to indicate which attribute of the observable
+     * object has changed.
      *
      * @param   arg   any object.
      * @see     java.util.Observable#clearChanged()
      * @see     java.util.Observable#hasChanged()
      * @see     java.util.Observer#update(java.util.Observable, java.lang.Object)
      */
+
     public void notifyObservers(Object arg) {
         /*
          * a temporary array buffer, used as a snapshot of the state of
@@ -140,7 +155,7 @@ class ObservableProgress {
         }
 
         for (int i = arrLocal.length-1; i>=0; i--)
-            ((ObserverProgress)arrLocal[i]).downloadProgressChanged(this, movieIdentifier);
+            ((MyObserver)arrLocal[i]).downloadProgressChanged(this, movieIdentifier);
     }
 
     /**
@@ -153,6 +168,7 @@ class ObservableProgress {
     }
 
     /** Marks Observable object as changed, so hasChanged() will return true */
+    // Indicates that this object has changed
     protected synchronized void setChanged() {
         changed = true;
     }
@@ -164,6 +180,9 @@ class ObservableProgress {
      * This method is called automatically by the
      * <code>notifyObservers</code> methods.
      */
+    // Indicates that this object has no longer changed, or that it has already
+    // notified all of its observers of its most recent change. This method is called
+    // automatically by notifyObservers().
     private synchronized void clearChanged() {
         changed = false;
     }
