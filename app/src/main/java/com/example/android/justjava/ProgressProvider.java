@@ -1,29 +1,59 @@
 package com.example.android.justjava;
 
-import java.util.Observable;
+import android.os.Handler;
+
+import java.util.ArrayList;
 
 /**
- * A subject to observe.
+ * A subject to observe. Model.
  */
-public class ProgressProvider extends Observable {
+public class ProgressProvider extends MyObservable {
 
-    // The model
-    private int progress;
+    private int downloadProgress = 0;
+    private String movieID;
 
-    ProgressProvider(int progress) {
-        this.progress = progress;
-        System.out.println("ProgressProvider subject created: " + progress);
+    private ArrayList<MyObserver> observersList;
+    private Handler handler = new Handler();
+
+    ProgressProvider() {
+        setMovieID("tt0108052");
+        observersList = new ArrayList<>();
     }
 
-    public void setProgress(int progress) {
-        this.progress = progress;
+    public int getDownloadProgress() { return downloadProgress; }
+
+    private void setDownloadProgress(int progress) {
+        this.downloadProgress = progress;
         setChanged();
-        notifyObservers(progress);
+        notifyObservers(downloadProgress);
     }
 
-    public int getProgress() {
-        return progress;
-    }
+    public String getMovieID() { return movieID; }
 
+    private void setMovieID(String id) { this.movieID = id; }
+
+    public void runFakeDownloadLoop() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (downloadProgress <= 100) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            setDownloadProgress(downloadProgress);
+                            //txtProgress.setText(String.format(String.valueOf(downloadProgress), "%d %%"));
+
+                        }
+                    });
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    downloadProgress++;
+                }
+            }
+        }).start();
+    }
 
 }
