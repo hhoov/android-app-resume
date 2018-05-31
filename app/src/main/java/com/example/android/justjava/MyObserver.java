@@ -7,5 +7,5 @@ public interface MyObserver {
      * //@param currentProgress   the observable object.
      * //@param movieIdentifier   the identifier for which movie's progress is being updated.
      */
-    void onDownloadProgressUpdated();
+    void onProgressUpdated(MyObservable myObservable, int progress);
 }

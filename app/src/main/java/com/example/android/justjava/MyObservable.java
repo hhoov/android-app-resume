@@ -102,20 +102,12 @@ class MyObservable {
 
 
         for (MyObserver observer : observersLocal) {
-            observer.onDownloadProgressUpdated();
+            // todo:
+            // I don't like that I'm casting Integer here. What could I change to generalize this?
+            // see Type classes, maybe.
+            observer.onProgressUpdated(this, (Integer) arg);
         }
     }
-
-
-
-
-
-
-    /*public MovieData getUpdate(MyObserver obj) {
-        return this.movieIdentifier;
-    }*/
-
-
 
 
 
