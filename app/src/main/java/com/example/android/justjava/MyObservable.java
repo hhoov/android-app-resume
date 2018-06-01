@@ -49,25 +49,6 @@ class MyObservable {
     /**
      * If this object has changed, as indicated by the
      * <code>hasChanged</code> method, then notify all of its observers
-     * and then call the <code>clearChanged</code> method to
-     * indicate that this object has no longer changed.
-     * <p>
-     * Each observer has its <code>update</code> method called with two
-     * arguments: this observable object and <code>null</code>. In other
-     * words, this method is equivalent to:
-     * <blockquote><tt>
-     * notifyObservers(null)</tt></blockquote>
-     * <p>
-     * That is, the observer is given no indicated what attribute of the observable object
-     * has changed.
-     */
-    private void notifyObservers() {
-        notifyObservers();
-    }
-
-    /**
-     * If this object has changed, as indicated by the
-     * <code>hasChanged</code> method, then notify all of its observers
      * and then call the <code>clearChanged</code> method to indicate
      * that this object has no longer changed.
      * <p>
@@ -97,29 +78,13 @@ class MyObservable {
             if (!hasChanged())
                 return;
             observersLocal = new ArrayList<>(this.observersList);
-            this.changed = false;
+            clearChanged();
         }
 
 
         for (MyObserver observer : observersLocal) {
-            // todo:
-            // I don't like that I'm casting Integer here. What could I change to generalize this?
-            // see Type classes, maybe.
-            observer.onProgressUpdated(this, (Integer) arg);
+            observer.onProgressUpdated(this, arg);
         }
-    }
-
-
-
-
-
-    /**
-     * Clears the observer list so that this object no longer has any observers.
-     * TODO: .clear() clears an instance of the class. .removeAll() removes all the given
-     *      objects and returns the state of the operation (is slower than clear(). O(n**2) vs O(n)
-     */
-    public synchronized void deleteObservers() {
-        observersList.clear();
     }
 
     /** Marks Observable object as changed, so hasChanged() will return true */
@@ -150,6 +115,22 @@ class MyObservable {
      */
     private synchronized boolean hasChanged() {
         return changed;
+    }
+
+
+
+
+
+
+
+
+    /**
+     * Clears the observer list so that this object no longer has any observers.
+     * TODO: .clear() clears an instance of the class. .removeAll() removes all the given
+     *      objects and returns the state of the operation (is slower than clear(). O(n**2) vs O(n)
+     */
+    public synchronized void deleteObservers() {
+        observersList.clear();
     }
 
     /** Returns the number of observers of the Observable object */

@@ -4,8 +4,11 @@ package com.example.android.justjava;
  * An observer/listener of changes. Presenter for item Views & download progress.
  */
 public class ItemViewsPresenter implements MyObserver {
+
+    private ItemViewsPresenter.ProgressView progressView = NULL_VIEW;
+    private final static ItemViewsPresenter.ProgressView NULL_VIEW = NullObject.create(ItemViewsPresenter.ProgressView.class);
+
     private ProgressProvider progressProvider; // perhaps this is needed if I implement .getInstance() singleton?
-    private ProgressView progressView;
     // A reference to our associated observable model
     private MyObservable subjectProgress;
 
@@ -14,8 +17,9 @@ public class ItemViewsPresenter implements MyObserver {
         this.subjectProgress.registerObserver(this);
     }
 
-    //public void attach(ProgressView view) { this.view = view; }
-    //public void detach() { this.view = NULL_VIEW; }
+    public void attach(ProgressView progressView) { this.progressView = progressView; }
+
+    public void detach() { this.progressView = NULL_VIEW; }
 
     /**
      * Called when observed object is changed. Observable object's observers are notified of the change
@@ -23,23 +27,24 @@ public class ItemViewsPresenter implements MyObserver {
      * //@param observableCurrentProgress the observable object
      * //@param arg should be the identifier for which movie's progress is being updated...?
      */
-    public void onProgressUpdated(MyObservable myObservable, int progress) {
+    public void onProgressUpdated(MyObservable myObservable, Object progress) {
         // Checks if the specified observable object is an instance of ProgressProvider
+        // If subscribed, calls showProgressStatus() on view.
         if (myObservable instanceof ProgressProvider) {
             ProgressProvider progressProvider = (ProgressProvider) myObservable;
             progress = progressProvider.getDownloadProgress();
+            progressView.setProgress((int)progress);
+            progressView.showProgressStatus((int) progress);
             // return progress to present() ? to update view with new progress ?
             // presenter called here to check if view includes the object that's been changed
             // or have a check in present() that sees if the progress variable has
             // changed/if this method has been called?
-
         }
-
-        /*
-          ?
-          if changed and subscribed, call showProgressStatus to update the view
-          if no longer subscribed, hideProgressStatus to update the view
-        */
+            // Don't need else statement here because
+            // notify and update will not be called on an object that is not subscribed, because it goes through the updated
+            // list every time. thus, hideProgressStatus really should go wherever the check is for whether the observable
+            // is in the view/is subscribed to by the observer (the view is the observer).
+            //progressView.hideProgressStatus();
     }
 
     // Item views presenter
@@ -56,10 +61,12 @@ public class ItemViewsPresenter implements MyObserver {
         //
     }
 
+
+
     interface ProgressView {
         // onRecycled()/handling of what's currently in view/what's recycled/what's destroyed here?
         // boolean returnPoll();
-        // setProgressOfCurrentView()
+        void setProgress(int progress); // need to pass list of current observers too...?
         void showProgressStatus(int progress);
         void hideProgressStatus();
     }
