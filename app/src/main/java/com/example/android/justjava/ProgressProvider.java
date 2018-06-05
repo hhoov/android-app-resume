@@ -2,22 +2,20 @@ package com.example.android.justjava;
 
 import android.os.Handler;
 
-import java.util.ArrayList;
-
 /**
  * A subject to observe. Model.
  */
 public class ProgressProvider extends MyObservable {
 
     private int downloadProgress = 0;
+    private String fixedMovieID = "tt0108052";
     private String movieID;
 
-    private ArrayList<MyObserver> observersList;
     private Handler handler = new Handler();
 
-    ProgressProvider() {
+    ProgressProvider(int downloadProgress) {
         setMovieID("tt0108052");
-        observersList = new ArrayList<>();
+        this.downloadProgress = downloadProgress;
     }
 
     public int getDownloadProgress() { return downloadProgress; }
@@ -36,21 +34,26 @@ public class ProgressProvider extends MyObservable {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (downloadProgress <= 100) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            setDownloadProgress(downloadProgress);
-                            //txtProgress.setText(String.format(String.valueOf(downloadProgress), "%d %%"));
 
+                if (fixedMovieID.contains(movieID)) {
+                    while (downloadProgress <= 100) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                setDownloadProgress(downloadProgress);
+                                //txtProgress.setText(String.format(String.valueOf(downloadProgress), "%d %%"));
+
+                            }
+                        });
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
-                    });
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        downloadProgress++;
                     }
-                    downloadProgress++;
+                } else {
+                    setDownloadProgress(0);
                 }
             }
         }).start();

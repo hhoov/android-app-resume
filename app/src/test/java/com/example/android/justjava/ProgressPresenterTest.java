@@ -8,17 +8,17 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ItemViewsPresenterTest {
-    @Mock(name = "Movies View") private ItemViewsPresenter.ProgressView mockProgressView;
+public class ProgressPresenterTest {
+    @Mock(name = "Movies View") private ProgressPresenter.ProgressView mockProgressView;
     @Mock(name = "Progress Provider") private ProgressProvider mockProgressProvider;
 
     @InjectMocks
-    private ItemViewsPresenter presenter;
+    private ProgressPresenter presenter;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        presenter = new ItemViewsPresenter(mockProgressProvider);
+        presenter = new ProgressPresenter(mockProgressProvider);
         //presenter.attach(mockProgressView);
     }
 

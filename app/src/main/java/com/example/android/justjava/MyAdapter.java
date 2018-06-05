@@ -19,6 +19,13 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<MovieData> movieData = new ArrayList<>();
 
+    // Create subject/observable
+    private ProgressProvider progressProvider = new ProgressProvider(0);
+    // Create observer -- will be instantiated in onBindVH()
+    private ProgressPresenter progressPresenter;
+
+
+
     MyAdapter() { }
 
     // Return the size of dataset (invoked by the layout manager)
@@ -60,6 +67,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         TextView getImdbRatingTextView() { return mImdbRatingTextView; }
         TextView getImdbVotesTextView() { return mImdbVotesTextView; }
         TextView getImdbLinkTextView() { return  mImdbLinkTextView; }
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -74,6 +82,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+
+        // Create presenter here and registerObserver here? Need to attach presenter to viewholder to
+        // be able to keep track of which presenter should be deregistered
+        progressPresenter = new ProgressPresenter(progressProvider);
+        progressProvider.registerObserver(progressPresenter);
+
+
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
         holder.getRankTextView().setText(String.valueOf(movieData.get(position).getRank()));
@@ -107,6 +122,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         movieData.clear();
         movieData = data;
         notifyDataSetChanged();
+    }
+
+    //@Override
+    public void onViewRecycled(ViewHolder holder, ProgressPresenter progressPresenter) {
+        super.onViewRecycled(holder);
+
     }
 
 }
