@@ -27,7 +27,6 @@ public class ProgressPresenter implements MyObserver {
     // register() will call onProgressUpdated() //update()
     public void present(String movieID) {
         while (progressProvider.countObservers() != 0) {
-            progressProvider.runFakeDownloadLoop();
             progress = progressProvider.getDownloadProgress();
             progressView.showProgressStatus(progress);
             // Needs to poll the view to see if movieID that is to be downloaded is in View
@@ -75,6 +74,7 @@ public class ProgressPresenter implements MyObserver {
     interface ProgressView {
         // onRecycled()/handling of what's currently in view/what's recycled/what's destroyed here?
         // boolean returnPoll();
+        void setItemView();
         void showProgressStatus(int progress);
         void hideProgressStatus();
     }

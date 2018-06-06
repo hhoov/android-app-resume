@@ -16,7 +16,7 @@ import java.util.List;
 
 // MyAdapter receives the collection (array, list, set, etc.) of MovieData items. The adapter
 // should just be responsible for adapting that provider to the views in the RecyclerView
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements ProgressPresenter.ProgressView{
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<MovieData> movieData = new ArrayList<>();
 
     // Create subject/observable
@@ -76,8 +76,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view
-        final TextView itemView = new TextView(viewGroup.getContext());
-        itemView.setTag(new ProgressPresenter(progressProvider));
+        /*final TextView itemView = new TextView(viewGroup.getContext());
+        itemView.setTag(new ProgressPresenter(progressProvider));*/
 
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.my_text_view, viewGroup, false);
         return new ViewHolder(v);
@@ -88,17 +88,33 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         // Attaching presenter to viewholder to keep track of which presenter should be de-registered
-        ((ProgressPresenter) holder.itemView.getTag()).present(movieData.get(position).getImdbId());
+        progressPresenter = new ProgressPresenter(progressProvider);
+        new ProgressPresenter.ProgressView() {
+            @Override
+            public void setItemView() {
+                holder.getRankTextView().setText(String.valueOf(movieData.get(position).getRank()));
+                holder.getTitleTextView().setText(movieData.get(position).getTitle());
+                holder.getYearTextView().setText(String.valueOf(movieData.get(position).getYear()));
+                holder.getImdbIdTextView().setText(movieData.get(position).getImdbId());
+                holder.getImdbRatingTextView().setText(String.valueOf(movieData.get(position).getImdbRating()));
+                holder.getImdbVotesTextView().setText(String.valueOf(movieData.get(position).getImdbVotes()));
+                holder.getImdbLinkTextView().setText(movieData.get(position).getImdbLink());
+                ((ProgressPresenter) holder.itemView.getTag()).present(movieData.get(position).getImdbId());
+            }
 
+            @Override
+            public void showProgressStatus(int progress) {
+
+            }
+
+            @Override
+            public void hideProgressStatus() {
+
+            }
+        };
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
-        holder.getRankTextView().setText(String.valueOf(movieData.get(position).getRank()));
-        holder.getTitleTextView().setText(movieData.get(position).getTitle());
-        holder.getYearTextView().setText(String.valueOf(movieData.get(position).getYear()));
-        holder.getImdbIdTextView().setText(movieData.get(position).getImdbId());
-        holder.getImdbRatingTextView().setText(String.valueOf(movieData.get(position).getImdbRating()));
-        holder.getImdbVotesTextView().setText(String.valueOf(movieData.get(position).getImdbVotes()));
-        holder.getImdbLinkTextView().setText(movieData.get(position).getImdbLink());
+
 
         // If URL is empty, provide error image
         if (movieData.get(position).getPoster().isEmpty()) {
@@ -125,27 +141,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
         notifyDataSetChanged();
     }
 
-    public boolean returnPoll() {
-        // if the holder's id matches provider's
-        //if == progressProvider.getMovieID()) { }
-        return true;
-    }
-
     @Override
-    public void showProgressStatus(int progress) {
-
-
-    }
-
-    @Override
-    public void hideProgressStatus() {
-
-    }
-
-    //@Override
-    public void onViewRecycled(ViewHolder holder, ProgressPresenter progressPresenter) {
+    public void onViewRecycled(@NonNull final ViewHolder holder) {
         super.onViewRecycled(holder);
-
+        //detach view from presenter when view is recycled
+        progressPresenter.detach();
     }
 
 }
