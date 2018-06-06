@@ -16,7 +16,7 @@ import java.util.List;
 
 // MyAdapter receives the collection (array, list, set, etc.) of MovieData items. The adapter
 // should just be responsible for adapting that provider to the views in the RecyclerView
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements ProgressPresenter.ProgressView{
     private List<MovieData> movieData = new ArrayList<>();
 
     // Create subject/observable
@@ -31,6 +31,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Return the size of dataset (invoked by the layout manager)
     @Override
     public int getItemCount() { return movieData.size(); }
+
 
     // Provide a reference to the views for each provider item
     // Complex provider items may need more than one view per item, and
@@ -75,6 +76,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view
+        final TextView itemView = new TextView(viewGroup.getContext());
+        itemView.setTag(new ProgressPresenter(progressProvider));
+
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.my_text_view, viewGroup, false);
         return new ViewHolder(v);
     }
@@ -83,11 +87,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        // Create presenter here and registerObserver here? Need to attach presenter to viewholder to
-        // be able to keep track of which presenter should be deregistered
-        progressPresenter = new ProgressPresenter(progressProvider);
-        progressProvider.registerObserver(progressPresenter);
-
+        // Attaching presenter to viewholder to keep track of which presenter should be de-registered
+        ((ProgressPresenter) holder.itemView.getTag()).present(movieData.get(position).getImdbId());
 
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
@@ -122,6 +123,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         movieData.clear();
         movieData = data;
         notifyDataSetChanged();
+    }
+
+    public boolean returnPoll() {
+        // if the holder's id matches provider's
+        //if == progressProvider.getMovieID()) { }
+        return true;
+    }
+
+    @Override
+    public void showProgressStatus(int progress) {
+
+
+    }
+
+    @Override
+    public void hideProgressStatus() {
+
     }
 
     //@Override
