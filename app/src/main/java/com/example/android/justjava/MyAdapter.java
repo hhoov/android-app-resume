@@ -2,11 +2,13 @@ package com.example.android.justjava;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.justjava.model.MovieData;
 import com.squareup.picasso.Picasso;
@@ -23,7 +25,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private ProgressProvider progressProvider = new ProgressProvider(0);
     // Create observer -- will be instantiated in onBindVH()
     private ProgressPresenter progressPresenter;
-
+    private ProgressPresenter.ProgressView progressView;
 
 
     MyAdapter() { }
@@ -79,6 +81,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         /*final TextView itemView = new TextView(viewGroup.getContext());
         itemView.setTag(new ProgressPresenter(progressProvider));*/
 
+        progressProvider.runFakeDownloadLoop();
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.my_text_view, viewGroup, false);
         return new ViewHolder(v);
     }
@@ -88,10 +91,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         // Attaching presenter to viewholder to keep track of which presenter should be de-registered
+        progressProvider.runFakeDownloadLoop();
         progressPresenter = new ProgressPresenter(progressProvider);
-        new ProgressPresenter.ProgressView() {
+
+        progressView = new ProgressPresenter.ProgressView() {
             @Override
             public void setItemView() {
+                progressPresenter.attach(progressView);
                 holder.getRankTextView().setText(String.valueOf(movieData.get(position).getRank()));
                 holder.getTitleTextView().setText(movieData.get(position).getTitle());
                 holder.getYearTextView().setText(String.valueOf(movieData.get(position).getYear()));
@@ -99,19 +105,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 holder.getImdbRatingTextView().setText(String.valueOf(movieData.get(position).getImdbRating()));
                 holder.getImdbVotesTextView().setText(String.valueOf(movieData.get(position).getImdbVotes()));
                 holder.getImdbLinkTextView().setText(movieData.get(position).getImdbLink());
-                ((ProgressPresenter) holder.itemView.getTag()).present(movieData.get(position).getImdbId());
             }
 
             @Override
             public void showProgressStatus(int progress) {
-
+                Log.d("Chris hurp", "Title" + movieData.get(position).getTitle() + Integer.toString(progress));
             }
 
             @Override
             public void hideProgressStatus() {
-
+                onViewRecycled(holder);
             }
         };
+
+
+        progressView.setItemView();
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
 
@@ -135,17 +143,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
+    // Detach view from presenter when view is recycled
+    @Override
+    public void onViewRecycled(@NonNull final ViewHolder holder) {
+        super.onViewRecycled(holder);
+        progressPresenter.detach();
+    }
+
     public void setData(List<MovieData> data) {
         movieData.clear();
         movieData = data;
         notifyDataSetChanged();
-    }
-
-    @Override
-    public void onViewRecycled(@NonNull final ViewHolder holder) {
-        super.onViewRecycled(holder);
-        //detach view from presenter when view is recycled
-        progressPresenter.detach();
     }
 
 }

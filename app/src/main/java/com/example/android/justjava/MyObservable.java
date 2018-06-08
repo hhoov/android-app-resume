@@ -1,7 +1,5 @@
 package com.example.android.justjava;
 
-import com.example.android.justjava.model.MovieData;
-
 import java.util.ArrayList;
 
 /**
@@ -11,7 +9,6 @@ import java.util.ArrayList;
  * Uses a Vector for storing the observer references
  */
 class MyObservable {
-    private MovieData movieIdentifier;
     private boolean changed = false;
     private ArrayList<MyObserver> observersList;
 
@@ -42,8 +39,10 @@ class MyObservable {
      * @param   observer   the observer to be deleted.
      */
     // Deletes an observer from the set of observers of this object
-    public void unregisterObserver(MyObserver observer) {
-        observersList.remove(observer);
+    public void deregisterObserver(MyObserver observer) {
+        if (observer != null) {
+            observersList.remove(observer);
+        }
     }
 
     /**
@@ -61,12 +60,12 @@ class MyObservable {
      * @param   arg   any object.
      */
 
-    public void notifyObservers(Object arg) {
+    void notifyObservers(Object arg) {
         /*
          * a temporary array buffer, used as a snapshot of the state of
          * current Observers.
          */
-        ArrayList<MyObserver> observersLocal = null;
+        ArrayList<MyObserver> observersLocal;
 
         // Synchronization is used to make sure any observer registered after message is received
         // is not notified.
@@ -89,7 +88,7 @@ class MyObservable {
 
     /** Marks Observable object as changed, so hasChanged() will return true */
     // Indicates that this object has changed
-    protected synchronized void setChanged() {
+    synchronized void setChanged() {
         changed = true;
     }
 
@@ -127,9 +126,9 @@ class MyObservable {
     /**
      * Clears the observer list so that this object no longer has any observers.
      * TODO: .clear() clears an instance of the class. .removeAll() removes all the given
-     *      objects and returns the state of the operation (is slower than clear(). O(n**2) vs O(n)
+     *      objects and returns the state of the operation (is slower than clear(). O(n**2) vs O(n))
      */
-    public synchronized void deleteObservers() {
+    public synchronized void clearObservers() {
         observersList.clear();
     }
 

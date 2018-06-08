@@ -7,7 +7,7 @@ import android.os.Handler;
  */
 public class ProgressProvider extends MyObservable {
 
-    private int downloadProgress = 0;
+    private int downloadProgress;
     private String fixedMovieID = "tt0108052";
     private String movieID;
 
@@ -46,7 +46,7 @@ public class ProgressProvider extends MyObservable {
                             }
                         });
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

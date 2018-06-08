@@ -13,20 +13,26 @@ public class ProgressPresenter implements MyObserver {
     ProgressPresenter(ProgressProvider progressProvider) {
         this.progressProvider = progressProvider;
         this.progressProvider.registerObserver(this);
-        progress = progressProvider.getDownloadProgress();
-        progressView.showProgressStatus(progress);
+        //progress = progressProvider.getDownloadProgress();
+        //progressView.showProgressStatus(progress);
     }
 
-    public void attach(ProgressView progressView) { this.progressView = progressView; }
+    public void attach(ProgressView progressView) {
+        // set visibility of the download view here.
+        this.progressView = progressView;
+    }
 
-    public void detach() { this.progressView = NULL_VIEW; }
+    public void detach() {
+        this.progressView = NULL_VIEW;
+        progressProvider.deregisterObserver(this);
+    }
 
     // Item views presenter
     // For every second that it's subscribed, get update of progress (but this occurs in the provider
     //  in the fake loop, yes?)
     // register() will call onProgressUpdated() //update()
     public void present(String movieID) {
-        while (progressProvider.countObservers() != 0) {
+        while (progressProvider.countObservers() > 0) {
             progress = progressProvider.getDownloadProgress();
             progressView.showProgressStatus(progress);
             // Needs to poll the view to see if movieID that is to be downloaded is in View
@@ -54,7 +60,7 @@ public class ProgressPresenter implements MyObserver {
         // If subscribed, calls showProgressStatus() on view.
         if (myObservable instanceof ProgressProvider) {
             progressProvider = (ProgressProvider) myObservable;
-            //progress = progressProvider.getDownloadProgress();
+            progress = progressProvider.getDownloadProgress();
             progressView.showProgressStatus((int)progress);
 
 
