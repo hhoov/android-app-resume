@@ -25,7 +25,7 @@ public class ProgressProvider extends MyObservable {
         notifyObservers(downloadProgress);
     }
 
-    private String getMovieID() { return movieID; }
+    public String getMovieID() { return movieID; }
 
     public void setMovieID(String id) { this.movieID = id; }
 

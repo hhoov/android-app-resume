@@ -124,7 +124,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // Could these be called earlier in onBindViewHolder() or are they OK where they are? Wasn't sure if setItemView()
         // needed to occur before trying to getImdbId().
         progressProvider.setMovieID(movieData.get(position).getImdbId());
-        progressProvider.runFakeDownloadLoop();
+        if (progressProvider.getMovieID().equals("tt0108052")) { // maybe create 
+            progressProvider.registerObserver(progressPresenter);
+            progressProvider.runFakeDownloadLoop();
+        }
+
+
 
 
         // If URL is empty, provide error image

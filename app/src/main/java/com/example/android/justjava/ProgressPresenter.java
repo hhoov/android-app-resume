@@ -11,7 +11,7 @@ public class ProgressPresenter implements MyObserver {
 
     ProgressPresenter(ProgressProvider progressProvider) {
         this.progressProvider = progressProvider;
-        this.progressProvider.registerObserver(this);
+        //this.progressProvider.registerObserver(this);
     }
 
     public void attach(ProgressView progressView) {
