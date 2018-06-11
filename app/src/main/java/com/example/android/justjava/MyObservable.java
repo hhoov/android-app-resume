@@ -9,8 +9,9 @@ import java.util.ArrayList;
  * Uses a Vector for storing the observer references
  */
 class MyObservable {
-    private boolean changed = false;
+    private boolean changed;
     private ArrayList<MyObserver> observersList;
+    private final Object MUTEX = new Object();
 
     // Constructs an Observable with zero Observers
     MyObservable() {
@@ -28,8 +29,10 @@ class MyObservable {
     public void registerObserver(MyObserver observer) {
         if (observer == null)
             throw new NullPointerException();
-        if (!observersList.contains(observer)) {
-            observersList.add(observer);
+        synchronized (MUTEX) {
+            if (!observersList.contains(observer)) {
+                observersList.add(observer);
+            }
         }
     }
 
@@ -40,8 +43,10 @@ class MyObservable {
      */
     // Deletes an observer from the set of observers of this object
     public void deregisterObserver(MyObserver observer) {
-        if (observer != null) {
-            observersList.remove(observer);
+        synchronized (MUTEX) {
+            if (observer != null) {
+                observersList.remove(observer);
+            }
         }
     }
 
@@ -69,7 +74,7 @@ class MyObservable {
 
         // Synchronization is used to make sure any observer registered after message is received
         // is not notified.
-        synchronized (this) {
+        synchronized (MUTEX) {
             // Android-changed: Call out to hasChanged() to figure out if something changes.
             // Upstream code avoids calling the nonfinal hasChanged() from the synchronized block,
             // but that would break compatibility for apps that override that method.
