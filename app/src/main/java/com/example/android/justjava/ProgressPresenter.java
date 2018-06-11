@@ -37,21 +37,17 @@ public class ProgressPresenter implements MyObserver {
         // If subscribed, calls showProgressStatus() on view.
         if (myObservable instanceof ProgressProvider) {
             progressProvider = (ProgressProvider) myObservable;
-            //progress = progressProvider.getDownloadProgress();
+            //progress = progressProvider.getDownloadProgress(); ? not needed because argument progress is passed already
             progressView.showProgressStatus((int)progress);
 
         }
-            // Don't need else statement here because
-            // notify and update will not be called on an object that is not subscribed, because it goes through the updated
-            // list every time. thus, hideProgressStatus really should go wherever the check is for whether the observable
-            // is in the view/is subscribed to by the observer (the view is the observer).
-            //progressView.hideProgressStatus();
     }
 
     interface ProgressView {
-        // onRecycled()/handling of what's currently in view/what's recycled/what's destroyed here?
         void setItemView();
         void showProgressStatus(int progress);
+        // hideProgressStatus() should go into onViewRecycled() perhaps
+        // onRecycled()/handling of what's currently in view/what's recycled/what's destroyed here in hideProgressStatus()?
         void hideProgressStatus();
     }
 

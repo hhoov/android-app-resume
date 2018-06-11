@@ -76,7 +76,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view
-        
+
         //progressProvider.setMovieID(movieData.get(position).getImdbId());
         //progressProvider.runFakeDownloadLoop();
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.my_text_view, viewGroup, false);
@@ -121,6 +121,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         };
 
         progressView.setItemView();
+        // Could these be called earlier in onBindViewHolder() or are they OK where they are? Wasn't sure if setItemView()
+        // needed to occur before trying to getImdbId().
         progressProvider.setMovieID(movieData.get(position).getImdbId());
         progressProvider.runFakeDownloadLoop();
 

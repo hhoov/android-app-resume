@@ -40,7 +40,6 @@ public class ProgressProvider extends MyObservable {
                             @Override
                             public void run() {
                                 setDownloadProgress(downloadProgress);
-                                //txtProgress.setText(String.format(String.valueOf(downloadProgress), "%d %%"));
 
                             }
                         });
