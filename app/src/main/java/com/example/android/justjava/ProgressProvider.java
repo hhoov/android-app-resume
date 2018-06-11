@@ -14,7 +14,6 @@ public class ProgressProvider extends MyObservable {
     private Handler handler = new Handler();
 
     ProgressProvider(int downloadProgress) {
-        setMovieID("tt0108052");
         this.downloadProgress = downloadProgress;
     }
 
@@ -26,17 +25,17 @@ public class ProgressProvider extends MyObservable {
         notifyObservers(downloadProgress);
     }
 
-    public String getMovieID() { return movieID; }
+    private String getMovieID() { return movieID; }
 
-    private void setMovieID(String id) { this.movieID = id; }
+    public void setMovieID(String id) { this.movieID = id; }
 
     public void runFakeDownloadLoop() {
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                if (fixedMovieID.contains(movieID)) {
-                    while (downloadProgress <= 100) {
+                if (getMovieID().equals(fixedMovieID)) {
+                    while (downloadProgress <= 30) {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -51,9 +50,11 @@ public class ProgressProvider extends MyObservable {
                             e.printStackTrace();
                         }
                         downloadProgress++;
+
+                        if (downloadProgress == 100) {
+                            break;
+                        }
                     }
-                } else {
-                    setDownloadProgress(0);
                 }
             }
         }).start();
