@@ -20,12 +20,12 @@ public class ProgressPresenter {
     public void attach(ProgressView progressView) {
         // set visibility of the download view here.
         this.progressView = progressView;
-        this.progressProvider.registerObserver(this, movieID);
+        this.progressProvider.registerObserver(movieID, this);
     }
 
     public void detach() {
         this.progressView = NULL_VIEW;
-        progressProvider.deregisterObserver(this, movieID);
+        progressProvider.deregisterObserver(movieID, this);
     }
 
     public void present() {

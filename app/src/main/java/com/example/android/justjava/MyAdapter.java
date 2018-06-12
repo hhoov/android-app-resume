@@ -19,7 +19,6 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<MovieData> movieData = new ArrayList<>();
 
-    private ProgressProvider progressProvider = new ProgressProvider();
     private ProgressPresenter progressPresenter;
     private ProgressPresenter.ProgressView progressView;
 
@@ -81,12 +80,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
+
         String movieID = movieData.get(position).getImdbId();
-
+        ProgressProvider progressProvider = new ProgressProvider(movieID);
         progressPresenter = new ProgressPresenter(progressProvider, movieID);
-
-        progressPresenter.attach(progressView);
-        progressPresenter.present();
 
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
@@ -97,6 +94,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.getImdbRatingTextView().setText(String.valueOf(movieData.get(position).getImdbRating()));
         holder.getImdbVotesTextView().setText(String.valueOf(movieData.get(position).getImdbVotes()));
         holder.getImdbLinkTextView().setText(movieData.get(position).getImdbLink());
+
+
 
         progressView = new ProgressPresenter.ProgressView() {
             @Override
@@ -111,6 +110,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 // setVisibility
             }
         };
+
+        progressPresenter.attach(progressView);
+        progressPresenter.present();
 
         // If URL is empty, provide error image
         if (movieData.get(position).getPoster().isEmpty()) {

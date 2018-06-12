@@ -11,25 +11,38 @@ import java.util.Set;
  * A subject to observe. Model.
  */
 public class ProgressProvider {
-    private Handler handler = new Handler();
+    //private Handler handler = new Handler();
     private Map<String, Set<ProgressPresenter>> observerMap = new HashMap<>();
     private static final String FIXED_MOVIE_ID = "tt0108052";
-
     private int downloadProgress = 0;
 
-    ProgressProvider() {
+    ProgressProvider(final String movieID) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                if (downloadProgress < 30) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            setDownloadProgress(downloadProgress++);
-                        }
-                    });
-                } else {
+                if (downloadProgress < 30 && movieID.equals(FIXED_MOVIE_ID)) {
+                    //handler.post(new Runnable() {
+                    //    @Override
+                   //     public void run() {
+                            //setDownloadProgress(downloadProgress++);
+                        //}
+                   // });
+                    downloadProgress++;
+                }
+                // todo: need to handle when observed movie reaches complete download
+                // todo: need to handle checking if movieID is currently observed, whether to ++ or set = 0
+                else if (downloadProgress == 30 && movieID.equals(FIXED_MOVIE_ID)) {
+                    return;
+                }
+
+                else {
                     downloadProgress = 0;
+                }
+
+                if (!observerMap.isEmpty()) {
+                    for (ProgressPresenter progressPresenter : observerMap.get(FIXED_MOVIE_ID)) {
+                        progressPresenter.onProgressUpdated(downloadProgress);
+                    }
                 }
                 try {
                     Thread.sleep(1000);
@@ -53,14 +66,17 @@ public class ProgressProvider {
         notifyObservers(downloadProgress);
     }
 
-    public void registerObserver(ProgressPresenter progressPresenter, String movieID) {
+    public void registerObserver(String movieID, ProgressPresenter progressPresenter) {
+        if (observerMap.isEmpty()) {
+            observerMap.put(movieID, new HashSet<ProgressPresenter>());
+        }
         if (!observerMap.containsKey(movieID)) {
             observerMap.put(movieID, new HashSet<ProgressPresenter>());
         }
         observerMap.get(movieID).add(progressPresenter);
     }
 
-    public void deregisterObserver(ProgressPresenter progressPresenter, String movieID) {
+    public void deregisterObserver(String movieID, ProgressPresenter progressPresenter) {
         observerMap.get(movieID).remove(progressPresenter);
     }
 
