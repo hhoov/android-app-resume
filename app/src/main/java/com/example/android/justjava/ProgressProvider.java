@@ -2,93 +2,72 @@ package com.example.android.justjava;
 
 import android.os.Handler;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * A subject to observe. Model.
  */
 public class ProgressProvider {
-
-    private ArrayList<ProgressPresenter> observersList;
-    private boolean changed;
-    private ProgressPresenter progressPresenter;
-
-    private int downloadProgress;
-    private String fixedMovieID = "tt0108052";
-    private String movieID;
-
     private Handler handler = new Handler();
+    private Map<String, Set<ProgressPresenter>> observerMap = new HashMap<>();
+    private static final String FIXED_MOVIE_ID = "tt0108052";
 
-    ProgressProvider(int downloadProgress) {
-        this.downloadProgress = downloadProgress;
-        this.movieID = "";
-    }
+    private int downloadProgress = 0;
 
-    public int getDownloadProgress() { return downloadProgress; }
-
-    private void setDownloadProgress(int progress) {
-        this.downloadProgress = progress;
-        setChanged();
-        notifyObservers(progressPresenter, downloadProgress);
-    }
-
-    private String getMovieID() { return movieID; }
-
-    public void setMovieID(String id) { this.movieID = id; }
-
-    public void runFakeDownloadLoop() {
+    ProgressProvider() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
-                if (getMovieID().equals(fixedMovieID)) {
-                    while (downloadProgress <= 30) {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                setDownloadProgress(downloadProgress);
-
-                            }
-                        });
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                if (downloadProgress < 30) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            setDownloadProgress(downloadProgress++);
                         }
-                        downloadProgress++;
-
-                    }
+                    });
+                } else {
+                    downloadProgress = 0;
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }).start();
     }
 
-    public void registerObserver(ProgressPresenter progressPresenter, String movieID) {
-        if (!observersList.contains(progressPresenter)) {
-            observersList.add(progressPresenter);
+    public int getDownloadProgress(String movieID) {
+        if (movieID.equals(FIXED_MOVIE_ID)) {
+            return downloadProgress;
+        } else {
+            return 0;
         }
     }
 
-    public void deregisterObserver(ProgressPresenter progressPresenter) {
-        observersList.remove(progressPresenter);
+    private void setDownloadProgress(int progress) {
+        downloadProgress = progress;
+        notifyObservers(downloadProgress);
     }
 
-    private void notifyObservers(ProgressPresenter progressPresenter, int downloadProgress) {
-        //list here?
-        if (!hasChanged())
-            return;
-        // create new list ?
-        // clearChanged() ?
-        // for each observer in the list, update() ?
-        progressPresenter.onProgressUpdated(this, downloadProgress);
+    public void registerObserver(ProgressPresenter progressPresenter, String movieID) {
+        if (!observerMap.containsKey(movieID)) {
+            observerMap.put(movieID, new HashSet<ProgressPresenter>());
+        }
+        observerMap.get(movieID).add(progressPresenter);
     }
 
-    private boolean hasChanged() {
-        return changed;
+    public void deregisterObserver(ProgressPresenter progressPresenter, String movieID) {
+        observerMap.get(movieID).remove(progressPresenter);
     }
 
-    private void setChanged() {
-        changed = true;
+    private void notifyObservers(int downloadProgress) {
+        for (ProgressPresenter progressPresenter : observerMap.get(FIXED_MOVIE_ID)) {
+            progressPresenter.onProgressUpdated(downloadProgress);
+        }
     }
 
 }

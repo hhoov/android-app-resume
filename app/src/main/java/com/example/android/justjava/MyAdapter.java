@@ -19,12 +19,9 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<MovieData> movieData = new ArrayList<>();
 
-    // Create subject/observable
-    private ProgressProvider progressProvider = new ProgressProvider(0);
-    // Create observer -- will be instantiated in onBindVH()
+    private ProgressProvider progressProvider = new ProgressProvider();
     private ProgressPresenter progressPresenter;
     private ProgressPresenter.ProgressView progressView;
-
 
     MyAdapter() { }
 
@@ -84,7 +81,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        // Attaching presenter to viewholder to keep track of which presenter should be de-registered
         String movieID = movieData.get(position).getImdbId();
 
         progressPresenter = new ProgressPresenter(progressProvider, movieID);
@@ -105,18 +101,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         progressView = new ProgressPresenter.ProgressView() {
             @Override
             public void showProgressStatus(int progress) {
-                //System.out.println("Title -- " + movieData.get(position).getTitle() + " " + Integer.toString(progress) + " %");
                 progressPresenter.attach(progressView);
-                // setVisibility
+                // setVisibility with progress
             }
 
             @Override
             public void hideProgressStatus() {
-                // De-registers the observer (progressPresenter) and detaches the presenter.
                 progressPresenter.detach();
                 // setVisibility
             }
-
         };
 
         // If URL is empty, provide error image

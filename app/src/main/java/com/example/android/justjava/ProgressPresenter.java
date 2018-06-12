@@ -25,23 +25,17 @@ public class ProgressPresenter {
     }
 
     public void detach() {
-        progressProvider.deregisterObserver(this);
         this.progressView = NULL_VIEW;
+        progressProvider.deregisterObserver(this, movieID);
     }
 
     public void present() {
-        downloadProgress = progressProvider.getDownloadProgress();
+        downloadProgress = progressProvider.getDownloadProgress(movieID);
         progressView.showProgressStatus(downloadProgress);
-        progressProvider.runFakeDownloadLoop();
     }
 
-    // Called when observed object is changed. Observable object's observers are notified of the change
-    // through notifyObservers().
-    public void onProgressUpdated(ProgressProvider progressProvider, int progress) {
-        // If subscribed, calls showProgressStatus() on view.
+    public void onProgressUpdated(int progress) {
         progressView.showProgressStatus(progress);
-
-
     }
 
     interface ProgressView {
