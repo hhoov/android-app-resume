@@ -131,7 +131,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
-
+    @Override
+    public void onViewRecycled(@NonNull ViewHolder holder) {
+        super.onViewRecycled(holder);
+        progressView.hideProgressStatus();
+    }
 
     public void setData(List<MovieData> data) {
         movieData.clear();

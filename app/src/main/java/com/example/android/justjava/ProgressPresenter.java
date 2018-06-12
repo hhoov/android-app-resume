@@ -11,7 +11,6 @@ public class ProgressPresenter {
 
     private ProgressProvider progressProvider;
     private String movieID;
-    private int downloadProgress;
 
     ProgressPresenter(@NonNull final ProgressProvider progressProvider, final String movieID) {
         this.progressProvider = progressProvider;
@@ -30,7 +29,7 @@ public class ProgressPresenter {
     }
 
     public void present() {
-        downloadProgress = progressProvider.getDownloadProgress(movieID);
+        int downloadProgress = progressProvider.getDownloadProgress(movieID);
         progressView.showProgressStatus(downloadProgress);
     }
 
@@ -40,8 +39,6 @@ public class ProgressPresenter {
 
     interface ProgressView {
         void showProgressStatus(int progress);
-        // hideProgressStatus() should go into onViewRecycled() perhaps
-        // onRecycled()/handling of what's currently in view/what's recycled/what's destroyed here in hideProgressStatus()?
         void hideProgressStatus();
     }
 
