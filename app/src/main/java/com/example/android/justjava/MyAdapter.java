@@ -76,9 +76,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view
-
-        //progressProvider.setMovieID(movieData.get(position).getImdbId());
-        //progressProvider.runFakeDownloadLoop();
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.my_text_view, viewGroup, false);
         return new ViewHolder(v);
     }
@@ -88,49 +85,39 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         // Attaching presenter to viewholder to keep track of which presenter should be de-registered
+        String movieID = movieData.get(position).getImdbId();
 
-        progressPresenter = new ProgressPresenter(progressProvider);
+        progressPresenter = new ProgressPresenter(progressProvider, movieID);
+
+        progressPresenter.attach(progressView);
+        progressPresenter.present();
+
+        // Get element from your dataset at this position
+        // Replace the contents of the view with that element
+        holder.getRankTextView().setText(String.valueOf(movieData.get(position).getRank()));
+        holder.getTitleTextView().setText(movieData.get(position).getTitle());
+        holder.getYearTextView().setText(String.valueOf(movieData.get(position).getYear()));
+        holder.getImdbIdTextView().setText(movieData.get(position).getImdbId());
+        holder.getImdbRatingTextView().setText(String.valueOf(movieData.get(position).getImdbRating()));
+        holder.getImdbVotesTextView().setText(String.valueOf(movieData.get(position).getImdbVotes()));
+        holder.getImdbLinkTextView().setText(movieData.get(position).getImdbLink());
 
         progressView = new ProgressPresenter.ProgressView() {
             @Override
-            public void setItemView() {
-
-                progressPresenter.attach(progressView);
-
-                // Get element from your dataset at this position
-                // Replace the contents of the view with that element
-                holder.getRankTextView().setText(String.valueOf(movieData.get(position).getRank()));
-                holder.getTitleTextView().setText(movieData.get(position).getTitle());
-                holder.getYearTextView().setText(String.valueOf(movieData.get(position).getYear()));
-                holder.getImdbIdTextView().setText(movieData.get(position).getImdbId());
-                holder.getImdbRatingTextView().setText(String.valueOf(movieData.get(position).getImdbRating()));
-                holder.getImdbVotesTextView().setText(String.valueOf(movieData.get(position).getImdbVotes()));
-                holder.getImdbLinkTextView().setText(movieData.get(position).getImdbLink());
-            }
-
-            @Override
             public void showProgressStatus(int progress) {
-                System.out.println("Title -- " + movieData.get(position).getTitle() + " " + Integer.toString(progress) + " %");
+                //System.out.println("Title -- " + movieData.get(position).getTitle() + " " + Integer.toString(progress) + " %");
+                progressPresenter.attach(progressView);
+                // setVisibility
             }
 
             @Override
             public void hideProgressStatus() {
                 // De-registers the observer (progressPresenter) and detaches the presenter.
-                onViewRecycled(holder);
+                progressPresenter.detach();
+                // setVisibility
             }
+
         };
-
-        progressView.setItemView();
-        // Could these be called earlier in onBindViewHolder() or are they OK where they are? Wasn't sure if setItemView()
-        // needed to occur before trying to getImdbId().
-        progressProvider.setMovieID(movieData.get(position).getImdbId());
-        if (progressProvider.getMovieID().equals("tt0108052")) { // maybe create 
-            progressProvider.registerObserver(progressPresenter);
-            progressProvider.runFakeDownloadLoop();
-        }
-
-
-
 
         // If URL is empty, provide error image
         if (movieData.get(position).getPoster().isEmpty()) {
@@ -151,13 +138,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
-    // Detach view from presenter when view is recycled
-    @Override
-    public void onViewRecycled(@NonNull final ViewHolder holder) {
-        super.onViewRecycled(holder);
-        progressProvider.deregisterObserver(progressPresenter);
-        progressPresenter.detach();
-    }
+
 
     public void setData(List<MovieData> data) {
         movieData.clear();

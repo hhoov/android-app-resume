@@ -2,10 +2,16 @@ package com.example.android.justjava;
 
 import android.os.Handler;
 
+import java.util.ArrayList;
+
 /**
  * A subject to observe. Model.
  */
-public class ProgressProvider extends MyObservable {
+public class ProgressProvider {
+
+    private ArrayList<ProgressPresenter> observersList;
+    private boolean changed;
+    private ProgressPresenter progressPresenter;
 
     private int downloadProgress;
     private String fixedMovieID = "tt0108052";
@@ -15,6 +21,7 @@ public class ProgressProvider extends MyObservable {
 
     ProgressProvider(int downloadProgress) {
         this.downloadProgress = downloadProgress;
+        this.movieID = "";
     }
 
     public int getDownloadProgress() { return downloadProgress; }
@@ -22,10 +29,10 @@ public class ProgressProvider extends MyObservable {
     private void setDownloadProgress(int progress) {
         this.downloadProgress = progress;
         setChanged();
-        notifyObservers(downloadProgress);
+        notifyObservers(progressPresenter, downloadProgress);
     }
 
-    public String getMovieID() { return movieID; }
+    private String getMovieID() { return movieID; }
 
     public void setMovieID(String id) { this.movieID = id; }
 
@@ -50,13 +57,38 @@ public class ProgressProvider extends MyObservable {
                         }
                         downloadProgress++;
 
-                        if (downloadProgress == 100) {
-                            break;
-                        }
                     }
                 }
             }
         }).start();
+    }
+
+    public void registerObserver(ProgressPresenter progressPresenter, String movieID) {
+        if (!observersList.contains(progressPresenter)) {
+            observersList.add(progressPresenter);
+        }
+    }
+
+    public void deregisterObserver(ProgressPresenter progressPresenter) {
+        observersList.remove(progressPresenter);
+    }
+
+    private void notifyObservers(ProgressPresenter progressPresenter, int downloadProgress) {
+        //list here?
+        if (!hasChanged())
+            return;
+        // create new list ?
+        // clearChanged() ?
+        // for each observer in the list, update() ?
+        progressPresenter.onProgressUpdated(this, downloadProgress);
+    }
+
+    private boolean hasChanged() {
+        return changed;
+    }
+
+    private void setChanged() {
+        changed = true;
     }
 
 }
