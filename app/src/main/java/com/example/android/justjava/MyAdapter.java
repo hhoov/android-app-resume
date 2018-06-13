@@ -2,6 +2,7 @@ package com.example.android.justjava;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,8 +82,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
 
-        String movieID = movieData.get(position).getImdbId();
-        ProgressProvider progressProvider = new ProgressProvider(movieID);
+        final String movieID = movieData.get(position).getImdbId();
+        final ProgressProvider progressProvider = new ProgressProvider(movieID);
         progressPresenter = new ProgressPresenter(progressProvider, movieID);
 
         // Get element from your dataset at this position
@@ -101,19 +102,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             @Override
             public void showProgressStatus(int progress) {
                 progressPresenter.attach(progressView);
-                // setVisibility with progress
-                System.out.println("Title -- " + movieData.get(position).getTitle() + " " + Integer.toString(progress) + " %");
+                Log.d("MyAdapter", "SHOWING -- " + movieData.get(position).getTitle() + " " + Integer.toString(progress));
             }
 
             @Override
             public void hideProgressStatus() {
+                Log.d("MyAdapter","HIDING -- " + movieData.get(position).getTitle());
                 progressPresenter.detach();
-                // setVisibility
             }
         };
 
-        progressPresenter.attach(progressView);
-        progressPresenter.present();
+
 
         // If URL is empty, provide error image
         if (movieData.get(position).getPoster().isEmpty()) {
@@ -132,12 +131,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                     .centerCrop()
                     .into(holder.mImageView);
         }
+
+        progressPresenter.attach(progressView);
+        progressPresenter.present();
     }
 
     @Override
-    public void onViewRecycled(@NonNull ViewHolder holder) {
-        super.onViewRecycled(holder);
+    public void onViewDetachedFromWindow(@NonNull ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
         progressView.hideProgressStatus();
+    }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull ViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        progressPresenter.attach(progressView);
+        progressPresenter.present();
     }
 
     public void setData(List<MovieData> data) {

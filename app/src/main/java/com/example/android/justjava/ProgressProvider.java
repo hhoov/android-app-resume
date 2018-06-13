@@ -1,5 +1,7 @@
 package com.example.android.justjava;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -21,6 +23,7 @@ public class ProgressProvider {
                     while (downloadProgress < 30 && observerMap.containsKey(movieID)) {
 
                         downloadProgress++;
+                        Log.d("Provider fake loop -- ", "MovieID " + movieID + " " + downloadProgress);
                         notifyObservers(downloadProgress);
 
                         try {
@@ -37,7 +40,9 @@ public class ProgressProvider {
                     System.out.println("Progress completed for fixed movie download.");
                 }
 
-                else downloadProgress = 0;
+                else {
+                    downloadProgress = 0;
+                }
 
             }
         }).start();
@@ -52,23 +57,19 @@ public class ProgressProvider {
     }
 
     public void registerObserver(String movieID, ProgressPresenter progressPresenter) {
-        if (observerMap.isEmpty()) {
+        if (!observerMap.containsKey(movieID)) {
             observerMap.put(movieID, new HashSet<ProgressPresenter>());
         }
-        else if (!observerMap.containsKey(movieID)) {
-            observerMap.put(movieID, new HashSet<ProgressPresenter>());
-        }
-
-        /*
-          TODO -- Since hashset *allows* duplicates, need to check that presenter isn't already added?
-              or have check on onProgressUpdated? or does it even matter bc it will still show the
-              same updated progress for that presenter
-        */
         observerMap.get(movieID).add(progressPresenter);
     }
 
     public void deregisterObserver(String movieID, ProgressPresenter progressPresenter) {
         observerMap.get(movieID).remove(progressPresenter);
+        if (!observerMap.get(movieID).contains(progressPresenter)) {
+            Log.d("DEREGISTER RESULT"," -- Successful");
+        } else {
+            Log.d("DEREGISTER RESULT"," -- FAILED");
+        }
     }
 
     private void notifyObservers(int downloadProgress) {
