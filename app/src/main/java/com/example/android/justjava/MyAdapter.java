@@ -102,6 +102,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             public void showProgressStatus(int progress) {
                 progressPresenter.attach(progressView);
                 // setVisibility with progress
+                System.out.println("Title -- " + movieData.get(position).getTitle() + " " + Integer.toString(progress) + " %");
             }
 
             @Override

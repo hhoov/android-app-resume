@@ -1,7 +1,5 @@
 package com.example.android.justjava;
 
-import android.os.Handler;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -11,7 +9,6 @@ import java.util.Set;
  * A subject to observe. Model.
  */
 public class ProgressProvider {
-    //private Handler handler = new Handler();
     private Map<String, Set<ProgressPresenter>> observerMap = new HashMap<>();
     private static final String FIXED_MOVIE_ID = "tt0108052";
     private int downloadProgress = 0;
@@ -21,34 +18,27 @@ public class ProgressProvider {
             @Override
             public void run() {
                 if (downloadProgress < 30 && movieID.equals(FIXED_MOVIE_ID)) {
-                    //handler.post(new Runnable() {
-                    //    @Override
-                   //     public void run() {
-                            //setDownloadProgress(downloadProgress++);
-                        //}
-                   // });
-                    downloadProgress++;
-                }
-                // todo: need to handle when observed movie reaches complete download
-                // todo: need to handle checking if movieID is currently observed, whether to ++ or set = 0
-                else if (downloadProgress == 30 && movieID.equals(FIXED_MOVIE_ID)) {
-                    return;
-                }
+                    while (downloadProgress < 30 && observerMap.containsKey(movieID)) {
 
-                else {
-                    downloadProgress = 0;
-                }
+                        downloadProgress++;
+                        notifyObservers(downloadProgress);
 
-                if (!observerMap.isEmpty()) {
-                    for (ProgressPresenter progressPresenter : observerMap.get(FIXED_MOVIE_ID)) {
-                        progressPresenter.onProgressUpdated(downloadProgress);
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+
+                // TODO: need to handle when observed movie reaches complete download
+                // TODO: need to handle checking if movieID is currently observed, whether to ++ or set = 0
+                else if (downloadProgress == 30 && movieID.equals(FIXED_MOVIE_ID)) {
+                    System.out.println("Progress completed for fixed movie download.");
                 }
+
+                else downloadProgress = 0;
+
             }
         }).start();
     }
@@ -61,18 +51,19 @@ public class ProgressProvider {
         }
     }
 
-    private void setDownloadProgress(int progress) {
-        downloadProgress = progress;
-        notifyObservers(downloadProgress);
-    }
-
     public void registerObserver(String movieID, ProgressPresenter progressPresenter) {
         if (observerMap.isEmpty()) {
             observerMap.put(movieID, new HashSet<ProgressPresenter>());
         }
-        if (!observerMap.containsKey(movieID)) {
+        else if (!observerMap.containsKey(movieID)) {
             observerMap.put(movieID, new HashSet<ProgressPresenter>());
         }
+
+        /*
+          TODO -- Since hashset *allows* duplicates, need to check that presenter isn't already added?
+              or have check on onProgressUpdated? or does it even matter bc it will still show the
+              same updated progress for that presenter
+        */
         observerMap.get(movieID).add(progressPresenter);
     }
 
