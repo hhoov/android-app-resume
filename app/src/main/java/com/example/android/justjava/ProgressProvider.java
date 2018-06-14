@@ -15,36 +15,23 @@ public class ProgressProvider {
     private static final String FIXED_MOVIE_ID = "tt0108052";
     private int downloadProgress = 0;
 
-    ProgressProvider(final String movieID) {
+    ProgressProvider() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                if (downloadProgress < 30 && movieID.equals(FIXED_MOVIE_ID)) {
-                    while (downloadProgress < 30 && observerMap.containsKey(movieID)) {
+                while (downloadProgress < 10000) {
+                    downloadProgress++;
+                    //Log.d("DOWNLOADING -- ", "MovieID " + movieID + " " + downloadProgress);
+                    notifyObservers(downloadProgress, FIXED_MOVIE_ID);
 
-                        downloadProgress++;
-                        Log.d("Provider fake loop -- ", "MovieID " + movieID + " " + downloadProgress);
-                        notifyObservers(downloadProgress);
-
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
-
-                // TODO: need to handle when observed movie reaches complete download
-                // TODO: need to handle checking if movieID is currently observed, whether to ++ or set = 0
-                else if (downloadProgress == 30 && movieID.equals(FIXED_MOVIE_ID)) {
-                    System.out.println("Progress completed for fixed movie download.");
-                }
-
-                else {
-                    downloadProgress = 0;
-                }
-
             }
+
         }).start();
     }
 
@@ -66,16 +53,22 @@ public class ProgressProvider {
     public void deregisterObserver(String movieID, ProgressPresenter progressPresenter) {
         observerMap.get(movieID).remove(progressPresenter);
         if (!observerMap.get(movieID).contains(progressPresenter)) {
-            Log.d("DEREGISTER RESULT"," -- Successful");
+            Log.d("DEREGISTER RESULT"," -- Successful deregister of " + movieID);
         } else {
-            Log.d("DEREGISTER RESULT"," -- FAILED");
+            Log.d("DEREGISTER RESULT"," -- FAILED to dereg of " + movieID);
         }
     }
 
-    private void notifyObservers(int downloadProgress) {
-        for (ProgressPresenter progressPresenter : observerMap.get(FIXED_MOVIE_ID)) {
-            progressPresenter.onProgressUpdated(downloadProgress);
+    private void notifyObservers(int downloadProgress, String movieID) {
+        if (observerMap.containsKey(movieID)) {
+            for (ProgressPresenter progressPresenter : observerMap.get(movieID)) {
+                progressPresenter.onProgressUpdated(downloadProgress);
+            }
         }
     }
+
+    /*public boolean isSubscribed(String movieID, ProgressPresenter progressPresenter) {
+        return observerMap.get(movieID).contains(progressPresenter);
+    }*/
 
 }
