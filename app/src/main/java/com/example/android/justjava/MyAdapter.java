@@ -19,10 +19,7 @@ import java.util.List;
 // should just be responsible for adapting that provider to the views in the RecyclerView
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<MovieData> movieData = new ArrayList<>();
-
-    private ProgressPresenter progressPresenter;
-    private ProgressPresenter.ProgressView progressView;
-
+    private ProgressProvider progressProvider = new ProgressProvider();
     MyAdapter() { }
 
     // Return the size of dataset (invoked by the layout manager)
@@ -33,7 +30,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Provide a reference to the views for each provider item
     // Complex provider items may need more than one view per item, and
     // you provide access to all the views for a provider item in a view holder
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder  implements ProgressPresenter.ProgressView{
         // Each provider item is just a string in this case
         ImageView mImageView;
         TextView mRankTextView;
@@ -43,6 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         TextView mImdbRatingTextView;
         TextView mImdbVotesTextView;
         TextView mImdbLinkTextView;
+        ProgressPresenter progressPresenter;
 
         ViewHolder(View v) {
             super(v);
@@ -66,6 +64,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         TextView getImdbVotesTextView() { return mImdbVotesTextView; }
         TextView getImdbLinkTextView() { return  mImdbLinkTextView; }
 
+
+        @Override
+        public void showProgressStatus(int progress) {
+            Log.d("ShowProgressStatus", "Current progress " + progress);
+        }
+
+        @Override
+        public void hideProgressStatus() {
+            Log.d("HideProgress", "Hiding ");
+        }
     }
 
     // Create new views (invoked by the layout manager)
@@ -82,9 +90,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
 
-        final String movieID = movieData.get(position).getImdbId();
-        final ProgressProvider progressProvider = new ProgressProvider(movieID);
-        progressPresenter = new ProgressPresenter(progressProvider, movieID);
+        final String movieID = movieData.get(holder.getAdapterPosition()).getImdbId();
+        holder.progressPresenter = new ProgressPresenter(progressProvider, movieID);
 
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
@@ -96,23 +103,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.getImdbVotesTextView().setText(String.valueOf(movieData.get(position).getImdbVotes()));
         holder.getImdbLinkTextView().setText(movieData.get(position).getImdbLink());
 
-
-
-        progressView = new ProgressPresenter.ProgressView() {
-            @Override
-            public void showProgressStatus(int progress) {
-                progressPresenter.attach(progressView);
-                Log.d("MyAdapter", "SHOWING -- " + movieData.get(position).getTitle() + " " + Integer.toString(progress));
-            }
-
-            @Override
-            public void hideProgressStatus() {
-                Log.d("MyAdapter","HIDING -- " + movieData.get(position).getTitle());
-                progressPresenter.detach();
-            }
-        };
-
-
+        holder.progressPresenter.attach(holder);
+        holder.progressPresenter.present();
 
         // If URL is empty, provide error image
         if (movieData.get(position).getPoster().isEmpty()) {
@@ -132,21 +124,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                     .into(holder.mImageView);
         }
 
-        progressPresenter.attach(progressView);
-        progressPresenter.present();
+
     }
 
     @Override
     public void onViewDetachedFromWindow(@NonNull ViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
-        progressView.hideProgressStatus();
+        Log.d("MyAdapter -- ", "Detaching from window *** ");
+        holder.progressPresenter.detach();
     }
 
     @Override
     public void onViewAttachedToWindow(@NonNull ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
-        progressPresenter.attach(progressView);
-        progressPresenter.present();
+        Log.d("MyAdapter -- ", "Attaching to window ***");
+        holder.progressPresenter.attach(holder);
+        holder.progressPresenter.present();
     }
 
     public void setData(List<MovieData> data) {
