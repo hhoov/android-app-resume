@@ -31,12 +31,11 @@ public class ProgressPresenter {
 
     public void present() {
         int downloadProgress = progressProvider.getDownloadProgress(movieID);
-        //Log.d("Presenter", "present() - show(): " + downloadProgress);
         progressView.showProgressStatus(downloadProgress);
+
     }
 
     public void onProgressUpdated(int progress) {
-        Log.d("Presenter", "onProgressUpdated() - show(): " + progress);
         progressView.showProgressStatus(progress);
     }
 
