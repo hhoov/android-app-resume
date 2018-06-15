@@ -2,7 +2,6 @@ package com.example.android.justjava;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,15 +70,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         @Override
         public void showProgressBar(int progress) {
-            Log.d("ShowProgressStatus", "Current progress " + progress);
             progressItem.setProgress(progress);
-            //progressPercentage.setText(String.valueOf(progress));
+            progressPercentage.setText(String.format("%s%%", String.valueOf(progress)));
             progressItem.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void hideProgressBar() {
-            Log.d("HideProgress", "Hiding ");
             progressItem.setVisibility(View.GONE);
         }
     }
@@ -135,14 +132,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onViewDetachedFromWindow(@NonNull ViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
-        Log.d("MyAdapter -- ", "Detaching from window *** ");
         holder.progressPresenter.detach();
     }
 
     @Override
     public void onViewAttachedToWindow(@NonNull ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
-        Log.d("MyAdapter -- ", "Attaching to window ***");
         holder.progressPresenter.attach(holder);
         holder.progressPresenter.present();
     }

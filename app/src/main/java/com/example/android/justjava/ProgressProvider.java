@@ -1,6 +1,6 @@
 package com.example.android.justjava;
 
-import android.util.Log;
+import android.os.Handler;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,21 +8,26 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * A subject to observe. Model.
+ * A subject to observe.
  */
 public class ProgressProvider {
-    private Map<String, Set<ProgressPresenter>> observerMap = new HashMap<>();
     private static final String FIXED_MOVIE_ID = "tt0108052";
+    private Map<String, Set<ProgressPresenter>> observerMap = new HashMap<>();
     private int downloadProgress = 0;
+    private Handler handler = new Handler();
 
     ProgressProvider() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (downloadProgress < 10000) {
+                while (downloadProgress < 100) {
                     downloadProgress++;
-                    //Log.d("DOWNLOADING -- ", "MovieID " + movieID + " " + downloadProgress);
-                    notifyObservers(downloadProgress, FIXED_MOVIE_ID);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            notifyObservers(downloadProgress, FIXED_MOVIE_ID);
+                        }
+                    });
 
                     try {
                         Thread.sleep(1000);
@@ -52,11 +57,6 @@ public class ProgressProvider {
 
     public void deregisterObserver(String movieID, ProgressPresenter progressPresenter) {
         observerMap.get(movieID).remove(progressPresenter);
-        if (!observerMap.get(movieID).contains(progressPresenter)) {
-            Log.d("DEREGISTER RESULT"," -- Successful deregister of " + movieID);
-        } else {
-            Log.d("DEREGISTER RESULT"," -- FAILED to dereg of " + movieID);
-        }
     }
 
     private void notifyObservers(int downloadProgress, String movieID) {
