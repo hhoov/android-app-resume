@@ -67,8 +67,4 @@ public class ProgressProvider {
         }
     }
 
-    /*public boolean isSubscribed(String movieID, ProgressPresenter progressPresenter) {
-        return observerMap.get(movieID).contains(progressPresenter);
-    }*/
-
 }

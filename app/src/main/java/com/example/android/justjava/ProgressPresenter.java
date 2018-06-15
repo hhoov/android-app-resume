@@ -1,7 +1,6 @@
 package com.example.android.justjava;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 /**
  * An observer/listener of changes. Presenter for item Views & download progress.
@@ -31,17 +30,17 @@ public class ProgressPresenter {
 
     public void present() {
         int downloadProgress = progressProvider.getDownloadProgress(movieID);
-        progressView.showProgressStatus(downloadProgress);
+        progressView.showProgressBar(downloadProgress);
 
     }
 
     public void onProgressUpdated(int progress) {
-        progressView.showProgressStatus(progress);
+        progressView.showProgressBar(progress);
     }
 
     interface ProgressView {
-        void showProgressStatus(int progress);
-        void hideProgressStatus();
+        void showProgressBar(int progress);
+        void hideProgressBar();
     }
 
 }
