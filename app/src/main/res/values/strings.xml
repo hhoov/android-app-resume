@@ -20,6 +20,5 @@
     <string name="movie_poster">Movie poster</string>
     <string name="progress_bar">Progress Bar</string>
     <string name="progress_text">Progress Text</string>
-    <string name="zero_start">0 %</string>
 
 </resources>

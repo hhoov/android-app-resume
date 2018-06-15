@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/textSize"
         android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark"
-        android:textAlignment="center"
-        tools:layout_editor_absoluteY="16dp"
-        android:text="@string/zero_start"/>
+        tools:layout_editor_absoluteY="16dp" />
 
     <ProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv"
         android:indeterminate="false"
-        android:max="100"
-        />
+        android:max="100" />
 
 </RelativeLayout>
