@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.android.justjava.model.MovieData;
@@ -41,6 +42,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         TextView mImdbVotesTextView;
         TextView mImdbLinkTextView;
         ProgressPresenter progressPresenter;
+        ProgressBar progressItem;
+        TextView progressPercentage;
 
         ViewHolder(View v) {
             super(v);
@@ -52,6 +55,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             mImdbRatingTextView = v.findViewById(R.id.imdbRatingTextView);
             mImdbVotesTextView = v.findViewById(R.id.imdbVotesTextView);
             mImdbLinkTextView = v.findViewById(R.id.imdbLinkTextView);
+            progressItem = v.findViewById(R.id.progress_bar);
+            progressPercentage = v.findViewById(R.id.tv);
 
         }
 
@@ -64,15 +69,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         TextView getImdbVotesTextView() { return mImdbVotesTextView; }
         TextView getImdbLinkTextView() { return  mImdbLinkTextView; }
 
-
         @Override
-        public void showProgressStatus(int progress) {
+        public void showProgressBar(int progress) {
             Log.d("ShowProgressStatus", "Current progress " + progress);
+            progressItem.setProgress(progress);
+            //progressPercentage.setText(String.valueOf(progress));
+            progressItem.setVisibility(View.VISIBLE);
         }
 
         @Override
-        public void hideProgressStatus() {
+        public void hideProgressBar() {
             Log.d("HideProgress", "Hiding ");
+            progressItem.setVisibility(View.GONE);
         }
     }
 
@@ -88,7 +96,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-
 
         final String movieID = movieData.get(holder.getAdapterPosition()).getImdbId();
         holder.progressPresenter = new ProgressPresenter(progressProvider, movieID);
@@ -123,8 +130,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                     .centerCrop()
                     .into(holder.mImageView);
         }
-
-
     }
 
     @Override
