@@ -31,15 +31,9 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesPrese
         MyApplication.getApplicationComponent().inject(this);
         setContentView(R.layout.activity_movies_list);
 
-        Uri.Builder builder = new Uri.Builder();
-        builder.scheme("my.own.scheme");
-        builder.authority("my.authority");
-        Uri newUri = builder.build();
-
-        Intent intent = new Intent(Intent.ACTION_VIEW, newUri);
-        intent.toUri(Intent.URI_INTENT_SCHEME);
-        System.out.println("intent.toUri(Intent.URI_INTENT_SCHEME) = " + intent.toString());
-
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        Uri data = intent.getData();
 
         // Set up navigation drawer and toolbar
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
