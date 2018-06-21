@@ -22,9 +22,16 @@
 
         <activity android:name=".MoviesListActivity"
             android:label="@string/title_activity_movies_list"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <intent-filter>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity android:name=".MoviesGridActivity"
+            android:label="@string/title_activity_movies_grid"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".MovieDetailsActivity"
+            android:label="Movie Details Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
                 <!-- Sets the intent action to view the activity -->
                 <action android:name="android.intent.action.VIEW"/>
 
@@ -39,13 +46,8 @@
 
                 <!-- URI myapp://deeplink -->
                 <data android:scheme="myapp" android:host="deeplink" />
-
             </intent-filter>
         </activity>
-
-        <activity android:name=".MoviesGridActivity"
-            android:label="@string/title_activity_movies_grid"
-            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 
