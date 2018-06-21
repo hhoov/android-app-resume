@@ -33,7 +33,10 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/textSize"
         android:textStyle="bold"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:layout_editor_absoluteY="16dp"
+        android:onClick="onClick"
+        android:clickable="true"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/titleTextView"

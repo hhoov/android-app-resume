@@ -1,7 +1,6 @@
 package com.example.android.justjava;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -10,6 +9,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.justjava.model.MovieData;
@@ -18,7 +19,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MoviesListActivity extends AppCompatActivity implements MoviesPresenter.MoviesView {
+public class MoviesListActivity extends AppCompatActivity implements MoviesPresenter.MoviesView, View.OnClickListener {
     private NavigationDrawerDelegate navDrawerDelegate;
     private MyAdapter adapter;
 
@@ -31,9 +32,8 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesPrese
         MyApplication.getApplicationComponent().inject(this);
         setContentView(R.layout.activity_movies_list);
 
-        Intent intent = getIntent();
-        String action = intent.getAction();
-        Uri data = intent.getData();
+        TextView textView = findViewById(R.id.rankTextView);
+        textView.setOnClickListener(this);
 
         // Set up navigation drawer and toolbar
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
@@ -61,6 +61,12 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesPrese
         presenter.attach(this);
         presenter.present();
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        startActivity(intent);
     }
 
     @Override
