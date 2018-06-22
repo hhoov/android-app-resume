@@ -11,5 +11,6 @@ import dagger.Component;
 public interface ApplicationComponent {
     void inject(MoviesGridActivity moviesGridActivity);
     void inject(MoviesListActivity moviesListActivity);
+    void inject(MovieDetailsActivity movieDetailsActivity);
     void inject(MovieDataProvider movieDataProvider);
 }
