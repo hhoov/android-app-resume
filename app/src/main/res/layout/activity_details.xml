@@ -30,6 +30,12 @@
             android:scrollbars="vertical">
         </android.support.v7.widget.RecyclerView>
 
+        <include
+            layout="@layout/my_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+        </include>
     </LinearLayout>
 
     <!-- The navigation drawer that comes from the left -->
