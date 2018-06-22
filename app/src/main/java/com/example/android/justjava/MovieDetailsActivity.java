@@ -12,13 +12,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class MovieDetailsActivity extends AppCompatActivity {
+import com.example.android.justjava.model.MovieData;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+public class MovieDetailsActivity extends AppCompatActivity implements MoviesPresenter.MoviesView {
     private NavigationDrawerDelegate navDrawerDelegate;
     private MyAdapter adapter;
+
+    @Inject
+    MoviesPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApplication.getApplicationComponent().inject(this);
         setContentView(R.layout.activity_details);
         Toast.makeText(this,"Detail activity has been called!", Toast.LENGTH_SHORT).show();
 
@@ -49,6 +59,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
         RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, noOfColumns);
         mRecyclerView.setLayoutManager(gridLayoutManager);
 
+        presenter.attach(this);
+        presenter.present();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detach();
     }
 
     @Override
@@ -56,4 +75,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void setMovies(List<MovieData> movieDataList) {
+        adapter.setData(movieDataList);
+    }
+
+    @Override
+    public void showError() {
+        // TODO
+        Toast.makeText(getApplicationContext(), "Oops! Failed to retrieve movie provider.", Toast.LENGTH_SHORT).show();
+    }
 }
