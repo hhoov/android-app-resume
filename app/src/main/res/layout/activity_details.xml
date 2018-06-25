@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+    android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/someBg"
@@ -12,7 +11,7 @@
     <include
         layout="@layout/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:visibility="visible">
     </include>
 
@@ -22,26 +21,5 @@
         android:layout_height="match_parent"
         android:visibility="visible">
     </include>
-
-    <!-- A RecyclerView with some commonly used attributes -->
-    <!--<android.support.v7.widget.RecyclerView
-            android:id="@+id/my_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical">
-        </android.support.v7.widget.RecyclerView>-->
-
-
-    <!-- The navigation drawer that comes from the left -->
-    <!-- Note that `android:layout_gravity` needs to be set to 'start' -->
-    <!--<android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:visibility="visible"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_view">
-    </android.support.design.widget.NavigationView>-->
 
 </android.support.constraint.ConstraintLayout>
