@@ -15,10 +15,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:contentDescription="@string/movie_poster"
-        android:scaleType="centerCrop"
-        android:onClick="onClick"
-        android:clickable="true"
-        android:focusable="true"/>
+        android:scaleType="centerCrop"/>
 
     <include
         layout="@layout/progressbar"
