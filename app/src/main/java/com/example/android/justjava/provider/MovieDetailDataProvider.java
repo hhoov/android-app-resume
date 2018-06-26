@@ -16,7 +16,7 @@ import okhttp3.Response;
 @Singleton
 public class MovieDetailDataProvider {
     private String jsonData;
-    private String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/top_movies.json";
+    private String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/35cccb4bb96bc00575f34ab49bb0f56bf7c77f0e/by_id/tt0035575.json";
     private JSONParser parser = new JSONParser();
 
     private final OkHttpClient okHttpClient;
