@@ -9,7 +9,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +18,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MoviesListActivity extends AppCompatActivity implements MoviesPresenter.MoviesView, View.OnClickListener {
+public class MoviesListActivity extends AppCompatActivity implements MoviesPresenter.MoviesView {
     private NavigationDrawerDelegate navDrawerDelegate;
     private MyAdapter adapter;
 
@@ -31,9 +30,6 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesPrese
         super.onCreate(savedInstanceState);
         MyApplication.getApplicationComponent().inject(this);
         setContentView(R.layout.activity_movies_list);
-
-        TextView textView = findViewById(R.id.rankTextView);
-        textView.setOnClickListener(this);
 
         // Set up navigation drawer and toolbar
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
@@ -51,7 +47,15 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesPrese
         mRecyclerView.setHasFixedSize(true);
 
         // Specify an adapter
-        adapter = new MyAdapter();
+        adapter = new MyAdapter(new MyAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(TextView tv) {
+                Intent intent = new Intent(MoviesListActivity.this, MovieDetailsActivity.class);
+                //TextView textViewIMDB = tv.findViewById(R.id.imdbIdTextView);
+                intent.putExtra("imdbId", tv.toString());
+                startActivity(intent);
+            }
+        });
         mRecyclerView.setAdapter(adapter);
 
         // Grid layout manager
@@ -61,12 +65,6 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesPrese
         presenter.attach(this);
         presenter.present();
 
-    }
-
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(this, MovieDetailsActivity.class);
-        startActivity(intent);
     }
 
     @Override
