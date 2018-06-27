@@ -18,9 +18,12 @@ import java.util.List;
 // MyAdapter receives the collection (array, list, set, etc.) of MovieData items. The adapter
 // should just be responsible for adapting that provider to the views in the RecyclerView
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+
     private List<MovieData> movieData = new ArrayList<>();
     private ProgressProvider progressProvider = new ProgressProvider();
-    MyAdapter() { }
+    private final OnItemClickListener clickListener;
+
+    MyAdapter(OnItemClickListener clickListener) { this.clickListener = clickListener; }
 
     // Return the size of dataset (invoked by the layout manager)
     @Override
@@ -30,7 +33,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Provide a reference to the views for each provider item
     // Complex provider items may need more than one view per item, and
     // you provide access to all the views for a provider item in a view holder
-    static class ViewHolder extends RecyclerView.ViewHolder  implements ProgressPresenter.ProgressView{
+    static class ViewHolder extends RecyclerView.ViewHolder  implements MovieSummaryPresenter.ProgressView{
         // Each provider item is just a string in this case
         ImageView mImageView;
         TextView mRankTextView;
@@ -40,11 +43,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         TextView mImdbRatingTextView;
         TextView mImdbVotesTextView;
         TextView mImdbLinkTextView;
-        ProgressPresenter progressPresenter;
+        MovieSummaryPresenter movieSummaryPresenter;
         ProgressBar progressItem;
         TextView progressPercentage;
 
-        ViewHolder(View v) {
+        ViewHolder(View v, final OnItemClickListener listener) {
+
             super(v);
             mImageView = v.findViewById(R.id.posterImageView);
             mRankTextView = v.findViewById(R.id.rankTextView);
@@ -56,6 +60,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             mImdbLinkTextView = v.findViewById(R.id.imdbLinkTextView);
             progressItem = v.findViewById(R.id.progress_bar);
             progressPercentage = v.findViewById(R.id.tv);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClick(mImdbIdTextView);
+                }
+            });
 
         }
 
@@ -87,7 +98,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.movie_summary_view, viewGroup, false);
-        return new ViewHolder(v);
+        return new ViewHolder(v, clickListener);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -95,7 +106,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         final String movieID = movieData.get(holder.getAdapterPosition()).getImdbId();
-        holder.progressPresenter = new ProgressPresenter(progressProvider, movieID);
+        holder.movieSummaryPresenter = new MovieSummaryPresenter(progressProvider, movieID);
 
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
@@ -107,8 +118,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.getImdbVotesTextView().setText(String.valueOf(movieData.get(position).getImdbVotes()));
         holder.getImdbLinkTextView().setText(movieData.get(position).getImdbLink());
 
-        holder.progressPresenter.attach(holder);
-        holder.progressPresenter.present();
+        holder.movieSummaryPresenter.attach(holder);
+        holder.movieSummaryPresenter.present();
 
         // If URL is empty, provide error image
         if (movieData.get(position).getPoster().isEmpty()) {
@@ -132,20 +143,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onViewDetachedFromWindow(@NonNull ViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
-        holder.progressPresenter.detach();
+        holder.movieSummaryPresenter.detach();
     }
 
     @Override
     public void onViewAttachedToWindow(@NonNull ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
-        holder.progressPresenter.attach(holder);
-        holder.progressPresenter.present();
+        holder.movieSummaryPresenter.attach(holder);
+        holder.movieSummaryPresenter.present();
     }
 
     public void setData(List<MovieData> data) {
         movieData.clear();
         movieData = data;
         notifyDataSetChanged();
+    }
+
+    public interface OnItemClickListener {
+        void onClick(TextView clickedMovieImdbId);
     }
 
 }
