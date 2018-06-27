@@ -18,7 +18,7 @@ public class MovieSummaryPresenterTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        presenter = new MovieSummaryPresenter(mockProgressProvider);
+        //presenter = new MovieSummaryPresenter(mockProgressProvider);
         //presenter.attach(mockProgressView);
     }
 
