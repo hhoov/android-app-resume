@@ -5,14 +5,14 @@ import android.support.annotation.NonNull;
 /**
  * An observer/listener of changes. Presenter for item Views & download progress.
  */
-public class ProgressPresenter {
-    private ProgressPresenter.ProgressView progressView = NULL_VIEW;
-    private final static ProgressPresenter.ProgressView NULL_VIEW = NullObject.create(ProgressPresenter.ProgressView.class);
+public class MovieSummaryPresenter {
+    private MovieSummaryPresenter.ProgressView progressView = NULL_VIEW;
+    private final static MovieSummaryPresenter.ProgressView NULL_VIEW = NullObject.create(MovieSummaryPresenter.ProgressView.class);
 
     private ProgressProvider progressProvider;
     private String movieID;
 
-    ProgressPresenter(@NonNull final ProgressProvider progressProvider, final String movieID) {
+    MovieSummaryPresenter(@NonNull final ProgressProvider progressProvider, final String movieID) {
         this.progressProvider = progressProvider;
         this.movieID = movieID;
     }

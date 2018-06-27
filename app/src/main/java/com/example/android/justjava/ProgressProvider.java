@@ -12,7 +12,7 @@ import java.util.Set;
  */
 public class ProgressProvider {
     private static final String FIXED_MOVIE_ID = "tt0108052";
-    private Map<String, Set<ProgressPresenter>> observerMap = new HashMap<>();
+    private Map<String, Set<MovieSummaryPresenter>> observerMap = new HashMap<>();
     private int downloadProgress = 0;
     private Handler handler = new Handler();
 
@@ -48,21 +48,21 @@ public class ProgressProvider {
         }
     }
 
-    public void registerObserver(String movieID, ProgressPresenter progressPresenter) {
+    public void registerObserver(String movieID, MovieSummaryPresenter movieSummaryPresenter) {
         if (!observerMap.containsKey(movieID)) {
-            observerMap.put(movieID, new HashSet<ProgressPresenter>());
+            observerMap.put(movieID, new HashSet<MovieSummaryPresenter>());
         }
-        observerMap.get(movieID).add(progressPresenter);
+        observerMap.get(movieID).add(movieSummaryPresenter);
     }
 
-    public void deregisterObserver(String movieID, ProgressPresenter progressPresenter) {
-        observerMap.get(movieID).remove(progressPresenter);
+    public void deregisterObserver(String movieID, MovieSummaryPresenter movieSummaryPresenter) {
+        observerMap.get(movieID).remove(movieSummaryPresenter);
     }
 
     private void notifyObservers(int downloadProgress, String movieID) {
         if (observerMap.containsKey(movieID)) {
-            for (ProgressPresenter progressPresenter : observerMap.get(movieID)) {
-                progressPresenter.onProgressUpdated(downloadProgress);
+            for (MovieSummaryPresenter movieSummaryPresenter : observerMap.get(movieID)) {
+                movieSummaryPresenter.onProgressUpdated(downloadProgress);
             }
         }
     }
