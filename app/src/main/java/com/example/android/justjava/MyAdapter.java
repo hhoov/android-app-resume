@@ -1,7 +1,9 @@
 package com.example.android.justjava;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +23,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private List<MovieData> movieData = new ArrayList<>();
     private ProgressProvider progressProvider = new ProgressProvider();
-    private final OnItemClickListener clickListener;
 
-    MyAdapter(OnItemClickListener clickListener) { this.clickListener = clickListener; }
+    MyAdapter() {  }
 
     // Return the size of dataset (invoked by the layout manager)
     @Override
@@ -47,7 +48,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         ProgressBar progressItem;
         TextView progressPercentage;
 
-        ViewHolder(View v, final OnItemClickListener listener) {
+        ViewHolder(View v) {
 
             super(v);
             mImageView = v.findViewById(R.id.posterImageView);
@@ -64,7 +65,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onClick(mImdbIdTextView);
+                    movieSummaryPresenter.onMovieClicked();
                 }
             });
 
@@ -79,14 +80,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         TextView getImdbVotesTextView() { return mImdbVotesTextView; }
         TextView getImdbLinkTextView() { return  mImdbLinkTextView; }
 
-        /*@Override
+        @Override
         public void displayMovieDetail(String imdbId) {
-            //Intent intent = new Intent(itemView.getContext(), MovieDetailsActivity.class);
-            //TextView textViewIMDB = tv.findViewById(R.id.imdbIdTextView);
-            //intent.putExtra("imdbId", tv.toString());
-            //startActivity(intent);
+            //detail.setText(String.valueOf(imdbId));
+            Log.d("ID -- ", imdbId);
+            Intent intent = new Intent(mImdbIdTextView.getContext(), MovieDetailsActivity.class);
+            intent.putExtra("ID", imdbId);
+            mImdbIdTextView.getContext().startActivity(intent);
         }
-*/
+
         @Override
         public void showProgressBar(int progress) {
             progressItem.setProgress(progress);
@@ -106,15 +108,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.movie_summary_view, viewGroup, false);
-        return new ViewHolder(v, clickListener);
+        return new ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        final MovieData md = movieData.get(holder.getAdapterPosition());
-        holder.movieSummaryPresenter = new MovieSummaryPresenter(progressProvider, md);
+        //final MovieData md = movieData.get(holder.getAdapterPosition());
+        final String imdbId = movieData.get(holder.getAdapterPosition()).getImdbId();
+        holder.movieSummaryPresenter = new MovieSummaryPresenter(progressProvider, imdbId);
 
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
@@ -165,10 +168,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         movieData.clear();
         movieData = data;
         notifyDataSetChanged();
-    }
-
-    public interface OnItemClickListener {
-        void onClick(TextView clickedMovieImdbId);
     }
 
 }
