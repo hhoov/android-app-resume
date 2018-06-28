@@ -33,7 +33,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Provide a reference to the views for each provider item
     // Complex provider items may need more than one view per item, and
     // you provide access to all the views for a provider item in a view holder
-    static class ViewHolder extends RecyclerView.ViewHolder  implements MovieSummaryPresenter.ProgressView{
+    static class ViewHolder extends RecyclerView.ViewHolder  implements MovieSummaryPresenter.MovieSummaryView {
         // Each provider item is just a string in this case
         ImageView mImageView;
         TextView mRankTextView;

@@ -6,8 +6,8 @@ import android.support.annotation.NonNull;
  * An observer/listener of changes. Presenter for item Views & download progress.
  */
 public class MovieSummaryPresenter {
-    private MovieSummaryPresenter.ProgressView progressView = NULL_VIEW;
-    private final static MovieSummaryPresenter.ProgressView NULL_VIEW = NullObject.create(MovieSummaryPresenter.ProgressView.class);
+    private MovieSummaryView movieSummaryView = NULL_VIEW;
+    private final static MovieSummaryView NULL_VIEW = NullObject.create(MovieSummaryView.class);
 
     private ProgressProvider progressProvider;
     private String movieID;
@@ -17,28 +17,28 @@ public class MovieSummaryPresenter {
         this.movieID = movieID;
     }
 
-    public void attach(ProgressView progressView) {
+    public void attach(MovieSummaryView movieSummaryView) {
         // set visibility of the download view here.
-        this.progressView = progressView;
+        this.movieSummaryView = movieSummaryView;
         this.progressProvider.registerObserver(movieID, this);
     }
 
     public void detach() {
-        this.progressView = NULL_VIEW;
+        this.movieSummaryView = NULL_VIEW;
         progressProvider.deregisterObserver(movieID, this);
     }
 
     public void present() {
         int downloadProgress = progressProvider.getDownloadProgress(movieID);
-        progressView.showProgressBar(downloadProgress);
+        movieSummaryView.showProgressBar(downloadProgress);
 
     }
 
     public void onProgressUpdated(int progress) {
-        progressView.showProgressBar(progress);
+        movieSummaryView.showProgressBar(progress);
     }
 
-    interface ProgressView {
+    interface MovieSummaryView {
         void showProgressBar(int progress);
         void hideProgressBar();
     }

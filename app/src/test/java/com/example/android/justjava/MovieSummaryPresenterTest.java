@@ -9,7 +9,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MovieSummaryPresenterTest {
-    @Mock(name = "Movies View") private MovieSummaryPresenter.ProgressView mockProgressView;
+    @Mock(name = "Movies View") private MovieSummaryPresenter.MovieSummaryView mockMovieSummaryView;
     @Mock(name = "Progress Provider") private ProgressProvider mockProgressProvider;
 
     @InjectMocks
@@ -19,7 +19,7 @@ public class MovieSummaryPresenterTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         //presenter = new MovieSummaryPresenter(mockProgressProvider);
-        //presenter.attach(mockProgressView);
+        //presenter.attach(mockMovieSummaryView);
     }
 
 }
