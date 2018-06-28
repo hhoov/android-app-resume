@@ -79,6 +79,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         TextView getImdbVotesTextView() { return mImdbVotesTextView; }
         TextView getImdbLinkTextView() { return  mImdbLinkTextView; }
 
+        /*@Override
+        public void displayMovieDetail(String imdbId) {
+            //Intent intent = new Intent(itemView.getContext(), MovieDetailsActivity.class);
+            //TextView textViewIMDB = tv.findViewById(R.id.imdbIdTextView);
+            //intent.putExtra("imdbId", tv.toString());
+            //startActivity(intent);
+        }
+*/
         @Override
         public void showProgressBar(int progress) {
             progressItem.setProgress(progress);
@@ -105,8 +113,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        final String movieID = movieData.get(holder.getAdapterPosition()).getImdbId();
-        holder.movieSummaryPresenter = new MovieSummaryPresenter(progressProvider, movieID);
+        final MovieData md = movieData.get(holder.getAdapterPosition());
+        holder.movieSummaryPresenter = new MovieSummaryPresenter(progressProvider, md);
 
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
