@@ -1,6 +1,5 @@
 package com.example.android.justjava;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -9,7 +8,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.justjava.model.MovieData;
@@ -47,15 +45,7 @@ public class MoviesGridActivity extends AppCompatActivity implements MoviesPrese
         mRecyclerView.setHasFixedSize(true);
 
         // Specify an adapter
-        adapter = new MyAdapter(new MyAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(TextView tv) {
-                Intent intent = new Intent(MoviesGridActivity.this, MovieDetailsActivity.class);
-                //TextView textViewIMDB = tv.findViewById(R.id.imdbIdTextView);
-                intent.putExtra("imdbId", tv.toString());
-                startActivity(intent);
-            }
-        });
+        adapter = new MyAdapter();
         mRecyclerView.setAdapter(adapter);
 
         // Grid layout manager
