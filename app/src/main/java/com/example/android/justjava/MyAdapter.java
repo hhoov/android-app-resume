@@ -3,7 +3,6 @@ package com.example.android.justjava;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.android.justjava.model.MovieData;
+import com.example.android.justjava.model.MovieDetailData;
+import com.example.android.justjava.provider.MovieDetailDataProvider;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 // MyAdapter receives the collection (array, list, set, etc.) of MovieData items. The adapter
 // should just be responsible for adapting that provider to the views in the RecyclerView
@@ -23,6 +27,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private List<MovieData> movieData = new ArrayList<>();
     private ProgressProvider progressProvider = new ProgressProvider();
+    private MovieDetailDataProvider movieDetailDataProvider;
+
 
     MyAdapter() {  }
 
@@ -44,9 +50,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         TextView mImdbRatingTextView;
         TextView mImdbVotesTextView;
         TextView mImdbLinkTextView;
-        MovieSummaryPresenter movieSummaryPresenter;
         ProgressBar progressItem;
         TextView progressPercentage;
+        @Inject
+        MovieSummaryPresenter movieSummaryPresenter;
+
 
         ViewHolder(View v) {
 
@@ -65,7 +73,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    movieSummaryPresenter.onMovieClicked();
+                    try {
+                        movieSummaryPresenter.onMovieClicked();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
 
@@ -81,11 +93,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         TextView getImdbLinkTextView() { return  mImdbLinkTextView; }
 
         @Override
-        public void displayMovieDetail(String imdbId) {
-            //detail.setText(String.valueOf(imdbId));
-            Log.d("ID -- ", imdbId);
+        public void displayMovieDetail(MovieDetailData movieDetailData) {
             Intent intent = new Intent(mImdbIdTextView.getContext(), MovieDetailsActivity.class);
-            intent.putExtra("ID", imdbId);
+            // todo -- with parcelable
             mImdbIdTextView.getContext().startActivity(intent);
         }
 
@@ -117,7 +127,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         //final MovieData md = movieData.get(holder.getAdapterPosition());
         final String imdbId = movieData.get(holder.getAdapterPosition()).getImdbId();
-        holder.movieSummaryPresenter = new MovieSummaryPresenter(progressProvider, imdbId);
+        holder.movieSummaryPresenter = new MovieSummaryPresenter(progressProvider, movieDetailDataProvider, imdbId);
 
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
