@@ -21,7 +21,7 @@ public class JSONParser {
         return mapper.readValue(response, new TypeReference<List<MovieData>>(){});
     }
 
-    public List<MovieDetailData> readDetailJsonStream(String response) throws IOException {
+    public MovieDetailData readDetailJsonStream(String response) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
         // Config deserialization
