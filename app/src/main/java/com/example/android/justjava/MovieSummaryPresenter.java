@@ -2,6 +2,13 @@ package com.example.android.justjava;
 
 import android.support.annotation.NonNull;
 
+import com.example.android.justjava.model.MovieDetailData;
+import com.example.android.justjava.provider.MovieDetailDataProvider;
+
+import java.io.IOException;
+
+import javax.inject.Inject;
+
 /**
  * An observer/listener of changes. Presenter for item Views & download progress.
  */
@@ -10,11 +17,13 @@ public class MovieSummaryPresenter {
     private final static MovieSummaryView NULL_VIEW = NullObject.create(MovieSummaryView.class);
 
     private ProgressProvider progressProvider;
+    private final MovieDetailDataProvider movieDetailDataProvider;
     private String imdbId;
-    //private MovieData movieData;
 
-    MovieSummaryPresenter(@NonNull final ProgressProvider progressProvider, final String imdbId) {
+    @Inject
+    MovieSummaryPresenter(@NonNull final ProgressProvider progressProvider, final MovieDetailDataProvider movieDetailDataProvider, final String imdbId) {
         this.progressProvider = progressProvider;
+        this.movieDetailDataProvider = movieDetailDataProvider;
         this.imdbId = imdbId;
 
     }
@@ -35,8 +44,9 @@ public class MovieSummaryPresenter {
         movieSummaryView.showProgressBar(downloadProgress);
     }
 
-    public void onMovieClicked() {
-        movieSummaryView.displayMovieDetail(imdbId);
+    public void onMovieClicked() throws IOException {
+        MovieDetailData movieDetailData = movieDetailDataProvider.getMovieDetailData(imdbId);
+        movieSummaryView.displayMovieDetail(movieDetailData);
     }
 
     public void onProgressUpdated(int progress) {
@@ -45,7 +55,7 @@ public class MovieSummaryPresenter {
 
     interface MovieSummaryView {
 
-        void displayMovieDetail(String imdbId);
+        void displayMovieDetail(MovieDetailData movieDetailData);
         void showProgressBar(int progress);
         void hideProgressBar();
     }
