@@ -9,9 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.example.android.justjava.model.MovieDetailData;
-
 public class MovieDetailsActivity extends AppCompatActivity {
+
+    //@Inject MovieSummaryPresenter movieSummaryPresenter;
 
     //private ImageView poster;
     //private TextView rating, votes, id, title, year, rated, released, runtime, genre;
@@ -24,18 +24,29 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //MyApplication.getApplicationComponent().inject(this);
         setContentView(R.layout.activity_details);
 
-        Intent intent = getIntent();
-        String action = intent.getAction();
-        Uri data = intent.getData();
-
         TextView id = (TextView) findViewById(R.id.imdbIdTextView);
+        Log.d("ID b4 getIntent() -- ", id.toString());
+        
+        Intent intent = getIntent();
+        Log.d("INTENT -- ", intent.toString());
+        String action = intent.getAction();
+        if (action != null) {
+            Log.d("ACTION -- ", action);
+        }
+        Uri data = intent.getData();
+        if (data != null) {
+            Log.d("URI -- ", data.toString());
+        }
 
-        MovieDetailData movieDetailData = (MovieDetailData) getIntent().getExtras().getSerializable("ID");
+        Log.d("ID AFTER intent -- ", id.toString());
 
-        id.setText(movieDetailData.getImdbId());
-        Log.d(" ID -- ", id.toString());
+        //MovieDetailData movieDetailData = (MovieDetailData) getIntent().getExtras().getSerializable("ID");
+
+        //id.setText(movieDetailData.getImdbId());
+        //Log.d(" ID -- ", id.toString());
 
         //title.setText(movieDetails.getTitle());
         //id.setText(movieDetails.getImdbId());
