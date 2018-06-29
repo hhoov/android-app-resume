@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.example.android.justjava.model.MovieDetailData;
+
 public class MovieDetailsActivity extends AppCompatActivity {
 
     //@Inject MovieSummaryPresenter movieSummaryPresenter;
@@ -29,21 +31,21 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         TextView id = (TextView) findViewById(R.id.imdbIdTextView);
         Log.d("ID b4 getIntent() -- ", id.toString());
-        
+
         Intent intent = getIntent();
-        Log.d("INTENT -- ", intent.toString());
         String action = intent.getAction();
-        if (action != null) {
-            Log.d("ACTION -- ", action);
-        }
         Uri data = intent.getData();
-        if (data != null) {
-            Log.d("URI -- ", data.toString());
-        }
+
 
         Log.d("ID AFTER intent -- ", id.toString());
 
-        //MovieDetailData movieDetailData = (MovieDetailData) getIntent().getExtras().getSerializable("ID");
+        MovieDetailData movieDetailData = (MovieDetailData) intent.getParcelableExtra("detailData");
+
+        id.setText(movieDetailData.getImdbId());
+
+        Log.d("After Parcel -- ", id.toString());
+
+
 
         //id.setText(movieDetailData.getImdbId());
         //Log.d(" ID -- ", id.toString());
