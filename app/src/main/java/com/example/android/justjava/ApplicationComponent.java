@@ -1,6 +1,7 @@
 package com.example.android.justjava;
 
 import com.example.android.justjava.provider.MovieDataProvider;
+import com.example.android.justjava.provider.MovieDetailDataProvider;
 
 import javax.inject.Singleton;
 
@@ -13,4 +14,5 @@ public interface ApplicationComponent {
     void inject(MoviesListActivity moviesListActivity);
     void inject(MovieDetailsActivity movieDetailsActivity);
     void inject(MovieDataProvider movieDataProvider);
+    void inject(MovieDetailDataProvider movieDetailDataProvider);
 }
