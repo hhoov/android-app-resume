@@ -1,9 +1,14 @@
 package com.example.android.justjava.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class MovieDetailData {
+import java.util.ArrayList;
+
+public class MovieDetailData implements Parcelable {
     private final double imdbRating;
     private final int imdbVotes;
     private final String imdbId;
@@ -13,15 +18,15 @@ public class MovieDetailData {
     private final String released;
     private final String runtime;
 
-    private final String[] genre;
+    private final ArrayList<String> genre;
 
     private final String director;
     private final String writer;
 
-    private final String[] actors;
+    private final ArrayList<String> actors;
     private final String plot;
 
-    private final String[] language;
+    private final ArrayList<String> language;
 
     private final String country;
     private final String awards;
@@ -38,12 +43,12 @@ public class MovieDetailData {
             @JsonProperty("rated") String rated,
             @JsonProperty("released") String released,
             @JsonProperty("runtime") String runtime,
-            @JsonProperty("genre") String[] genre,
+            @JsonProperty("genre") ArrayList<String> genre,
             @JsonProperty("director") String director,
             @JsonProperty("writer") String writer,
-            @JsonProperty("actors") String[] actors,
+            @JsonProperty("actors") ArrayList<String> actors,
             @JsonProperty("plot") String plot,
-            @JsonProperty("language") String[] language,
+            @JsonProperty("language") ArrayList<String> language,
             @JsonProperty("country") String country,
             @JsonProperty("awards") String awards,
             @JsonProperty("poster") String poster,
@@ -66,6 +71,27 @@ public class MovieDetailData {
         this.awards = awards;
         this.poster = poster;
         this.metascore = metascore;
+    }
+
+    public MovieDetailData(Parcel source) {
+        imdbRating = source.readDouble();
+        imdbVotes = source.readInt();
+        imdbId = source.readString();
+        title = source.readString();
+        year = source.readInt();
+        rated = source.readString();
+        released = source.readString();
+        runtime = source.readString();
+        genre = source.createStringArrayList();
+        director = source.readString();
+        writer = source.readString();
+        actors = source.createStringArrayList();
+        plot = source.readString();
+        language = source.createStringArrayList();
+        country = source.readString();
+        awards = source.readString();
+        poster = source.readString();
+        metascore = source.readString();
     }
 
     public double getImdbRating() {
@@ -100,8 +126,9 @@ public class MovieDetailData {
         return runtime;
     }
 
-    public String getGenre(int index) {
-        return genre[index];
+    public ArrayList<String> getGenre(int index) {
+        if (!(genre == null)) return genre;
+        else return new ArrayList<String>();
     }
 
     public String getDirector() {
@@ -112,16 +139,18 @@ public class MovieDetailData {
         return writer;
     }
 
-    public String getActors(int index) {
-        return actors[index];
+    public ArrayList<String> getActors(int index) {
+        if (!(actors == null)) return actors;
+        else return new ArrayList<String>();
     }
 
     public String getPlot() {
         return plot;
     }
 
-    public String getLanguage(int index) {
-        return language[index];
+    public ArrayList<String> getLanguage(int index) {
+        if (!(language == null)) return language;
+        else return new ArrayList<String>();
     }
 
     public String getCountry() {
@@ -140,5 +169,43 @@ public class MovieDetailData {
         return metascore;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(imdbRating);
+        dest.writeInt(imdbVotes);
+        dest.writeString(imdbId);
+        dest.writeString(title);
+        dest.writeInt(year);
+        dest.writeString(rated);
+        dest.writeString(released);
+        dest.writeString(runtime);
+        dest.writeStringList(genre);
+        dest.writeString(director);
+        dest.writeString(writer);
+        dest.writeStringList(actors);
+        dest.writeString(plot);
+        dest.writeStringList(language);
+        dest.writeString(country);
+        dest.writeString(awards);
+        dest.writeString(poster);
+        dest.writeString(metascore);
+    }
+
+    public static final Creator<MovieDetailData> CREATOR = new Creator<MovieDetailData>() {
+        @Override
+        public MovieDetailData createFromParcel(Parcel source) {
+            return new MovieDetailData(source);
+        }
+
+        @Override
+        public MovieDetailData[] newArray(int size) {
+            return new MovieDetailData[size];
+        }
+    };
 
 }
