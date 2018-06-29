@@ -52,6 +52,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         TextView mImdbLinkTextView;
         ProgressBar progressItem;
         TextView progressPercentage;
+        MovieSummaryPresenter movieProgressPresenter;
         @Inject
         MovieSummaryPresenter movieSummaryPresenter;
 
@@ -94,9 +95,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         @Override
         public void displayMovieDetail(MovieDetailData movieDetailData) {
-            Intent intent = new Intent(mImdbIdTextView.getContext(), MovieDetailsActivity.class);
+            Intent intent = new Intent(mImageView.getContext(), MovieDetailsActivity.class);
             // todo -- with parcelable
-            mImdbIdTextView.getContext().startActivity(intent);
+            intent.putExtra("detailData", movieDetailData);
+            mImageView.getContext().startActivity(intent);
         }
 
         @Override
@@ -127,7 +129,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         //final MovieData md = movieData.get(holder.getAdapterPosition());
         final String imdbId = movieData.get(holder.getAdapterPosition()).getImdbId();
-        holder.movieSummaryPresenter = new MovieSummaryPresenter(progressProvider, movieDetailDataProvider, imdbId);
+        holder.movieSummaryPresenter = new MovieSummaryPresenter(progressProvider, imdbId);
 
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
