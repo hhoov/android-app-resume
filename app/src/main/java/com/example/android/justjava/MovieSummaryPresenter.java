@@ -17,15 +17,18 @@ public class MovieSummaryPresenter {
     private final static MovieSummaryView NULL_VIEW = NullObject.create(MovieSummaryView.class);
 
     private ProgressProvider progressProvider;
-    private final MovieDetailDataProvider movieDetailDataProvider;
+    private MovieDetailDataProvider movieDetailDataProvider;
     private String imdbId;
 
-    @Inject
-    MovieSummaryPresenter(@NonNull final ProgressProvider progressProvider, final MovieDetailDataProvider movieDetailDataProvider, final String imdbId) {
+    MovieSummaryPresenter(@NonNull final ProgressProvider progressProvider, final String imdbId) {
         this.progressProvider = progressProvider;
-        this.movieDetailDataProvider = movieDetailDataProvider;
         this.imdbId = imdbId;
 
+    }
+    @Inject
+    MovieSummaryPresenter(MovieDetailDataProvider movieDetailDataProvider, final String imdbId) {
+        this.movieDetailDataProvider = movieDetailDataProvider;
+        this.imdbId = imdbId;
     }
 
     public void attach(MovieSummaryView movieSummaryView) {
