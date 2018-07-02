@@ -15,21 +15,20 @@ import okhttp3.Response;
 @Singleton
 public class MovieDetailDataProvider {
     private String jsonData;
-    String imdbId;
-    private String url = String.format("https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/by_id/%s.json", imdbId);
+    private String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/by_id/";
     private JSONParser parser = new JSONParser();
 
     private final OkHttpClient okHttpClient;
 
     // Private constructor prevents any other class from instantiating.
     @Inject
-    MovieDetailDataProvider(OkHttpClient okHttpClient) {
-        this.okHttpClient = okHttpClient;
-    }
+    MovieDetailDataProvider(OkHttpClient okHttpClient) { this.okHttpClient = okHttpClient; }
 
     // Call readDetailJsonStream with response string arg on JSONParser object
     public MovieDetailData getMovieDetailData(String imdbId) throws IOException {
-        jsonData = makeRequest(url);
+        String urlExtension = ".json";
+        String urlWithImdbId = url + imdbId + urlExtension;
+        jsonData = makeRequest(urlWithImdbId);
         return parser.readDetailJsonStream(jsonData);
     }
 
