@@ -60,6 +60,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             progressItem = v.findViewById(R.id.progress_bar);
             progressPercentage = v.findViewById(R.id.tv);
 
+            mImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    movieSummaryPresenter.onMovieClicked();
+                }
+            });
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
