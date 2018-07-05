@@ -55,8 +55,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
 
         String imdbId = intent.getStringExtra("imdbId");
 
-        //MovieDetailData movieDetailData = (MovieDetailData) intent.getParcelableExtra("imdbId");
-
         movieDetailPresenter.attach(this);
         movieDetailPresenter.present(imdbId);
 
@@ -78,26 +76,25 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     public void displayMovieDetails(MovieDetailData movieDetailData) {
 
         rating.setText(String.valueOf(movieDetailData.getImdbRating()));
-
-        votes.setText(movieDetailData.getImdbVotes());
+        votes.setText(String.valueOf(movieDetailData.getImdbVotes()));
         id.setText(movieDetailData.getImdbId());
         title.setText(movieDetailData.getTitle());
-        year.setText(movieDetailData.getYear());
+        year.setText(String.valueOf(movieDetailData.getYear()));
         rated.setText(movieDetailData.getRated());
         released.setText(movieDetailData.getReleased());
         runtime.setText(movieDetailData.getRuntime());
-
-        genre.setText(movieDetailData.getGenre().toString());
-
+        genre.setText(movieDetailData.getGenre().toString()
+                                                .replace("[", "")
+                                                .replace("]", ""));
         director.setText(movieDetailData.getDirector());
         writer.setText(movieDetailData.getWriter());
-
-        actors.setText(movieDetailData.getActors().toString());
-
+        actors.setText(movieDetailData.getActors().toString()
+                                                  .replace("[", "")
+                                                  .replace("]", ""));
         plot.setText(movieDetailData.getPlot());
-
-        language.setText(movieDetailData.getLanguage().toString());
-
+        language.setText(movieDetailData.getLanguage().toString()
+                                                      .replace("[", "")
+                                                      .replace("]", ""));
         country.setText(movieDetailData.getCountry());
         awards.setText(movieDetailData.getAwards());
         metascore.setText(movieDetailData.getMetascore());
