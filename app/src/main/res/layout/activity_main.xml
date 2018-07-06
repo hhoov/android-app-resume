@@ -1,72 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- The toolbar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?android:attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay" />
+
+        <FrameLayout
+            android:id="@+id/drawer_button"
+            android:layout_width="50dp"
+            android:layout_height="?android:attr/actionBarSize"
+            android:fitsSystemWindows="true"
+            android:layout_alignParentEnd="true"
+            android:clickable="true"
+            android:focusable="true">
+        </FrameLayout>
+    </RelativeLayout>
+
+    <!--android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity">-->
 
-    <!-- This LinearLayout represents the contents of the screen  -->
-    <LinearLayout
+
+    <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         android:orientation="vertical">
 
-        <!-- ActionBar displayed at the top -->
-        <include
-            layout="@layout/toolbar"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible">
-        </include>
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical"
+            tools:context=".MainActivity">
+            <!-- This LinearLayout represents the contents of the screen  -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <!-- The main content view where fragments are loaded -->
-        <TextView
-            android:id="@+id/header_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="top"
-            android:text="@string/main_header_name"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@android:color/holo_purple"
-            android:textStyle="bold">
-        </TextView>
+                <!-- ActionBar displayed at the top -->
+                <!--<include
+                    layout="@layout/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
+                </include>-->
 
-        <ImageView
-            android:id="@+id/resume_image_view"
-            android:layout_width="match_parent"
-            android:layout_height="462dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@null"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/hoover_resume_sample"
-            android:visibility="visible">
-        </ImageView>
+                <!-- The main content view where fragments are loaded -->
+                <TextView
+                    android:id="@+id/header_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="top"
+                    android:text="@string/main_header_name"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@android:color/holo_purple"
+                    android:textStyle="bold">
+                </TextView>
 
-        <Button
-            android:id="@+id/email_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="sendEmail"
-            android:text="@string/email_button_name">
-        </Button>
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/resume_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="462dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/hoover_resume_sample"
+                    android:visibility="visible">
+                </ImageView>
 
-    <!-- The navigation drawer that comes from the left -->
-    <!-- Note that `android:layout_gravity` needs to be set to 'start' -->
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:visibility="visible"
-        app:menu="@menu/drawer_view"
-        app:headerLayout="@layout/nav_header">
-    </android.support.design.widget.NavigationView>
-</android.support.v4.widget.DrawerLayout>
+                <Button
+                    android:id="@+id/email_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="sendEmail"
+                    android:text="@string/email_button_name">
+                </Button>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- The navigation drawer that comes from the left -->
+        <!-- Note that `android:layout_gravity` needs to be set to 'start' -->
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:visibility="visible"
+            app:menu="@menu/drawer_view"
+            app:headerLayout="@layout/nav_header">
+        </android.support.design.widget.NavigationView>
+    </android.support.v4.widget.DrawerLayout>
+</LinearLayout>
 
