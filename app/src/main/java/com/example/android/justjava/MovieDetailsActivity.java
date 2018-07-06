@@ -1,11 +1,15 @@
 package com.example.android.justjava;
 
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,10 +29,18 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     private TextView director, writer, actors, plot, language, country, awards, metascore;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MyApplication.getApplicationComponent().inject(this);
         setContentView(R.layout.activity_details);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        this.setSupportActionBar(toolbar);
+
+        ActionBar actionbar = this.getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        //actionbar.setDisplayShowHomeEnabled(true);
+        //actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         poster = findViewById(R.id.posterImageView);
         rating = findViewById(R.id.imdbRatingTextView);
@@ -116,4 +128,16 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
                     .into(poster);
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
 }
