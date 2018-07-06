@@ -6,6 +6,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -32,6 +33,12 @@ public class NavigationDrawerDelegate {
         ActionBar actionbar = activity.getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                activity, drawerLayout, toolbar, R.string.nav_drawer_open, R.string.nav_drawer_close);
+        //drawer.setDrawerListener(toggle);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
         navView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
