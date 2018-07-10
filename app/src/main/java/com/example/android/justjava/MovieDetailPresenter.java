@@ -1,7 +1,7 @@
 package com.example.android.justjava;
 
 import com.example.android.justjava.model.MovieDetailData;
-import com.example.android.justjava.provider.MovieDetailDataProvider;
+import com.example.android.justjava.provider.MovieDetailProvider;
 
 import java.io.IOException;
 import java.util.concurrent.Executor;
@@ -13,12 +13,12 @@ public class MovieDetailPresenter {
     private MovieDetailView movieDetailView = NULL_VIEW;
     private final static MovieDetailView NULL_VIEW = NullObject.create(MovieDetailView.class);
 
-    private MovieDetailDataProvider movieDetailDataProvider;
+    private MovieDetailProvider movieDetailProvider;
     private final Executor backgroundExecutor;
     private final UIExecutor uiExecutor;
 
-    @Inject MovieDetailPresenter(MovieDetailDataProvider movieDetailDataProvider, Executor backgroundExecutor, UIExecutor uiExecutor) {
-        this.movieDetailDataProvider = movieDetailDataProvider;
+    @Inject MovieDetailPresenter(MovieDetailProvider movieDetailProvider, Executor backgroundExecutor, UIExecutor uiExecutor) {
+        this.movieDetailProvider = movieDetailProvider;
         this.backgroundExecutor = backgroundExecutor;
         this.uiExecutor = uiExecutor;
     }
@@ -36,7 +36,7 @@ public class MovieDetailPresenter {
             @Override
             public void run() {
                 try {
-                    final MovieDetailData movieDetailData = movieDetailDataProvider.getMovieDetailData(imdbId);
+                    final MovieDetailData movieDetailData = movieDetailProvider.getMovieDetailData(imdbId);
                     uiExecutor.execute(new Runnable() {
                         @Override
                         public void run() {

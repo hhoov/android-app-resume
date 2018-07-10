@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
-public class MovieDetailsActivity extends AppCompatActivity implements MovieDetailPresenter.MovieDetailView {
+public class MovieDetailActivity extends AppCompatActivity implements MovieDetailPresenter.MovieDetailView {
 
     @Inject
     MovieDetailPresenter movieDetailPresenter;
@@ -28,8 +28,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApplication.getApplicationComponent().inject(this);
-        setContentView(R.layout.activity_details);
+        MovieApplication.getApplicationComponent().inject(this);
+        setContentView(R.layout.activity_movie_detail);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);

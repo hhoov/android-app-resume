@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name=".MyApplication"
+        android:name=".MovieApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -28,7 +28,7 @@
             android:label="@string/title_activity_movies_grid"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".MovieDetailsActivity"
+        <activity android:name=".MovieDetailActivity"
             android:label="Movie Details Activity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

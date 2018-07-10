@@ -1,7 +1,7 @@
 package com.example.android.justjava;
 
-import com.example.android.justjava.model.MovieData;
-import com.example.android.justjava.provider.MovieDataProvider;
+import com.example.android.justjava.model.MovieSummaryData;
+import com.example.android.justjava.provider.MovieSummaryProvider;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,12 +13,12 @@ public class MoviesPresenter {
     public MoviesView view = NULL_VIEW;
     private final static MoviesView NULL_VIEW = NullObject.create(MoviesView.class);
 
-    private final MovieDataProvider movieDataProvider;
+    private final MovieSummaryProvider movieSummaryProvider;
     private final Executor backgroundExecutor;
     private final UIExecutor uiExecutor;
 
-    @Inject MoviesPresenter(MovieDataProvider movieDataProvider, Executor backgroundExecutor, UIExecutor uiExecutor) {
-        this.movieDataProvider = movieDataProvider;
+    @Inject MoviesPresenter(MovieSummaryProvider movieSummaryProvider, Executor backgroundExecutor, UIExecutor uiExecutor) {
+        this.movieSummaryProvider = movieSummaryProvider;
         this.backgroundExecutor = backgroundExecutor;
         this.uiExecutor = uiExecutor;
     }
@@ -32,11 +32,11 @@ public class MoviesPresenter {
             @Override
             public void run() {
                 try {
-                    final List<MovieData> movieData = movieDataProvider.getMovieData();
+                    final List<MovieSummaryData> movieSummaryData = movieSummaryProvider.getMovieData();
                     uiExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
-                            view.setMovies(movieData);
+                            view.setMovies(movieSummaryData);
                         }
                     });
                 } catch (IOException e) {
@@ -52,7 +52,7 @@ public class MoviesPresenter {
     }
 
     interface MoviesView {
-        void setMovies(List<MovieData> movieDataList);
+        void setMovies(List<MovieSummaryData> movieSummaryDataList);
         void showError();
     }
 

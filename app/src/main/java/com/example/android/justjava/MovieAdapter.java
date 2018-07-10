@@ -10,24 +10,24 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.android.justjava.model.MovieData;
+import com.example.android.justjava.model.MovieSummaryData;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// MyAdapter receives the collection (array, list, set, etc.) of MovieData items. The adapter
+// MovieAdapter receives the collection (array, list, set, etc.) of MovieSummaryData items. The adapter
 // should just be responsible for adapting that provider to the views in the RecyclerView
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
-    private List<MovieData> movieData = new ArrayList<>();
+    private List<MovieSummaryData> movieSummaryData = new ArrayList<>();
     private ProgressProvider progressProvider = new ProgressProvider();
 
-    MyAdapter() {  }
+    MovieAdapter() {  }
 
     // Return the size of dataset (invoked by the layout manager)
     @Override
-    public int getItemCount() { return movieData.size(); }
+    public int getItemCount() { return movieSummaryData.size(); }
 
     // Provide a reference to the views for each provider item
     // Complex provider items may need more than one view per item, and
@@ -86,7 +86,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         @Override
         public void launchDetailActivity(String imdbId) {
-            Intent intent = new Intent(mImageView.getContext(), MovieDetailsActivity.class);
+            Intent intent = new Intent(mImageView.getContext(), MovieDetailActivity.class);
             intent.putExtra("imdbId", imdbId);
             mImageView.getContext().startActivity(intent);
         }
@@ -107,7 +107,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Create new views (invoked by the layout manager)
     @NonNull
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public MovieAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         // Create a new view
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.movie_summary_view, viewGroup, false);
         return new ViewHolder(v);
@@ -117,24 +117,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        final String imdbId = movieData.get(holder.getAdapterPosition()).getImdbId();
+        final String imdbId = movieSummaryData.get(holder.getAdapterPosition()).getImdbId();
         holder.movieSummaryPresenter = new MovieSummaryPresenter(progressProvider, imdbId);
 
         // Get element from your dataset at this position
         // Replace the contents of the view with that element
-        holder.getRankTextView().setText(String.valueOf(movieData.get(position).getRank()));
-        holder.getTitleTextView().setText(movieData.get(position).getTitle());
-        holder.getYearTextView().setText(String.valueOf(movieData.get(position).getYear()));
-        holder.getImdbIdTextView().setText(movieData.get(position).getImdbId());
-        holder.getImdbRatingTextView().setText(String.valueOf(movieData.get(position).getImdbRating()));
-        holder.getImdbVotesTextView().setText(String.valueOf(movieData.get(position).getImdbVotes()));
-        holder.getImdbLinkTextView().setText(movieData.get(position).getImdbLink());
+        holder.getRankTextView().setText(String.valueOf(movieSummaryData.get(position).getRank()));
+        holder.getTitleTextView().setText(movieSummaryData.get(position).getTitle());
+        holder.getYearTextView().setText(String.valueOf(movieSummaryData.get(position).getYear()));
+        holder.getImdbIdTextView().setText(movieSummaryData.get(position).getImdbId());
+        holder.getImdbRatingTextView().setText(String.valueOf(movieSummaryData.get(position).getImdbRating()));
+        holder.getImdbVotesTextView().setText(String.valueOf(movieSummaryData.get(position).getImdbVotes()));
+        holder.getImdbLinkTextView().setText(movieSummaryData.get(position).getImdbLink());
 
         holder.movieSummaryPresenter.attach(holder);
         holder.movieSummaryPresenter.present();
 
         // If URL is empty, provide error image
-        if (movieData.get(position).getPoster().isEmpty()) {
+        if (movieSummaryData.get(position).getPoster().isEmpty()) {
             Picasso.get()
                     .load(R.drawable.error)
                     .placeholder(R.drawable.placeholder)
@@ -143,7 +143,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         } else {
             Picasso
                     .get()
-                    .load(movieData.get(position).getPoster())
+                    .load(movieSummaryData.get(position).getPoster())
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.error)
                     .resize(500,0)
@@ -165,9 +165,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.movieSummaryPresenter.present();
     }
 
-    public void setData(List<MovieData> data) {
-        movieData.clear();
-        movieData = data;
+    public void setData(List<MovieSummaryData> data) {
+        movieSummaryData.clear();
+        movieSummaryData = data;
         notifyDataSetChanged();
     }
 

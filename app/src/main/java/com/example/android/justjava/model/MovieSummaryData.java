@@ -3,7 +3,7 @@ package com.example.android.justjava.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class MovieData {
+public class MovieSummaryData {
     private final int rank;
     private final String title;
     private final int year;
@@ -14,7 +14,7 @@ public class MovieData {
     private final String imdbLink;
 
     @JsonCreator
-    public MovieData(
+    public MovieSummaryData(
             @JsonProperty("rank") int rank,
             @JsonProperty("title") String title,
             @JsonProperty("year") int year,

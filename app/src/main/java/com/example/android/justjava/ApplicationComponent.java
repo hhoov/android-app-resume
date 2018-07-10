@@ -1,7 +1,7 @@
 package com.example.android.justjava;
 
-import com.example.android.justjava.provider.MovieDataProvider;
-import com.example.android.justjava.provider.MovieDetailDataProvider;
+import com.example.android.justjava.provider.MovieDetailProvider;
+import com.example.android.justjava.provider.MovieSummaryProvider;
 
 import javax.inject.Singleton;
 
@@ -12,7 +12,7 @@ import dagger.Component;
 public interface ApplicationComponent {
     void inject(MoviesGridActivity moviesGridActivity);
     void inject(MoviesListActivity moviesListActivity);
-    void inject(MovieDetailsActivity movieDetailsActivity);
-    void inject(MovieDataProvider movieDataProvider);
-    void inject(MovieDetailDataProvider movieDetailDataProvider);
+    void inject(MovieDetailActivity movieDetailActivity);
+    void inject(MovieSummaryProvider movieSummaryProvider);
+    void inject(MovieDetailProvider movieDetailProvider);
 }

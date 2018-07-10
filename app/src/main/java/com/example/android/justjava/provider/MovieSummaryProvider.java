@@ -1,7 +1,7 @@
 package com.example.android.justjava.provider;
 
 import com.example.android.justjava.JSONParser;
-import com.example.android.justjava.model.MovieData;
+import com.example.android.justjava.model.MovieSummaryData;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +14,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 @Singleton
-public class MovieDataProvider {
+public class MovieSummaryProvider {
     private String jsonData;
     private String url = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/master/top_movies.json";
     private JSONParser parser = new JSONParser();
@@ -22,12 +22,13 @@ public class MovieDataProvider {
     private final OkHttpClient okHttpClient;
 
     // Private constructor prevents any other class from instantiating.
-    @Inject MovieDataProvider(OkHttpClient okHttpClient) {
+    @Inject
+    MovieSummaryProvider(OkHttpClient okHttpClient) {
         this.okHttpClient = okHttpClient;
     }
 
     // Call readJsonStream with response string arg on JSONParser object
-    public List<MovieData> getMovieData() throws IOException {
+    public List<MovieSummaryData> getMovieData() throws IOException {
         jsonData = makeRequest(url);
         return parser.readJsonStream(jsonData);
     }

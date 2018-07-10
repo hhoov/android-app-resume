@@ -10,7 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.android.justjava.model.MovieData;
+import com.example.android.justjava.model.MovieSummaryData;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import javax.inject.Inject;
 
 public class MoviesListActivity extends AppCompatActivity implements MoviesPresenter.MoviesView {
     private NavigationDrawerDelegate navDrawerDelegate;
-    private MyAdapter adapter;
+    private MovieAdapter adapter;
 
     @Inject
     MoviesPresenter presenter;
@@ -26,7 +26,7 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesPrese
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyApplication.getApplicationComponent().inject(this);
+        MovieApplication.getApplicationComponent().inject(this);
         setContentView(R.layout.activity_movies_list);
 
         // Set up navigation drawer and toolbar
@@ -45,7 +45,7 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesPrese
         mRecyclerView.setHasFixedSize(true);
 
         // Specify an adapter
-        adapter = new MyAdapter();
+        adapter = new MovieAdapter();
         mRecyclerView.setAdapter(adapter);
 
         // Grid layout manager
@@ -68,8 +68,8 @@ public class MoviesListActivity extends AppCompatActivity implements MoviesPrese
         return navDrawerDelegate.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
-    public void setMovies(List<MovieData> movieDataList) {
-        adapter.setData(movieDataList);
+    public void setMovies(List<MovieSummaryData> movieSummaryDataList) {
+        adapter.setData(movieSummaryDataList);
     }
 
     public void showError() {
