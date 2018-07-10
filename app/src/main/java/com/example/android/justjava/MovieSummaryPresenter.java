@@ -2,6 +2,8 @@ package com.example.android.justjava;
 
 import android.support.annotation.NonNull;
 
+import com.example.android.justjava.provider.ProgressProvider;
+
 /**
  * An observer/listener of changes. Presenter for item Views & download progress.
  */

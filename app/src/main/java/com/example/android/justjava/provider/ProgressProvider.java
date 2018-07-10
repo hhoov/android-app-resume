@@ -1,6 +1,8 @@
-package com.example.android.justjava;
+package com.example.android.justjava.provider;
 
 import android.os.Handler;
+
+import com.example.android.justjava.MovieSummaryPresenter;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,7 +18,7 @@ public class ProgressProvider {
     private int downloadProgress = 0;
     private Handler handler = new Handler();
 
-    ProgressProvider() {
+    public ProgressProvider() {
         new Thread(new Runnable() {
             @Override
             public void run() {
