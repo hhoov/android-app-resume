@@ -39,18 +39,18 @@ public class MoviesGridActivity extends AppCompatActivity implements MoviesPrese
         // Calculate number of columns to determine spanCount for GridLayoutManager()
         int noOfColumns = getResources().getInteger(R.integer.numberOfColumnsForGridView);
 
-        RecyclerView mRecyclerView = findViewById(R.id.my_recycler_view);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
         // Using this setting if changes in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);
 
         // Specify an adapter
         adapter = new MovieAdapter();
-        mRecyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
 
         // Grid layout manager
         RecyclerView.LayoutManager gridLayoutManager = new GridLayoutManager(this, noOfColumns);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
         presenter.attach(this);
         presenter.present();

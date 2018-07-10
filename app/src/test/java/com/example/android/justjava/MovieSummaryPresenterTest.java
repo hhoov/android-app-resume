@@ -1,5 +1,7 @@
 package com.example.android.justjava;
 
+import com.example.android.justjava.provider.ProgressProvider;
+
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
