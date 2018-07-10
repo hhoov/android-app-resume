@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.android.justjava.model.MovieSummaryData;
+import com.example.android.justjava.provider.ProgressProvider;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -34,14 +35,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     // you provide access to all the views for a provider item in a view holder
     static class ViewHolder extends RecyclerView.ViewHolder  implements MovieSummaryPresenter.MovieSummaryView {
         // Each provider item is just a string in this case
-        ImageView mImageView;
-        TextView mRankTextView;
-        TextView mTitleTextView;
-        TextView mYearTextView;
-        TextView mImdbIdTextView;
-        TextView mImdbRatingTextView;
-        TextView mImdbVotesTextView;
-        TextView mImdbLinkTextView;
+        ImageView imageView;
+        TextView rankTextView;
+        TextView titleTextView;
+        TextView yearTextView;
+        TextView imdbIdTextView;
+        TextView imdbRatingTextView;
+        TextView imdbVotesTextView;
+        TextView imdbLinkTextView;
         ProgressBar progressItem;
         TextView progressPercentage;
         MovieSummaryPresenter movieSummaryPresenter;
@@ -49,46 +50,39 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         ViewHolder(View v) {
 
             super(v);
-            mImageView = v.findViewById(R.id.posterImageView);
-            mRankTextView = v.findViewById(R.id.rankTextView);
-            mTitleTextView = v.findViewById(R.id.titleTextView);
-            mYearTextView = v.findViewById(R.id.yearTextView);
-            mImdbIdTextView = v.findViewById(R.id.imdbIdTextView);
-            mImdbRatingTextView = v.findViewById(R.id.imdbRatingTextView);
-            mImdbVotesTextView = v.findViewById(R.id.imdbVotesTextView);
-            mImdbLinkTextView = v.findViewById(R.id.imdbLinkTextView);
+            imageView = v.findViewById(R.id.posterImageView);
+            rankTextView = v.findViewById(R.id.rankTextView);
+            titleTextView = v.findViewById(R.id.titleTextView);
+            yearTextView = v.findViewById(R.id.yearTextView);
+            imdbIdTextView = v.findViewById(R.id.imdbIdTextView);
+            imdbRatingTextView = v.findViewById(R.id.imdbRatingTextView);
+            imdbVotesTextView = v.findViewById(R.id.imdbVotesTextView);
+            imdbLinkTextView = v.findViewById(R.id.imdbLinkTextView);
             progressItem = v.findViewById(R.id.progress_bar);
-            progressPercentage = v.findViewById(R.id.tv);
+            progressPercentage = v.findViewById(R.id.textView);
 
-            mImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    movieSummaryPresenter.onMovieClicked();
-                }
-            });
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     movieSummaryPresenter.onMovieClicked();
                 }
             });
-
         }
 
-        ImageView getImageView() { return mImageView; }
-        TextView getRankTextView() { return mRankTextView; }
-        TextView getTitleTextView() { return mTitleTextView; }
-        TextView getYearTextView() { return mYearTextView; }
-        TextView getImdbIdTextView() { return mImdbIdTextView; }
-        TextView getImdbRatingTextView() { return mImdbRatingTextView; }
-        TextView getImdbVotesTextView() { return mImdbVotesTextView; }
-        TextView getImdbLinkTextView() { return  mImdbLinkTextView; }
+        ImageView getImageView() { return imageView; }
+        TextView getRankTextView() { return rankTextView; }
+        TextView getTitleTextView() { return titleTextView; }
+        TextView getYearTextView() { return yearTextView; }
+        TextView getImdbIdTextView() { return imdbIdTextView; }
+        TextView getImdbRatingTextView() { return imdbRatingTextView; }
+        TextView getImdbVotesTextView() { return imdbVotesTextView; }
+        TextView getImdbLinkTextView() { return  imdbLinkTextView; }
 
         @Override
         public void launchDetailActivity(String imdbId) {
-            Intent intent = new Intent(mImageView.getContext(), MovieDetailActivity.class);
+            Intent intent = new Intent(imageView.getContext(), MovieDetailActivity.class);
             intent.putExtra("imdbId", imdbId);
-            mImageView.getContext().startActivity(intent);
+            imageView.getContext().startActivity(intent);
         }
 
         @Override
@@ -139,7 +133,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                     .load(R.drawable.error)
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.error)
-                    .into(holder.mImageView);
+                    .into(holder.imageView);
         } else {
             Picasso
                     .get()
@@ -148,7 +142,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                     .error(R.drawable.error)
                     .resize(500,0)
                     .centerCrop()
-                    .into(holder.mImageView);
+                    .into(holder.imageView);
         }
     }
 
