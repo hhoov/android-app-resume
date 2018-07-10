@@ -84,29 +84,29 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
     @Override
     public void displayMovieDetails(MovieDetailData movieDetailData) {
 
-        rating.setText(String.valueOf(movieDetailData.getImdbRating()));
-        votes.setText(String.valueOf(movieDetailData.getImdbVotes()));
-        id.setText(movieDetailData.getImdbId());
-        title.setText(movieDetailData.getTitle());
-        year.setText(String.valueOf(movieDetailData.getYear()));
-        rated.setText(movieDetailData.getRated());
-        released.setText(movieDetailData.getReleased());
-        runtime.setText(movieDetailData.getRuntime());
-        genre.setText(movieDetailData.getGenre().toString()
+        rating.setText(String.format("Rating: %s", String.valueOf(movieDetailData.getImdbRating())));
+        votes.setText(String.format("Votes: %s", String.valueOf(movieDetailData.getImdbVotes())));
+        id.setText(String.format("IMDB ID: %s", movieDetailData.getImdbId()));
+        title.setText(String.format("Title: %s", movieDetailData.getTitle()));
+        year.setText(String.format("Year: %s", String.valueOf(movieDetailData.getYear())));
+        rated.setText(String.format("Rated: %s", movieDetailData.getRated()));
+        released.setText(String.format("Released: %s", movieDetailData.getReleased()));
+        runtime.setText(String.format("Runtime: %s", movieDetailData.getRuntime()));
+        genre.setText(String.format("Genre(s): %s", movieDetailData.getGenre().toString()
                                                 .replace("[", "")
-                                                .replace("]", ""));
-        director.setText(movieDetailData.getDirector());
-        writer.setText(movieDetailData.getWriter());
-        actors.setText(movieDetailData.getActors().toString()
+                                                .replace("]", "")));
+        director.setText(String.format("Director: %s", movieDetailData.getDirector()));
+        writer.setText(String.format("Writer(s): %s", movieDetailData.getWriter()));
+        actors.setText(String.format("Actors: %s", movieDetailData.getActors().toString()
                                                   .replace("[", "")
-                                                  .replace("]", ""));
-        plot.setText(movieDetailData.getPlot());
-        language.setText(movieDetailData.getLanguage().toString()
+                                                  .replace("]", "")));
+        plot.setText(String.format("Plot: %s", movieDetailData.getPlot()));
+        language.setText(String.format("Language(s): %s", movieDetailData.getLanguage().toString()
                                                       .replace("[", "")
-                                                      .replace("]", ""));
-        country.setText(movieDetailData.getCountry());
-        awards.setText(movieDetailData.getAwards());
-        metascore.setText(movieDetailData.getMetascore());
+                                                      .replace("]", "")));
+        country.setText(String.format("Country: %s", movieDetailData.getCountry()));
+        awards.setText(String.format("Award(s): %s", movieDetailData.getAwards()));
+        metascore.setText(String.format("Metascore: %s", movieDetailData.getMetascore()));
         // If URL is empty, provide error image
         if (movieDetailData.getPoster().isEmpty()) {
             Picasso.get()

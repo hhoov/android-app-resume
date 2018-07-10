@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/margin_medium"
-    android:layout_marginRight="@dimen/margin_medium"
     android:gravity="center_vertical"
     android:orientation="vertical">
 
@@ -17,6 +15,7 @@
         android:contentDescription="@string/movie_poster"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
         android:scaleType="centerCrop"/>
 
     <TextView
@@ -131,7 +130,7 @@
         android:id="@+id/directorTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/textSize"
         android:textStyle="bold"
@@ -143,7 +142,7 @@
         android:id="@+id/writerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/textSize"
         android:textStyle="bold"
@@ -167,7 +166,7 @@
         android:id="@+id/plotTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/textSize"
         android:textStyle="bold"
@@ -203,7 +202,7 @@
         android:id="@+id/awardsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/textSize"
         android:textStyle="bold"
@@ -221,6 +220,7 @@
         android:textStyle="bold"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
         tools:layout_editor_absoluteY="16dp" />
 
 
